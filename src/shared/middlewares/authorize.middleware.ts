@@ -4,8 +4,10 @@ import { envVars } from "../../config/env";
 import { AppError } from "../errors/app-error";
 import { cookieUtils } from "../utils/cookie";
 import { jwtUtils } from "../utils/jwt";
-import { Role, UserStatus } from "@prisma/client";
+
 import { prisma } from "../../database/prisma";
+import { Role, UserStatus } from "../../generate/enums";
+
 
 export const authorize = (...authRoles: Role[]) =>
 
@@ -22,7 +24,7 @@ export const authorize = (...authRoles: Role[]) =>
       }
 
       if (sessionToken) {
-                  const sessionExists = await prisma.session.findFirst({
+        const sessionExists = await prisma.session.findFirst({
           where: {
             token: sessionToken,
             expiresAt: {
@@ -33,15 +35,15 @@ export const authorize = (...authRoles: Role[]) =>
             user: true,
           },
         });
-        
-        
 
-                if (sessionExists && sessionExists.user) {
+
+
+        if (sessionExists && sessionExists.user) {
           const user = sessionExists.user;
-        
-        
 
-                    const now = new Date();
+
+
+          const now = new Date();
           const expiresAt = new Date(sessionExists.expiresAt);
           const createdAt = new Date(sessionExists.createdAt);
 
@@ -56,8 +58,8 @@ export const authorize = (...authRoles: Role[]) =>
 
             console.log("Session Expiring Soon!!");
           }
-          
-          
+
+
 
           if (
             user.status === UserStatus.BLOCKED ||
@@ -76,9 +78,9 @@ export const authorize = (...authRoles: Role[]) =>
             );
           }
 
-                    if (authRoles.length > 0 && !authRoles.includes(user.role)) {
-          
-          
+          if (authRoles.length > 0 && !authRoles.includes(user.role)) {
+
+
             throw new AppError(
               status.FORBIDDEN,
               "Forbidden access! You do not have permission to access this resource.",
@@ -139,4 +141,4 @@ export const authorize = (...authRoles: Role[]) =>
     } catch (error: unknown) {
       next(error);
     }
-};
+  };

@@ -1,15 +1,10 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
-    "outDir": "dist",
-    "strict": true,
-    "target": "ES2020",
-    "lib": ["ES2020", "DOM"],
-    "skipLibCheck": true,
-    "types": ["node"],
-    "esModuleInterop": true,
     "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true
+    "moduleResolution": "bundler",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0"
   }
 }

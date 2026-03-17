@@ -1,10 +1,11 @@
 import { betterAuth } from "better-auth";
 import { bearer, emailOTP } from "better-auth/plugins";
-import { Role, UserStatus } from "@prisma/client";
+
 import { envVars } from "../config/env";
 import { sendEmail } from "../shared/utils/email";
 import { prisma } from "../database/prisma";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { Role, UserStatus } from "../generate/enums";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
