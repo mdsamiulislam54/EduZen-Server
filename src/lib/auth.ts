@@ -5,7 +5,7 @@ import { envVars } from "../config/env";
 import { sendEmail } from "../shared/utils/email";
 import { prisma } from "../database/prisma";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { Role, UserStatus } from "../generate/enums";
+import { Role, UserStatus } from "../generated/enums";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -24,24 +24,24 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
   },
-  socialProviders: {
-    google: {
-      clientId: envVars.GOOGLE_CLIENT_ID as string,
-      clientSecret: envVars.GOOGLE_CLIENT_SECRET as string,
-      accessType: "offline",
-      prompt: "select_account consent",
-      mapProfileToUser: () => {
-        return {
-          role: Role.USER,
-          status: UserStatus.ACTIVE,
-          needPasswordChange: false,
-          emailVerified: true,
-          isDeleted: false,
-          deletedAt: null,
-        };
-      },
-    },
-  },
+  // socialProviders: {
+  //   google: {
+  //     clientId: envVars.GOOGLE_CLIENT_ID as string,
+  //     clientSecret: envVars.GOOGLE_CLIENT_SECRET as string,
+  //     accessType: "offline",
+  //     prompt: "select_account consent",
+  //     mapProfileToUser: () => {
+  //       return {
+  //         role: Role.STUDENT,
+  //         status: UserStatus.ACTIVE,
+  //         needPasswordChange: false,
+  //         emailVerified: true,
+  //         isDeleted: false,
+  //         deletedAt: null,
+  //       };
+  //     },
+  //   },
+  // },
   emailVerification: {
     sendOnSignUp: true,
     sendOnSignIn: true,
@@ -52,7 +52,11 @@ export const auth = betterAuth({
       role: {
         type: "string",
         required: true,
-        defaultValue: Role.USER,
+        defaultValue: Role.STUDENT,
+      },
+      phone: {
+        type: "string",
+        required: false,
       },
       status: {
         type: "string",

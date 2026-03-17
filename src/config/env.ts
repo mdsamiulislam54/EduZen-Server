@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 interface EnvConfig {
   APP_NAME?: string;
   APP_URL: string;
-  
+  ADMIN_EMAIL:string;
   DATABASE_URL: string;
   FRONTEND_URL: string;
   BETTER_AUTH_URL: string;
@@ -37,7 +37,7 @@ interface EnvConfig {
 const loadEnvVars = (): EnvConfig => {
   const requiredEnvVars = [
     "APP_URL",
-    
+    "ADMIN_EMAIL",
     "DATABASE_URL",
     "FRONTEND_URL",
     "BETTER_AUTH_URL",
@@ -99,6 +99,7 @@ const loadEnvVars = (): EnvConfig => {
     ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN as string,
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET as string,
     REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN as string,
+    ADMIN_EMAIL:process.env.ADMIN_EMAIL as string
     
   };
 };

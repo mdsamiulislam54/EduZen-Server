@@ -6,7 +6,7 @@ import { cookieUtils } from "../utils/cookie";
 import { jwtUtils } from "../utils/jwt";
 
 import { prisma } from "../../database/prisma";
-import { Role, UserStatus } from "../../generate/enums";
+import { Role, UserStatus } from "../../generated/enums";
 
 
 export const authorize = (...authRoles: Role[]) =>

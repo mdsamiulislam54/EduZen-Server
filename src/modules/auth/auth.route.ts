@@ -3,16 +3,16 @@
 import { Router } from "express";
 import { authorize } from "../../shared/middlewares/authorize.middleware";
 import { authController } from "./auth.controller";
-import { Role } from "../../generate/enums";
+import { Role } from "../../generated/enums";
 
 const router = Router()
 
 router.post("/register", authController.registerUser)
 router.post("/login", authController.loginUser)
-router.get("/me", authorize(Role.ADMIN, Role.USER), authController.getMe)
+router.get("/me", authorize(Role.ADMIN, Role.STUDENT), authController.getMe)
 router.post("/refresh-token", authController.getNewToken)
-router.post("/change-password", authorize(Role.ADMIN, Role.USER), authController.changePassword)
-router.post("/logout", authorize(Role.ADMIN, Role.USER), authController.logoutUser)
+router.post("/change-password", authorize(Role.ADMIN, Role.STUDENT), authController.changePassword)
+router.post("/logout", authorize(Role.ADMIN, Role.STUDENT), authController.logoutUser)
 router.post("/verify-email", authController.verifyEmail)
 router.post("/forget-password", authController.forgetPassword)
 router.post("/reset-password", authController.resetPassword)

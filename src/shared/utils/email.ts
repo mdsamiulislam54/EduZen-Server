@@ -51,7 +51,7 @@ export const sendEmail = async ({
 
     const templateDataWithDefaults: Record<string, unknown> = {
       appName: envVars.APP_NAME ?? "Your App",
-      supportEmail: envVars.SUPER_ADMIN_EMAIL ?? "support@example.com",
+      supportEmail: envVars.ADMIN_EMAIL ?? "support@example.com",
       year: new Date().getFullYear(),
       expiresInMinutes,
       ...td,
