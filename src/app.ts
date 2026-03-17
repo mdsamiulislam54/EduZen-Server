@@ -8,8 +8,8 @@ import { limiter } from "./config/rate-limit";
 import { apiRoutes } from "./routes";
 import { globalErrorHandler } from "./shared/middlewares/error.middleware";
 import { notFound } from "./shared/middlewares/not-found.middleware";
-import { auth } from "./lib/auth";
-import { toNodeHandler } from "better-auth/node";
+// import { auth } from "./lib/auth";
+// import { toNodeHandler } from "better-auth/node";
 import path from "path";
 
 // app initialization
@@ -46,9 +46,9 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // API routes
-app.use("/api/auth", (req, res) => {
-  return toNodeHandler(auth)(req, res);
-});
+// app.use("/api/auth", (req, res) => {
+//   return toNodeHandler(auth)(req, res);
+// });
 app.use("/api/v1", apiRoutes);
 
 // unhandled routes

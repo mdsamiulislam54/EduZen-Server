@@ -37,7 +37,7 @@ export const sendEmail = async ({
   attachments,
 }: SendEmailOptions) => {
   try {
-         const templatePath = path.resolve(
+    const templatePath = path.resolve(
       process.cwd(),
       `src/templates/${templateName}.ejs`,
     );
@@ -50,16 +50,16 @@ export const sendEmail = async ({
     const expiresInMinutes = typeof expiresVal === "number" ? expiresVal : 5;
 
     const templateDataWithDefaults: Record<string, unknown> = {
-      appName: envVars.APP_NAME ?? "Your App",
-      supportEmail: envVars.ADMIN_EMAIL ?? "support@example.com",
+      appName: envVars.APP_NAME,
+      supportEmail: envVars.ADMIN_EMAIL,
       year: new Date().getFullYear(),
       expiresInMinutes,
       ...td,
     };
 
     const html = await ejs.renderFile(templatePath, templateDataWithDefaults);
-    
-    
+
+
 
     await transporter.sendMail({
       from: envVars.EMAIL_SENDER.SMTP_FROM,
@@ -73,7 +73,7 @@ export const sendEmail = async ({
       })),
     });
   } catch {
-        throw new AppError(status.INTERNAL_SERVER_ERROR, `Failed to send email to ${to}`);
-    
+    throw new AppError(status.INTERNAL_SERVER_ERROR, `Failed to send email to ${to}`);
+
   }
 };

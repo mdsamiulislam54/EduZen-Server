@@ -4,10 +4,12 @@ import { Router } from "express";
 import { authorize } from "../../shared/middlewares/authorize.middleware";
 import { authController } from "./auth.controller";
 import { Role } from "../../generated/enums";
+import { requestValidation } from "../../shared/middlewares/zodValidation";
+import { createUserSchema } from "./auth.zod.validation";
 
 const router = Router()
 
-router.post("/register", authController.registerUser)
+router.post("/register",requestValidation(createUserSchema), authController.registerUser)
 router.post("/login", authController.loginUser)
 router.get("/me", authorize(Role.ADMIN, Role.STUDENT), authController.getMe)
 router.post("/refresh-token", authController.getNewToken)

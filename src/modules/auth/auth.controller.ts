@@ -11,7 +11,8 @@ import { authService } from "./auth.service";
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-
+  console.log(payload)
+  
   const result = await authService.registerUser(payload);
 
   const { accessToken, refreshToken, token, ...rest } = result;
