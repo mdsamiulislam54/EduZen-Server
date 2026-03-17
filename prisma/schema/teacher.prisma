@@ -1,0 +1,38 @@
+model Teacher {
+    id               String        @id @default(cuid())
+    coachingCenterId String
+    userId           String        @unique
+    education        String?
+    address          String?
+    email            String        @unique
+    dateOfBirth      DateTime?
+    phone            String        @unique
+    image            String?
+    experience       Int?
+    gender           Gender?
+    status           TeacherStatus @default(ACTIVE)
+    isDeleted        Boolean       @default(false)
+    createdAt        DateTime      @default(now())
+    updatedAt        DateTime      @updatedAt
+
+    coachingCenter  CoachingCenter   @relation(fields: [coachingCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    user            User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    teacherSubjects TeacherSubject[]
+
+    @@index([coachingCenterId])
+    @@index([userId])
+    @@index([email])
+}
+
+model TeacherSubject {
+    id        String   @id @default(cuid())
+    teacherId String
+    subjectId String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    teacher Teacher @relation(fields: [teacherId], references: [id], map: "fk_teacher_subject_teacher", onDelete: Cascade, onUpdate: Cascade)
+    subject Subject @relation(fields: [subjectId], references: [id], map: "fk_teacher_subject_subject", onDelete: Cascade, onUpdate: Cascade)
+
+    @@unique([teacherId, subjectId], map: "unique_teacher_subject")
+}

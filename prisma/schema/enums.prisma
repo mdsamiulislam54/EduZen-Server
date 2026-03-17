@@ -1,10 +1,100 @@
-enum Role {
-    ADMIN
-    USER
-}
 
 enum UserStatus {
     ACTIVE
     BLOCKED
     DELETED
+}
+enum Role {
+  ADMIN
+  OWNER
+  TEACHER
+  STUDENT
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum TeacherStatus {
+  ACTIVE
+  INACTIVE
+  ON_LEAVE
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  LEAVE
+}
+
+enum ExamStatus {
+  UPCOMING
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum BatchStatus {
+  ACTIVE
+  INACTIVE
+  COMPLETED
+}
+
+enum FeeType {
+  MONTHLY
+  COURSE
+  ADMISSION
+  EXAM
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  OVERDUE
+  FAILED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  TRIAL
+}
+
+enum SubscriptionPlanStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CoachingStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+enum SubjectStatus {
+  ACTIVE
+  INACTIVE
+}
+
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
 }

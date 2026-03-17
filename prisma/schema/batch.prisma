@@ -1,0 +1,33 @@
+model Batch {
+    id               String      @id @default(cuid())
+    coachingCenterId String
+    batchName        String
+    batchCode        String?
+    max_students     Int
+    startTime        DateTime
+    endTime          DateTime
+    daysOfWeek       Json
+    status           BatchStatus @default(ACTIVE)
+    isDeleted        Boolean     @default(false)
+    createdAt        DateTime    @default(now())
+    updatedAt        DateTime    @updatedAt
+
+    coachingCenter CoachingCenter @relation(fields: [coachingCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    batchStudents  BatchStudent[]
+    exams          Exam[]
+    attendances    Attendance[]
+    batchFee       BatchFee[]
+}
+
+model BatchFee {
+    id        String   @id @default(cuid())
+    batchId   String
+    amount    Int
+    feeType   FeeType
+    status    Boolean  @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    batch       Batch        @relation(fields: [batchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    studentFees StudentFee[]
+}

@@ -1,0 +1,35 @@
+model Exam {
+    id         String     @id @default(cuid())
+    batchId    String
+    name       String
+    totalMarks Int
+    passMarks  Int
+    examDate   DateTime
+    startTime  DateTime
+    endTime    DateTime
+    status     ExamStatus @default(UPCOMING)
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+
+    batch        Batch         @relation(fields: [batchId], references: [id])
+    examSubjects ExamSubject[]
+    results      Result[]
+
+    @@index([batchId])
+}
+
+model ExamSubject {
+    id        String   @id @default(cuid())
+    examId    String
+    subjectId String
+    mark      Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    exam    Exam     @relation(fields: [examId], references: [id])
+    subject Subject  @relation(fields: [subjectId], references: [id])
+    marks   Mark[]
+    results Result[]
+
+    @@unique([examId, subjectId])
+}

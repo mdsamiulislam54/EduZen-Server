@@ -1,0 +1,34 @@
+model SubscriptionPlan {
+    id             String                 @id @default(cuid())
+    name           String
+    price          Float
+    duration_days  Int
+    max_students   Int
+    max_teachers   Int
+    max_batches    Int
+    has_attendance Boolean                @default(true)
+    has_sms        Boolean                @default(true)
+    has_exam       Boolean                @default(true)
+    status         SubscriptionPlanStatus @default(ACTIVE)
+    isDeleted      Boolean                @default(false)
+    deletedAt      DateTime?
+    createdAt      DateTime               @default(now())
+    updatedAt      DateTime               @updatedAt
+
+    subscriptions Subscription[]
+    payments      Payment[]
+}
+
+model Subscription {
+    id                 String             @id @default(cuid())
+    coachingCenterId   String
+    subscriptionPlanId String
+    startDate          DateTime           @default(now())
+    endDate            DateTime
+    status             SubscriptionStatus @default(ACTIVE)
+    createdAt          DateTime           @default(now())
+    updatedAt          DateTime           @updatedAt
+
+    coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
+    subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
+}

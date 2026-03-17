@@ -1,0 +1,15 @@
+model Payment {
+    id                 String        @id @default(cuid())
+    coachingCenterId   String
+    subscriptionPlanId String
+    startDate          DateTime
+    endDate            DateTime
+    amount             Int
+    status             PaymentStatus @default(PENDING)
+    paymentDetails     Json? // Store transaction IDs, methods, etc.
+    createdAt          DateTime      @default(now())
+    updatedAt          DateTime      @updatedAt
+
+    coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
+    subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
+}
