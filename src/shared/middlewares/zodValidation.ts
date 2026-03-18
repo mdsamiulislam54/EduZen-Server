@@ -4,8 +4,8 @@ import { ZodObject, ZodRawShape, ZodError } from "zod";
 export const requestValidation = <T extends ZodRawShape>(schema: ZodObject<T>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      
-      if (req.body.data) {
+        
+      if (req.body.data && typeof req.body.data === "string") {
         try {
           req.body = JSON.parse(req.body.data);
         } catch {

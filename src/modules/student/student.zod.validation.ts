@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { BloodGroup, Gender } from "../../generated/enums";
 
-
-
 export const studentSchema = z.object({
     name: z.string().min(1, "Name is required"),
     email: z.email()
@@ -17,6 +15,6 @@ export const studentSchema = z.object({
         .max(15, "Phone cannot exceed 15 digits"),
     image: z.string().url("Image must be a valid URL").optional(),
     rollNumber: z.string().min(1, "Roll number required").optional(),
-    gender: z.nativeEnum(Gender).optional(),
-    bloodGroup: z.nativeEnum(BloodGroup).optional(),
+    gender: z.enum([Gender.FEMALE, Gender.MALE, Gender.OTHER]).optional(),
+    bloodGroup: z.enum([BloodGroup.AB_NEGATIVE, BloodGroup.AB_POSITIVE, BloodGroup.A_NEGATIVE, BloodGroup.A_POSITIVE, BloodGroup.B_NEGATIVE, BloodGroup.B_POSITIVE, BloodGroup.O_NEGATIVE, BloodGroup.O_POSITIVE]).optional(),
 });

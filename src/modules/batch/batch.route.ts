@@ -7,5 +7,12 @@ import { batchController } from "./batch.controller";
 
 
 const router = Router()
+router.get("/", batchController.getAllBatch)
+router.get("/:id", batchController.getBatchById)
+
 router.post("/", requestValidation(batchSchema), authorize(Role.ADMIN, Role.OWNER), batchController.createBatch)
+
+router.patch("/:id", requestValidation(batchSchema), authorize(Role.ADMIN, Role.OWNER), batchController.batchUpdateById)
+router.patch("/delete/:id", authorize(Role.ADMIN, Role.OWNER), batchController.batchDeleteById)
+
 export const batchRoutes = router;
