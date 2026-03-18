@@ -71,7 +71,8 @@ const getCoachingCenter = async () => {
     return await prisma.coachingCenter.findMany({
         where: {
             isDeleted: false
-        }
+        },
+      
     })
 }
 
