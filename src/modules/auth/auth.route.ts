@@ -13,7 +13,7 @@ router.post("/register",requestValidation(createUserSchema), authController.regi
 router.post("/login", authController.loginUser)
 router.get("/me", authorize(Role.ADMIN, Role.STUDENT), authController.getMe)
 router.post("/refresh-token", authController.getNewToken)
-router.post("/change-password", authorize(Role.ADMIN, Role.STUDENT), authController.changePassword)
+router.post("/change-password", authorize(Role.ADMIN, Role.STUDENT,Role.OWNER), authController.changePassword)
 router.post("/logout", authorize(Role.ADMIN, Role.STUDENT), authController.logoutUser)
 router.post("/verify-email", authController.verifyEmail)
 router.post("/forget-password", authController.forgetPassword)
