@@ -4,5 +4,8 @@
     "prisma-smart-formatter.prisma.defaultFormatter": "Prisma.prisma-insider",
     "[prisma]": {
         "editor.defaultFormatter": "Prisma.prisma-insider"
-    }
+    },
+    "cSpell.words": [
+        "Coachingcenter"
+    ]
 }

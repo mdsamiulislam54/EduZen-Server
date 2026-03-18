@@ -12,7 +12,6 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
         where: { email: payload.email },
         select: { id: true }
     });
-    console.log(".............existing Center......", isExistingCenter)
     if (isExistingCenter) {
         throw new AppError(status.CONFLICT, "Coaching center already exists");
     }
@@ -20,7 +19,6 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
         where: { email: payload.email },
         select: { id: true }
     });
-    console.log("............userExisting........", existingUser)
     if (existingUser) {
         throw new AppError(status.CONFLICT, "This email is already associated with an existing user");
     }
@@ -32,13 +30,13 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
             password,
             needPasswordChange: true,
             role: Role.OWNER,
-            teamPassword:password
+            teamPassword: password
 
 
         }
     });
 
-    console.log(".............user.........", userData)
+
 
     let coachingData;
 
@@ -53,6 +51,7 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
                 },
                 select: {
                     owner: true
+
                 }
             })
 
@@ -68,6 +67,74 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
     return coachingData
 }
 
+const getCoachingCenter = async () => {
+    return await prisma.coachingCenter.findMany({
+        where: {
+            isDeleted: false
+        }
+    })
+}
+
+const updateCoachingCenterById = async (payload: Partial<CoachingCenter>, id: string) => {
+    const coachingCenter = await prisma.coachingCenter.findUnique({
+        where: { id }
+    });
+
+    if (!coachingCenter) {
+        throw new AppError(status.NOT_FOUND, "Coaching center not found by id")
+    }
+
+    const result = await prisma.coachingCenter.update({
+        where: {
+            id
+        },
+        data: {
+            ...payload
+        }
+    });
+
+    return result
+}
+const coachingCenterDeleteById = async (id: string) => {
+    const coachingCenter = await prisma.coachingCenter.findUnique({
+        where: { id }
+    });
+
+    if (!coachingCenter) {
+        throw new AppError(status.NOT_FOUND, "Coaching center not found by id")
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+        const coachingData = await tx.coachingCenter.update({
+            where: {
+                id
+            },
+            data: {
+                isDeleted: true
+            },
+            select: {
+                email: true
+            }
+        })
+
+      return  await tx.user.update({
+            where: {
+                email: coachingData.email
+            },
+            data: {
+                isDeleted: true
+            }
+        })
+
+       
+    });
+
+    return result
+}
+
 export const coachingCenterService = {
-    createCoachingCenter
+    createCoachingCenter,
+    updateCoachingCenterById,
+    getCoachingCenter,
+    coachingCenterDeleteById
 }
