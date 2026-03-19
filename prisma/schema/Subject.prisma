@@ -4,6 +4,7 @@ model Subject {
     name             String
     subject_code     String?
     status           SubjectStatus @default(ACTIVE)
+      isDeleted Boolean @default(false)
     createdAt        DateTime      @default(now())
     updatedAt        DateTime      @updatedAt
 

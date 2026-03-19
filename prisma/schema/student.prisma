@@ -56,6 +56,7 @@ model StudentFee {
   paidAmount    Int           @default(0)
   dueAmount     Int
   paymentStatus PaymentStatus @default(PENDING)
+  isDeleted Boolean @default(false)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 

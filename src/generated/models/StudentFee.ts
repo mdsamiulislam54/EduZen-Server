@@ -46,6 +46,7 @@ export type StudentFeeMinAggregateOutputType = {
   paidAmount: number | null
   dueAmount: number | null
   paymentStatus: $Enums.PaymentStatus | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +59,7 @@ export type StudentFeeMaxAggregateOutputType = {
   paidAmount: number | null
   dueAmount: number | null
   paymentStatus: $Enums.PaymentStatus | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,6 +72,7 @@ export type StudentFeeCountAggregateOutputType = {
   paidAmount: number
   dueAmount: number
   paymentStatus: number
+  isDeleted: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +99,7 @@ export type StudentFeeMinAggregateInputType = {
   paidAmount?: true
   dueAmount?: true
   paymentStatus?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -108,6 +112,7 @@ export type StudentFeeMaxAggregateInputType = {
   paidAmount?: true
   dueAmount?: true
   paymentStatus?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -120,6 +125,7 @@ export type StudentFeeCountAggregateInputType = {
   paidAmount?: true
   dueAmount?: true
   paymentStatus?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -219,6 +225,7 @@ export type StudentFeeGroupByOutputType = {
   paidAmount: number
   dueAmount: number
   paymentStatus: $Enums.PaymentStatus
+  isDeleted: boolean
   createdAt: Date
   updatedAt: Date
   _count: StudentFeeCountAggregateOutputType | null
@@ -254,6 +261,7 @@ export type StudentFeeWhereInput = {
   paidAmount?: Prisma.IntFilter<"StudentFee"> | number
   dueAmount?: Prisma.IntFilter<"StudentFee"> | number
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"StudentFee"> | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFilter<"StudentFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
@@ -268,6 +276,7 @@ export type StudentFeeOrderByWithRelationInput = {
   paidAmount?: Prisma.SortOrder
   dueAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
@@ -285,6 +294,7 @@ export type StudentFeeWhereUniqueInput = Prisma.AtLeast<{
   paidAmount?: Prisma.IntFilter<"StudentFee"> | number
   dueAmount?: Prisma.IntFilter<"StudentFee"> | number
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"StudentFee"> | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFilter<"StudentFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
@@ -299,6 +309,7 @@ export type StudentFeeOrderByWithAggregationInput = {
   paidAmount?: Prisma.SortOrder
   dueAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.StudentFeeCountOrderByAggregateInput
@@ -319,6 +330,7 @@ export type StudentFeeScalarWhereWithAggregatesInput = {
   paidAmount?: Prisma.IntWithAggregatesFilter<"StudentFee"> | number
   dueAmount?: Prisma.IntWithAggregatesFilter<"StudentFee"> | number
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"StudentFee"> | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"StudentFee"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StudentFee"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StudentFee"> | Date | string
 }
@@ -329,6 +341,7 @@ export type StudentFeeCreateInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutStudentFeesInput
@@ -343,6 +356,7 @@ export type StudentFeeUncheckedCreateInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -353,6 +367,7 @@ export type StudentFeeUpdateInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutStudentFeesNestedInput
@@ -367,6 +382,7 @@ export type StudentFeeUncheckedUpdateInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -379,6 +395,7 @@ export type StudentFeeCreateManyInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -389,6 +406,7 @@ export type StudentFeeUpdateManyMutationInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -401,6 +419,7 @@ export type StudentFeeUncheckedUpdateManyInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -423,6 +442,7 @@ export type StudentFeeCountOrderByAggregateInput = {
   paidAmount?: Prisma.SortOrder
   dueAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -441,6 +461,7 @@ export type StudentFeeMaxOrderByAggregateInput = {
   paidAmount?: Prisma.SortOrder
   dueAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -453,6 +474,7 @@ export type StudentFeeMinOrderByAggregateInput = {
   paidAmount?: Prisma.SortOrder
   dueAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -553,6 +575,7 @@ export type StudentFeeCreateWithoutBatchFeeInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutStudentFeesInput
@@ -565,6 +588,7 @@ export type StudentFeeUncheckedCreateWithoutBatchFeeInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -606,6 +630,7 @@ export type StudentFeeScalarWhereInput = {
   paidAmount?: Prisma.IntFilter<"StudentFee"> | number
   dueAmount?: Prisma.IntFilter<"StudentFee"> | number
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"StudentFee"> | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFilter<"StudentFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
 }
@@ -616,6 +641,7 @@ export type StudentFeeCreateWithoutStudentInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   batchFee: Prisma.BatchFeeCreateNestedOneWithoutStudentFeesInput
@@ -628,6 +654,7 @@ export type StudentFeeUncheckedCreateWithoutStudentInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -665,6 +692,7 @@ export type StudentFeeCreateManyBatchFeeInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -675,6 +703,7 @@ export type StudentFeeUpdateWithoutBatchFeeInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutStudentFeesNestedInput
@@ -687,6 +716,7 @@ export type StudentFeeUncheckedUpdateWithoutBatchFeeInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -698,6 +728,7 @@ export type StudentFeeUncheckedUpdateManyWithoutBatchFeeInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -709,6 +740,7 @@ export type StudentFeeCreateManyStudentInput = {
   paidAmount?: number
   dueAmount: number
   paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -719,6 +751,7 @@ export type StudentFeeUpdateWithoutStudentInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batchFee?: Prisma.BatchFeeUpdateOneRequiredWithoutStudentFeesNestedInput
@@ -731,6 +764,7 @@ export type StudentFeeUncheckedUpdateWithoutStudentInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -742,6 +776,7 @@ export type StudentFeeUncheckedUpdateManyWithoutStudentInput = {
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
   dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -756,6 +791,7 @@ export type StudentFeeSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   paidAmount?: boolean
   dueAmount?: boolean
   paymentStatus?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -770,6 +806,7 @@ export type StudentFeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   paidAmount?: boolean
   dueAmount?: boolean
   paymentStatus?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -784,6 +821,7 @@ export type StudentFeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   paidAmount?: boolean
   dueAmount?: boolean
   paymentStatus?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -798,11 +836,12 @@ export type StudentFeeSelectScalar = {
   paidAmount?: boolean
   dueAmount?: boolean
   paymentStatus?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type StudentFeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "batchFeeId" | "amount" | "paidAmount" | "dueAmount" | "paymentStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["studentFee"]>
+export type StudentFeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "batchFeeId" | "amount" | "paidAmount" | "dueAmount" | "paymentStatus" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["studentFee"]>
 export type StudentFeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   batchFee?: boolean | Prisma.BatchFeeDefaultArgs<ExtArgs>
@@ -830,6 +869,7 @@ export type $StudentFeePayload<ExtArgs extends runtime.Types.Extensions.Internal
     paidAmount: number
     dueAmount: number
     paymentStatus: $Enums.PaymentStatus
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["studentFee"]>
@@ -1264,6 +1304,7 @@ export interface StudentFeeFieldRefs {
   readonly paidAmount: Prisma.FieldRef<"StudentFee", 'Int'>
   readonly dueAmount: Prisma.FieldRef<"StudentFee", 'Int'>
   readonly paymentStatus: Prisma.FieldRef<"StudentFee", 'PaymentStatus'>
+  readonly isDeleted: Prisma.FieldRef<"StudentFee", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"StudentFee", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"StudentFee", 'DateTime'>
 }

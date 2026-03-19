@@ -40,6 +40,7 @@ export type BatchFeeMinAggregateOutputType = {
   amount: number | null
   feeType: $Enums.FeeType | null
   status: boolean | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +51,7 @@ export type BatchFeeMaxAggregateOutputType = {
   amount: number | null
   feeType: $Enums.FeeType | null
   status: boolean | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +62,7 @@ export type BatchFeeCountAggregateOutputType = {
   amount: number
   feeType: number
   status: number
+  isDeleted: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -80,6 +83,7 @@ export type BatchFeeMinAggregateInputType = {
   amount?: true
   feeType?: true
   status?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -90,6 +94,7 @@ export type BatchFeeMaxAggregateInputType = {
   amount?: true
   feeType?: true
   status?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type BatchFeeCountAggregateInputType = {
   amount?: true
   feeType?: true
   status?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -197,6 +203,7 @@ export type BatchFeeGroupByOutputType = {
   amount: number
   feeType: $Enums.FeeType
   status: boolean
+  isDeleted: boolean
   createdAt: Date
   updatedAt: Date
   _count: BatchFeeCountAggregateOutputType | null
@@ -230,6 +237,7 @@ export type BatchFeeWhereInput = {
   amount?: Prisma.IntFilter<"BatchFee"> | number
   feeType?: Prisma.EnumFeeTypeFilter<"BatchFee"> | $Enums.FeeType
   status?: Prisma.BoolFilter<"BatchFee"> | boolean
+  isDeleted?: Prisma.BoolFilter<"BatchFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
   batch?: Prisma.XOR<Prisma.BatchScalarRelationFilter, Prisma.BatchWhereInput>
@@ -242,6 +250,7 @@ export type BatchFeeOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   feeType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   batch?: Prisma.BatchOrderByWithRelationInput
@@ -257,6 +266,7 @@ export type BatchFeeWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.IntFilter<"BatchFee"> | number
   feeType?: Prisma.EnumFeeTypeFilter<"BatchFee"> | $Enums.FeeType
   status?: Prisma.BoolFilter<"BatchFee"> | boolean
+  isDeleted?: Prisma.BoolFilter<"BatchFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
   batch?: Prisma.XOR<Prisma.BatchScalarRelationFilter, Prisma.BatchWhereInput>
@@ -269,6 +279,7 @@ export type BatchFeeOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   feeType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BatchFeeCountOrderByAggregateInput
@@ -287,6 +298,7 @@ export type BatchFeeScalarWhereWithAggregatesInput = {
   amount?: Prisma.IntWithAggregatesFilter<"BatchFee"> | number
   feeType?: Prisma.EnumFeeTypeWithAggregatesFilter<"BatchFee"> | $Enums.FeeType
   status?: Prisma.BoolWithAggregatesFilter<"BatchFee"> | boolean
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"BatchFee"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BatchFee"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"BatchFee"> | Date | string
 }
@@ -296,6 +308,7 @@ export type BatchFeeCreateInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   batch: Prisma.BatchCreateNestedOneWithoutBatchFeeInput
@@ -308,6 +321,7 @@ export type BatchFeeUncheckedCreateInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studentFees?: Prisma.StudentFeeUncheckedCreateNestedManyWithoutBatchFeeInput
@@ -318,6 +332,7 @@ export type BatchFeeUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batch?: Prisma.BatchUpdateOneRequiredWithoutBatchFeeNestedInput
@@ -330,6 +345,7 @@ export type BatchFeeUncheckedUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentFees?: Prisma.StudentFeeUncheckedUpdateManyWithoutBatchFeeNestedInput
@@ -341,6 +357,7 @@ export type BatchFeeCreateManyInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -350,6 +367,7 @@ export type BatchFeeUpdateManyMutationInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,6 +378,7 @@ export type BatchFeeUncheckedUpdateManyInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -380,6 +399,7 @@ export type BatchFeeCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   feeType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -394,6 +414,7 @@ export type BatchFeeMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   feeType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -404,6 +425,7 @@ export type BatchFeeMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   feeType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -482,6 +504,7 @@ export type BatchFeeCreateWithoutBatchInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studentFees?: Prisma.StudentFeeCreateNestedManyWithoutBatchFeeInput
@@ -492,6 +515,7 @@ export type BatchFeeUncheckedCreateWithoutBatchInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studentFees?: Prisma.StudentFeeUncheckedCreateNestedManyWithoutBatchFeeInput
@@ -532,6 +556,7 @@ export type BatchFeeScalarWhereInput = {
   amount?: Prisma.IntFilter<"BatchFee"> | number
   feeType?: Prisma.EnumFeeTypeFilter<"BatchFee"> | $Enums.FeeType
   status?: Prisma.BoolFilter<"BatchFee"> | boolean
+  isDeleted?: Prisma.BoolFilter<"BatchFee"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BatchFee"> | Date | string
 }
@@ -541,6 +566,7 @@ export type BatchFeeCreateWithoutStudentFeesInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   batch: Prisma.BatchCreateNestedOneWithoutBatchFeeInput
@@ -552,6 +578,7 @@ export type BatchFeeUncheckedCreateWithoutStudentFeesInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -577,6 +604,7 @@ export type BatchFeeUpdateWithoutStudentFeesInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batch?: Prisma.BatchUpdateOneRequiredWithoutBatchFeeNestedInput
@@ -588,6 +616,7 @@ export type BatchFeeUncheckedUpdateWithoutStudentFeesInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -597,6 +626,7 @@ export type BatchFeeCreateManyBatchInput = {
   amount: number
   feeType: $Enums.FeeType
   status?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -606,6 +636,7 @@ export type BatchFeeUpdateWithoutBatchInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentFees?: Prisma.StudentFeeUpdateManyWithoutBatchFeeNestedInput
@@ -616,6 +647,7 @@ export type BatchFeeUncheckedUpdateWithoutBatchInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentFees?: Prisma.StudentFeeUncheckedUpdateManyWithoutBatchFeeNestedInput
@@ -626,6 +658,7 @@ export type BatchFeeUncheckedUpdateManyWithoutBatchInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   feeType?: Prisma.EnumFeeTypeFieldUpdateOperationsInput | $Enums.FeeType
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -667,6 +700,7 @@ export type BatchFeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   amount?: boolean
   feeType?: boolean
   status?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   batch?: boolean | Prisma.BatchDefaultArgs<ExtArgs>
@@ -680,6 +714,7 @@ export type BatchFeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   amount?: boolean
   feeType?: boolean
   status?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   batch?: boolean | Prisma.BatchDefaultArgs<ExtArgs>
@@ -691,6 +726,7 @@ export type BatchFeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   amount?: boolean
   feeType?: boolean
   status?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   batch?: boolean | Prisma.BatchDefaultArgs<ExtArgs>
@@ -702,11 +738,12 @@ export type BatchFeeSelectScalar = {
   amount?: boolean
   feeType?: boolean
   status?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BatchFeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "batchId" | "amount" | "feeType" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["batchFee"]>
+export type BatchFeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "batchId" | "amount" | "feeType" | "status" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["batchFee"]>
 export type BatchFeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   batch?: boolean | Prisma.BatchDefaultArgs<ExtArgs>
   studentFees?: boolean | Prisma.BatchFee$studentFeesArgs<ExtArgs>
@@ -731,6 +768,7 @@ export type $BatchFeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     amount: number
     feeType: $Enums.FeeType
     status: boolean
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["batchFee"]>
@@ -1163,6 +1201,7 @@ export interface BatchFeeFieldRefs {
   readonly amount: Prisma.FieldRef<"BatchFee", 'Int'>
   readonly feeType: Prisma.FieldRef<"BatchFee", 'FeeType'>
   readonly status: Prisma.FieldRef<"BatchFee", 'Boolean'>
+  readonly isDeleted: Prisma.FieldRef<"BatchFee", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"BatchFee", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"BatchFee", 'DateTime'>
 }

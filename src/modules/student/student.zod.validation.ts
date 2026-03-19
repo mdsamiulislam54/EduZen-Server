@@ -52,3 +52,54 @@ export const createStudentSchema = z.object({
         status: StudentStatusEnum.optional()
     })
 });
+export const updateZodSchema = z.object({
+    batchId: z
+        .array(z.string().min(0, "Batch ID is required"))
+        .min(0, "At least one batch is required")
+        .optional(),
+
+    studentData: z.object({
+        coachingCenterId: z
+            .string()
+            .min(1, "Coaching Center ID is required")
+            .optional(),
+
+        name: z
+            .string()
+            .min(1, "Name is required")
+            .max(100, "Name too long")
+            .optional(),
+
+        email: z
+            .string()
+            .min(1, "Email is required")
+            .email("Invalid email format")
+            .transform((val) => val.toLowerCase().trim())
+            .optional(),
+
+        phone: z
+            .string()
+            .min(1, "Phone is required")
+            .regex(/^01[3-9]\d{8}$/, "Invalid Bangladeshi phone number")
+            .optional(),
+
+        image: z
+            .string()
+            .url("Image must be a valid URL")
+            .nullable()
+            .optional(),
+
+        dateOfBirth: z
+            .string()
+            .datetime()
+            .optional()
+            .or(z.date())
+            .nullable(),
+
+        gender: GenderEnum.optional(),
+
+        bloodGroup: BloodGroupEnum.optional(),
+
+        status: StudentStatusEnum.optional()
+    })
+});

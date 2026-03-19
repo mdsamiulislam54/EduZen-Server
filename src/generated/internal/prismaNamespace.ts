@@ -2023,6 +2023,7 @@ export const SubjectScalarFieldEnum = {
   name: 'name',
   subject_code: 'subject_code',
   status: 'status',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2038,6 +2039,7 @@ export const AttendanceScalarFieldEnum = {
   status: 'status',
   markBy: 'markBy',
   remarks: 'remarks',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2133,6 +2135,7 @@ export const BatchFeeScalarFieldEnum = {
   amount: 'amount',
   feeType: 'feeType',
   status: 'status',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2282,6 +2285,7 @@ export const StudentFeeScalarFieldEnum = {
   paidAmount: 'paidAmount',
   dueAmount: 'dueAmount',
   paymentStatus: 'paymentStatus',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2439,6 +2443,13 @@ export type ListEnumSubjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2463,13 +2474,6 @@ export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'AttendanceStatus[]'
  */
 export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

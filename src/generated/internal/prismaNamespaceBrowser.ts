@@ -96,6 +96,7 @@ export const SubjectScalarFieldEnum = {
   name: 'name',
   subject_code: 'subject_code',
   status: 'status',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -111,6 +112,7 @@ export const AttendanceScalarFieldEnum = {
   status: 'status',
   markBy: 'markBy',
   remarks: 'remarks',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -206,6 +208,7 @@ export const BatchFeeScalarFieldEnum = {
   amount: 'amount',
   feeType: 'feeType',
   status: 'status',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -355,6 +358,7 @@ export const StudentFeeScalarFieldEnum = {
   paidAmount: 'paidAmount',
   dueAmount: 'dueAmount',
   paymentStatus: 'paymentStatus',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
