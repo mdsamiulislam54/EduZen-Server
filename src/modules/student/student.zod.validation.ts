@@ -1,20 +1,54 @@
 import { z } from "zod";
-import { BloodGroup, Gender } from "../../generated/enums";
+import { BloodGroup, Gender, StudentStatus } from "../../generated/enums";
 
-export const studentSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    email: z.email()
-        .min(5, "Email must be at least 5 characters")
-        .max(100, "Email cannot exceed 100 characters")
-        .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
-    dateOfBirth: z
-        .preprocess((val) => (val ? new Date(val as string) : undefined), z.date().optional()),
-    phone: z
-        .string()
-        .min(10, "Phone must be at least 10 digits")
-        .max(15, "Phone cannot exceed 15 digits"),
-    image: z.string().url("Image must be a valid URL").optional(),
-    rollNumber: z.string().min(1, "Roll number required").optional(),
-    gender: z.enum([Gender.FEMALE, Gender.MALE, Gender.OTHER]).optional(),
-    bloodGroup: z.enum([BloodGroup.AB_NEGATIVE, BloodGroup.AB_POSITIVE, BloodGroup.A_NEGATIVE, BloodGroup.A_POSITIVE, BloodGroup.B_NEGATIVE, BloodGroup.B_POSITIVE, BloodGroup.O_NEGATIVE, BloodGroup.O_POSITIVE]).optional(),
+// enum convert
+const GenderEnum = z.nativeEnum(Gender);
+const BloodGroupEnum = z.nativeEnum(BloodGroup);
+const StudentStatusEnum = z.nativeEnum(StudentStatus);
+
+export const createStudentSchema = z.object({
+    batchId: z
+        .array(z.string().min(1, "Batch ID is required"))
+        .min(1, "At least one batch is required"),
+
+    studentData: z.object({
+        coachingCenterId: z
+            .string()
+            .min(1, "Coaching Center ID is required"),
+
+        name: z
+            .string()
+            .min(1, "Name is required")
+            .max(100, "Name too long"),
+
+        email: z
+            .string()
+            .min(1, "Email is required")
+            .email("Invalid email format")
+            .transform((val) => val.toLowerCase().trim()),
+
+        phone: z
+            .string()
+            .min(1, "Phone is required")
+            .regex(/^01[3-9]\d{8}$/, "Invalid Bangladeshi phone number"),
+
+        image: z
+            .string()
+            .url("Image must be a valid URL")
+            .nullable()
+            .optional(),
+
+        dateOfBirth: z
+            .string()
+            .datetime()
+            .optional()
+            .or(z.date())
+            .nullable(),
+
+        gender: GenderEnum.optional(),
+
+        bloodGroup: BloodGroupEnum.optional(),
+
+        status: StudentStatusEnum.optional()
+    })
 });
