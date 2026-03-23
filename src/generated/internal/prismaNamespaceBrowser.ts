@@ -59,6 +59,7 @@ export const ModelName = {
   Verification: 'Verification',
   Batch: 'Batch',
   BatchFee: 'BatchFee',
+  BatchTeachers: 'BatchTeachers',
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
   ExamSubject: 'ExamSubject',
@@ -214,6 +215,18 @@ export const BatchFeeScalarFieldEnum = {
 } as const
 
 export type BatchFeeScalarFieldEnum = (typeof BatchFeeScalarFieldEnum)[keyof typeof BatchFeeScalarFieldEnum]
+
+
+export const BatchTeachersScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  teacherId: 'teacherId',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BatchTeachersScalarFieldEnum = (typeof BatchTeachersScalarFieldEnum)[keyof typeof BatchTeachersScalarFieldEnum]
 
 
 export const CoachingCenterScalarFieldEnum = {
@@ -407,6 +420,7 @@ export const TeacherScalarFieldEnum = {
   userId: 'userId',
   education: 'education',
   address: 'address',
+  name: 'name',
   email: 'email',
   dateOfBirth: 'dateOfBirth',
   phone: 'phone',
@@ -426,6 +440,7 @@ export const TeacherSubjectScalarFieldEnum = {
   id: 'id',
   teacherId: 'teacherId',
   subjectId: 'subjectId',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

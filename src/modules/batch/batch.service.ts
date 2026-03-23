@@ -4,7 +4,7 @@ import ApiError from "../../shared/errors/api-error";
 import { IBatchUpdatePayload, ICreateBatchPayload } from "./batch.interface";
 
 const createBatch = async (payload: ICreateBatchPayload, ownerId: string) => {
-    const { amount, feeType, batchData } = payload;
+    const { amount, feeType, teacherIds, batchData } = payload;
     const coachingCenterId = await prisma.coachingCenter.findUnique({
         where: {
             ownerId
@@ -24,7 +24,7 @@ const createBatch = async (payload: ICreateBatchPayload, ownerId: string) => {
             }
         });
 
-        return await tx.batchFee.create({
+        await tx.batchFee.create({
             data: {
                 amount,
                 feeType,
@@ -33,7 +33,18 @@ const createBatch = async (payload: ICreateBatchPayload, ownerId: string) => {
             select: {
                 batch: true
             }
-        })
+        });
+
+        if (teacherIds) {
+            const teacherData = teacherIds.map((id) => ({
+                batchId: batch.id,
+                teacherId: id
+            }));
+
+            
+        }
+
+
     })
 
     return result
@@ -113,7 +124,7 @@ const batchUpdateById = async (payload: Partial<IBatchUpdatePayload>, id: string
 
         return {
             batch,
-            batchFee:updateBatchFee
+            batchFee: updateBatchFee
         }
     })
 

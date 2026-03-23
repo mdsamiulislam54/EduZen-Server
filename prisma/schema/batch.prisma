@@ -12,11 +12,13 @@ model Batch {
     createdAt        DateTime    @default(now())
     updatedAt        DateTime    @updatedAt
 
-    coachingCenter CoachingCenter @relation(fields: [coachingCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    batchStudents  BatchStudent[]
-    exams          Exam[]
-    attendances    Attendance[]
-    batchFee       BatchFee[]
+    coachingCenter  CoachingCenter  @relation(fields: [coachingCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    batchStudents   BatchStudent[]
+    exams           Exam[]
+    attendances     Attendance[]
+    batchFee        BatchFee[]
+    batchTeachers   BatchTeachers[]
 }
 
 model BatchFee {
@@ -25,10 +27,24 @@ model BatchFee {
     amount    Int
     feeType   FeeType
     status    Boolean  @default(true)
-      isDeleted Boolean @default(false)
+    isDeleted Boolean  @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     batch       Batch        @relation(fields: [batchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     studentFees StudentFee[]
+}
+
+model BatchTeachers {
+    id        String   @id @default(cuid())
+    batchId   String
+    teacherId String
+    isDeleted Boolean  @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    batch   Batch   @relation(fields: [batchId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@index([batchId, teacherId])
 }

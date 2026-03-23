@@ -7,10 +7,9 @@ import { auth } from "../../lib/auth";
 import { ICreateStudent, IStudentUpdate } from "./student.interface";
 import { generateRollNumber } from "./utils";
 import ApiError from "../../shared/errors/api-error";
-import { email } from "zod";
-import { name } from "ejs";
 
-const createStudent = async (payload: ICreateStudent) => {
+
+const createStudent = async (payload: ICreateStudent, userId: string) => {
     const { batchId, studentData } = payload;
     const password = generateRandomPassword(8)
     const isExistingStudent = await prisma.student.findUnique({
@@ -19,7 +18,19 @@ const createStudent = async (payload: ICreateStudent) => {
     });
     if (isExistingStudent) {
         throw new AppError(status.CONFLICT, "Student  already exists");
+    };
+    const user = await prisma.user.findUnique({
+        where: { id:userId},
+        select: { coachingCenter: {
+            select:{
+                id:true
+            }
+        } }
+    });
+    if(!user){
+        throw new AppError(status.BAD_REQUEST,"User Not Found")
     }
+    const coachingCenterId = user?.coachingCenter?.id as string
     const existingUser = await prisma.user.findUnique({
         where: { email: studentData.email },
         select: { id: true }
@@ -41,7 +52,6 @@ const createStudent = async (payload: ICreateStudent) => {
         }
     });
 
-    console.log("..........UserData......", userData)
     let student;
 
     try {
@@ -50,6 +60,7 @@ const createStudent = async (payload: ICreateStudent) => {
             const s = await tx.student.create({
                 data: {
                     ...studentData,
+                    coachingCenterId,
                     userId: userData.user.id,
                     rollNumber: generateRollNumber()
                 },
@@ -59,13 +70,13 @@ const createStudent = async (payload: ICreateStudent) => {
 
                 }
             });
-            console.log("..........Student(s)......", s)
+
 
             const batchStudentData = batchId.map((batch) => ({
                 batchId: batch,
                 studentId: s.id
             }))
-            console.log("..........BatchStudent......", userData)
+
             await tx.batchStudent.createMany({
                 data: batchStudentData
             });
@@ -100,7 +111,6 @@ const createStudent = async (payload: ICreateStudent) => {
             where: { id: userData?.user.id }
         });
 
-        console.log(".............error...........", error)
         throw new AppError(status.BAD_REQUEST, "User Delete")
     }
 
@@ -246,9 +256,11 @@ const studentDelete = async (studentId: string) => {
             await tx.student.update({ where: { id: studentId }, data: { isDeleted: true } });
 
             await tx.studentFee.updateMany({
-                where: { student:{
-                    id:studentId
-                } },
+                where: {
+                    student: {
+                        id: studentId
+                    }
+                },
                 data: { isDeleted: true }
             });
 
@@ -262,18 +274,23 @@ const studentDelete = async (studentId: string) => {
             });
             await tx.user.update({
                 where: {
-                    id:existingStudent.userId
+                    id: existingStudent.userId
                 },
                 data: {
                     isDeleted: true
                 }
             })
+
+         
         });
     } catch (error) {
         console.log(error)
         throw new AppError(status.BAD_REQUEST, "Student Update Failed")
     }
-}
+};
+
+
+
 
 export const studentService = {
     createStudent,

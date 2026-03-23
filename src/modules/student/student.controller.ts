@@ -7,9 +7,8 @@ import status from "http-status";
 const createStudent = catchAsync(async(req: Request, res: Response) => {
  
     const payload = req.body;
-    console.log(payload)
-
-    const result = await studentService.createStudent(payload)
+    const userId = req.user.id as string;
+    const result = await studentService.createStudent(payload,userId)
     sendResponse(res, {
         status: status.OK,
         success: true,

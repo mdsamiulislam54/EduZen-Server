@@ -32,8 +32,6 @@ enum TeacherStatus {
 enum AttendanceStatus {
   PRESENT
   ABSENT
-  LATE
-  LEAVE
 }
 
 enum ExamStatus {

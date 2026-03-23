@@ -5,6 +5,9 @@ import { coachingRoutes } from "../modules/coachingCenter/coaching-center.router
 import { studentRoutes } from "../modules/student/student.route";
 import { batchRoutes } from "../modules/batch/batch.route";
 import { subjectRoutes } from "../modules/subject/subject.route";
+import { teacherRoutes } from "../modules/teacher/teacher.router";
+import { attendanceRoutes } from "../modules/attendance/attendance.route";
+
 
 const router = Router();
 router.use("/health", healthRoutes);
@@ -13,5 +16,7 @@ router.use("/coaching",coachingRoutes)
 router.use("/student", studentRoutes)
 router.use("/batch", batchRoutes)
 router.use('/subject', subjectRoutes)
+router.use('/teacher', teacherRoutes)
+router.use("/attendance", attendanceRoutes)
 
 export const apiRoutes = router;

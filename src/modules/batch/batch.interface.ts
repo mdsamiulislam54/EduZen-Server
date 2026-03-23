@@ -4,14 +4,13 @@ import { BatchStatus, FeeType } from "../../generated/enums";
 export interface ICreateBatchPayload {
   amount: number;
   feeType: FeeType;
-
+  teacherIds :string[];
   batchData: {
     batchName: string;
     batchCode?: string;
     max_students: number;
     startTime: Date;
     endTime: Date;
-
     daysOfWeek: (
       | "SUNDAY"
       | "MONDAY"
@@ -32,6 +31,7 @@ export interface IBatchUpdatePayload {
 
   batchData: {
     batchName: string;
+    teacherId: string;
     batchCode?: string;
     max_students: number;
     startTime: Date;

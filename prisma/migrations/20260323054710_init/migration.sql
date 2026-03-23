@@ -1,9 +1,9 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'BLOCKED', 'DELETED');
 
-  - The values [USER] on the enum `Role` will be removed. If these variants are still used in the database, this will fail.
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'OWNER', 'TEACHER', 'STUDENT');
 
-*/
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER');
 
@@ -43,20 +43,6 @@ CREATE TYPE "SubjectStatus" AS ENUM ('ACTIVE', 'INACTIVE');
 -- CreateEnum
 CREATE TYPE "BloodGroup" AS ENUM ('A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE');
 
--- AlterEnum
-BEGIN;
-CREATE TYPE "Role_new" AS ENUM ('ADMIN', 'OWNER', 'TEACHER', 'STUDENT');
-ALTER TABLE "public"."user" ALTER COLUMN "role" DROP DEFAULT;
-ALTER TABLE "user" ALTER COLUMN "role" TYPE "Role_new" USING ("role"::text::"Role_new");
-ALTER TYPE "Role" RENAME TO "Role_old";
-ALTER TYPE "Role_new" RENAME TO "Role";
-DROP TYPE "public"."Role_old";
-ALTER TABLE "user" ALTER COLUMN "role" SET DEFAULT 'STUDENT';
-COMMIT;
-
--- AlterTable
-ALTER TABLE "user" ALTER COLUMN "role" SET DEFAULT 'STUDENT';
-
 -- CreateTable
 CREATE TABLE "Subject" (
     "id" TEXT NOT NULL,
@@ -64,6 +50,7 @@ CREATE TABLE "Subject" (
     "name" TEXT NOT NULL,
     "subject_code" TEXT,
     "status" "SubjectStatus" NOT NULL DEFAULT 'ACTIVE',
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -79,10 +66,75 @@ CREATE TABLE "Attendance" (
     "status" "AttendanceStatus" NOT NULL,
     "markBy" TEXT,
     "remarks" TEXT,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Attendance_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "user" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "emailVerified" BOOLEAN NOT NULL DEFAULT false,
+    "role" "Role" NOT NULL DEFAULT 'STUDENT',
+    "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE',
+    "needPasswordChange" BOOLEAN NOT NULL DEFAULT false,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
+    "image" TEXT,
+    "teamPassword" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "session" (
+    "id" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "token" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "ipAddress" TEXT,
+    "userAgent" TEXT,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "account" (
+    "id" TEXT NOT NULL,
+    "accountId" TEXT NOT NULL,
+    "providerId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "accessToken" TEXT,
+    "refreshToken" TEXT,
+    "idToken" TEXT,
+    "accessTokenExpiresAt" TIMESTAMP(3),
+    "refreshTokenExpiresAt" TIMESTAMP(3),
+    "scope" TEXT,
+    "password" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "verification" (
+    "id" TEXT NOT NULL,
+    "identifier" TEXT NOT NULL,
+    "value" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "verification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -110,10 +162,23 @@ CREATE TABLE "BatchFee" (
     "amount" INTEGER NOT NULL,
     "feeType" "FeeType" NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT true,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "BatchFee_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BatchTeachers" (
+    "id" TEXT NOT NULL,
+    "batchId" TEXT NOT NULL,
+    "teacherId" TEXT NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "BatchTeachers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -132,7 +197,7 @@ CREATE TABLE "CoachingCenter" (
     "plan" TEXT,
     "status" "CoachingStatus" NOT NULL DEFAULT 'PENDING',
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
-    "isDeletedAt" TIMESTAMP(3),
+    "isDeletedAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -259,6 +324,7 @@ CREATE TABLE "StudentFee" (
     "paidAmount" INTEGER NOT NULL DEFAULT 0,
     "dueAmount" INTEGER NOT NULL,
     "paymentStatus" "PaymentStatus" NOT NULL DEFAULT 'PENDING',
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -307,6 +373,7 @@ CREATE TABLE "Teacher" (
     "userId" TEXT NOT NULL,
     "education" TEXT,
     "address" TEXT,
+    "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "dateOfBirth" TIMESTAMP(3),
     "phone" TEXT NOT NULL,
@@ -326,11 +393,30 @@ CREATE TABLE "TeacherSubject" (
     "id" TEXT NOT NULL,
     "teacherId" TEXT NOT NULL,
     "subjectId" TEXT NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "TeacherSubject_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "session_token_key" ON "session"("token");
+
+-- CreateIndex
+CREATE INDEX "session_userId_idx" ON "session"("userId");
+
+-- CreateIndex
+CREATE INDEX "account_userId_idx" ON "account"("userId");
+
+-- CreateIndex
+CREATE INDEX "verification_identifier_idx" ON "verification"("identifier");
+
+-- CreateIndex
+CREATE INDEX "BatchTeachers_batchId_teacherId_idx" ON "BatchTeachers"("batchId", "teacherId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CoachingCenter_ownerId_key" ON "CoachingCenter"("ownerId");
@@ -420,10 +506,22 @@ ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_batchId_fkey" FOREIGN KEY ("
 ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Batch" ADD CONSTRAINT "Batch_coachingCenterId_fkey" FOREIGN KEY ("coachingCenterId") REFERENCES "CoachingCenter"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "BatchFee" ADD CONSTRAINT "BatchFee_batchId_fkey" FOREIGN KEY ("batchId") REFERENCES "Batch"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BatchTeachers" ADD CONSTRAINT "BatchTeachers_batchId_fkey" FOREIGN KEY ("batchId") REFERENCES "Batch"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BatchTeachers" ADD CONSTRAINT "BatchTeachers_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "Teacher"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CoachingCenter" ADD CONSTRAINT "CoachingCenter_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;

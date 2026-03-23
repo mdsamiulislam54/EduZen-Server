@@ -392,6 +392,7 @@ export const ModelName = {
   Verification: 'Verification',
   Batch: 'Batch',
   BatchFee: 'BatchFee',
+  BatchTeachers: 'BatchTeachers',
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
   ExamSubject: 'ExamSubject',
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "subject" | "attendance" | "user" | "session" | "account" | "verification" | "batch" | "batchFee" | "coachingCenter" | "exam" | "examSubject" | "payment" | "result" | "mark" | "student" | "batchStudent" | "studentFee" | "subscriptionPlan" | "subscription" | "teacher" | "teacherSubject"
+    modelProps: "subject" | "attendance" | "user" | "session" | "account" | "verification" | "batch" | "batchFee" | "batchTeachers" | "coachingCenter" | "exam" | "examSubject" | "payment" | "result" | "mark" | "student" | "batchStudent" | "studentFee" | "subscriptionPlan" | "subscription" | "teacher" | "teacherSubject"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1013,6 +1014,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.BatchFeeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.BatchFeeCountAggregateOutputType> | number
+        }
+      }
+    }
+    BatchTeachers: {
+      payload: Prisma.$BatchTeachersPayload<ExtArgs>
+      fields: Prisma.BatchTeachersFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BatchTeachersFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BatchTeachersFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        findFirst: {
+          args: Prisma.BatchTeachersFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BatchTeachersFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        findMany: {
+          args: Prisma.BatchTeachersFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>[]
+        }
+        create: {
+          args: Prisma.BatchTeachersCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        createMany: {
+          args: Prisma.BatchTeachersCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BatchTeachersCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>[]
+        }
+        delete: {
+          args: Prisma.BatchTeachersDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        update: {
+          args: Prisma.BatchTeachersUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        deleteMany: {
+          args: Prisma.BatchTeachersDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BatchTeachersUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BatchTeachersUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>[]
+        }
+        upsert: {
+          args: Prisma.BatchTeachersUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BatchTeachersPayload>
+        }
+        aggregate: {
+          args: Prisma.BatchTeachersAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBatchTeachers>
+        }
+        groupBy: {
+          args: Prisma.BatchTeachersGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BatchTeachersGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BatchTeachersCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BatchTeachersCountAggregateOutputType> | number
         }
       }
     }
@@ -2143,6 +2218,18 @@ export const BatchFeeScalarFieldEnum = {
 export type BatchFeeScalarFieldEnum = (typeof BatchFeeScalarFieldEnum)[keyof typeof BatchFeeScalarFieldEnum]
 
 
+export const BatchTeachersScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  teacherId: 'teacherId',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BatchTeachersScalarFieldEnum = (typeof BatchTeachersScalarFieldEnum)[keyof typeof BatchTeachersScalarFieldEnum]
+
+
 export const CoachingCenterScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
@@ -2334,6 +2421,7 @@ export const TeacherScalarFieldEnum = {
   userId: 'userId',
   education: 'education',
   address: 'address',
+  name: 'name',
   email: 'email',
   dateOfBirth: 'dateOfBirth',
   phone: 'phone',
@@ -2353,6 +2441,7 @@ export const TeacherSubjectScalarFieldEnum = {
   id: 'id',
   teacherId: 'teacherId',
   subjectId: 'subjectId',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2803,6 +2892,7 @@ export type GlobalOmitConfig = {
   verification?: Prisma.VerificationOmit
   batch?: Prisma.BatchOmit
   batchFee?: Prisma.BatchFeeOmit
+  batchTeachers?: Prisma.BatchTeachersOmit
   coachingCenter?: Prisma.CoachingCenterOmit
   exam?: Prisma.ExamOmit
   examSubject?: Prisma.ExamSubjectOmit

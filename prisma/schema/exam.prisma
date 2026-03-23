@@ -1,6 +1,7 @@
 model Exam {
     id         String     @id @default(cuid())
     batchId    String
+    
     name       String
     totalMarks Int
     passMarks  Int

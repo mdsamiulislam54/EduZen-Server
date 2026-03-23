@@ -57,9 +57,7 @@ export type TeacherStatus = (typeof TeacherStatus)[keyof typeof TeacherStatus]
 
 export const AttendanceStatus = {
   PRESENT: 'PRESENT',
-  ABSENT: 'ABSENT',
-  LATE: 'LATE',
-  LEAVE: 'LEAVE'
+  ABSENT: 'ABSENT'
 } as const
 
 export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]

@@ -58,6 +58,11 @@ export type Batch = Prisma.BatchModel
  */
 export type BatchFee = Prisma.BatchFeeModel
 /**
+ * Model BatchTeachers
+ * 
+ */
+export type BatchTeachers = Prisma.BatchTeachersModel
+/**
  * Model CoachingCenter
  * 
  */

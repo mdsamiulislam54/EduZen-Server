@@ -309,8 +309,6 @@ const verifyEmail = async (email: string, otp: string) => {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) throw new AppError(status.NOT_FOUND, "User not found");
 
-    const password = generateRandomPassword(8);
-
     if (user.role === Role.OWNER || user.role === Role.STUDENT || user.role === Role.TEACHER) {
 
         try {
