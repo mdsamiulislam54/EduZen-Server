@@ -62,7 +62,6 @@ export const ModelName = {
   BatchTeachers: 'BatchTeachers',
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
-  ExamSubject: 'ExamSubject',
   Payment: 'Payment',
   Result: 'Result',
   Mark: 'Mark',
@@ -255,6 +254,7 @@ export type CoachingCenterScalarFieldEnum = (typeof CoachingCenterScalarFieldEnu
 export const ExamScalarFieldEnum = {
   id: 'id',
   batchId: 'batchId',
+  subjectId: 'subjectId',
   name: 'name',
   totalMarks: 'totalMarks',
   passMarks: 'passMarks',
@@ -262,23 +262,12 @@ export const ExamScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   status: 'status',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof ExamScalarFieldEnum]
-
-
-export const ExamSubjectScalarFieldEnum = {
-  id: 'id',
-  examId: 'examId',
-  subjectId: 'subjectId',
-  mark: 'mark',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type ExamSubjectScalarFieldEnum = (typeof ExamSubjectScalarFieldEnum)[keyof typeof ExamSubjectScalarFieldEnum]
 
 
 export const PaymentScalarFieldEnum = {
@@ -300,14 +289,12 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 export const ResultScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
-  subjectId: 'subjectId',
   examId: 'examId',
-  examSubjectId: 'examSubjectId',
-  obtainedMarks: 'obtainedMarks',
+  mark: 'mark',
   grade: 'grade',
-  position: 'position',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  subjectId: 'subjectId'
 } as const
 
 export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof ResultScalarFieldEnum]
@@ -316,10 +303,8 @@ export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof 
 export const MarkScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
-  examSubjectId: 'examSubjectId',
-  obtainedMarks: 'obtainedMarks',
-  grade: 'grade',
-  position: 'position',
+  examId: 'examId',
+  mark: 'mark',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -1,35 +1,32 @@
-model Result {
-  id            String   @id @default(cuid())
-  studentId     String
-  subjectId     String
-  examId        String
-  examSubjectId String
-  obtainedMarks Float
-  grade         String?
-  position      Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  student     Student     @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  examSubject ExamSubject @relation(fields: [examSubjectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  subject     Subject     @relation(fields: [subjectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  exam        Exam        @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  @@unique([studentId, examSubjectId])
-}
 
 model Mark {
-  id            String   @id @default(cuid())
-  studentId     String
-  examSubjectId String
-  obtainedMarks Float
-  grade         String?
-  position      Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(cuid())
+  studentId String
+  examId    String
+  mark      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  student     Student     @relation(fields: [studentId], references: [id])
-  examSubject ExamSubject @relation(fields: [examSubjectId], references: [id])
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  exam    Exam    @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@unique([studentId, examSubjectId])
+  @@unique([studentId, examId])
 }
+model Result {
+  id        String   @id @default(cuid())
+  studentId String
+  examId    String
+  mark      Float
+  grade     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  exam      Exam     @relation(fields: [examId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+  subjectId String?
+
+  @@unique([studentId, examId])
+}
+

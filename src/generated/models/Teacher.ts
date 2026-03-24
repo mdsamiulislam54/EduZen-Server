@@ -717,6 +717,14 @@ export type TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput = {
   deleteMany?: Prisma.TeacherScalarWhereInput | Prisma.TeacherScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EnumTeacherStatusFieldUpdateOperationsInput = {
   set?: $Enums.TeacherStatus
 }
