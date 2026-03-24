@@ -42,7 +42,6 @@ export type ResultMinAggregateOutputType = {
   grade: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  subjectId: string | null
 }
 
 export type ResultMaxAggregateOutputType = {
@@ -53,7 +52,6 @@ export type ResultMaxAggregateOutputType = {
   grade: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  subjectId: string | null
 }
 
 export type ResultCountAggregateOutputType = {
@@ -64,7 +62,6 @@ export type ResultCountAggregateOutputType = {
   grade: number
   createdAt: number
   updatedAt: number
-  subjectId: number
   _all: number
 }
 
@@ -85,7 +82,6 @@ export type ResultMinAggregateInputType = {
   grade?: true
   createdAt?: true
   updatedAt?: true
-  subjectId?: true
 }
 
 export type ResultMaxAggregateInputType = {
@@ -96,7 +92,6 @@ export type ResultMaxAggregateInputType = {
   grade?: true
   createdAt?: true
   updatedAt?: true
-  subjectId?: true
 }
 
 export type ResultCountAggregateInputType = {
@@ -107,7 +102,6 @@ export type ResultCountAggregateInputType = {
   grade?: true
   createdAt?: true
   updatedAt?: true
-  subjectId?: true
   _all?: true
 }
 
@@ -205,7 +199,6 @@ export type ResultGroupByOutputType = {
   grade: string | null
   createdAt: Date
   updatedAt: Date
-  subjectId: string | null
   _count: ResultCountAggregateOutputType | null
   _avg: ResultAvgAggregateOutputType | null
   _sum: ResultSumAggregateOutputType | null
@@ -239,10 +232,8 @@ export type ResultWhereInput = {
   grade?: Prisma.StringNullableFilter<"Result"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Result"> | Date | string
-  subjectId?: Prisma.StringNullableFilter<"Result"> | string | null
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
-  subject?: Prisma.XOR<Prisma.SubjectNullableScalarRelationFilter, Prisma.SubjectWhereInput> | null
 }
 
 export type ResultOrderByWithRelationInput = {
@@ -253,10 +244,8 @@ export type ResultOrderByWithRelationInput = {
   grade?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  subjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
   exam?: Prisma.ExamOrderByWithRelationInput
-  subject?: Prisma.SubjectOrderByWithRelationInput
 }
 
 export type ResultWhereUniqueInput = Prisma.AtLeast<{
@@ -271,10 +260,8 @@ export type ResultWhereUniqueInput = Prisma.AtLeast<{
   grade?: Prisma.StringNullableFilter<"Result"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Result"> | Date | string
-  subjectId?: Prisma.StringNullableFilter<"Result"> | string | null
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
-  subject?: Prisma.XOR<Prisma.SubjectNullableScalarRelationFilter, Prisma.SubjectWhereInput> | null
 }, "id" | "studentId_examId">
 
 export type ResultOrderByWithAggregationInput = {
@@ -285,7 +272,6 @@ export type ResultOrderByWithAggregationInput = {
   grade?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  subjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ResultCountOrderByAggregateInput
   _avg?: Prisma.ResultAvgOrderByAggregateInput
   _max?: Prisma.ResultMaxOrderByAggregateInput
@@ -304,7 +290,6 @@ export type ResultScalarWhereWithAggregatesInput = {
   grade?: Prisma.StringNullableWithAggregatesFilter<"Result"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Result"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Result"> | Date | string
-  subjectId?: Prisma.StringNullableWithAggregatesFilter<"Result"> | string | null
 }
 
 export type ResultCreateInput = {
@@ -315,7 +300,6 @@ export type ResultCreateInput = {
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutResultsInput
   exam: Prisma.ExamCreateNestedOneWithoutResultsInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutResultsInput
 }
 
 export type ResultUncheckedCreateInput = {
@@ -326,7 +310,6 @@ export type ResultUncheckedCreateInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultUpdateInput = {
@@ -337,7 +320,6 @@ export type ResultUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutResultsNestedInput
   exam?: Prisma.ExamUpdateOneRequiredWithoutResultsNestedInput
-  subject?: Prisma.SubjectUpdateOneWithoutResultsNestedInput
 }
 
 export type ResultUncheckedUpdateInput = {
@@ -348,7 +330,6 @@ export type ResultUncheckedUpdateInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ResultCreateManyInput = {
@@ -359,7 +340,6 @@ export type ResultCreateManyInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultUpdateManyMutationInput = {
@@ -378,7 +358,6 @@ export type ResultUncheckedUpdateManyInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ResultListRelationFilter = {
@@ -404,7 +383,6 @@ export type ResultCountOrderByAggregateInput = {
   grade?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  subjectId?: Prisma.SortOrder
 }
 
 export type ResultAvgOrderByAggregateInput = {
@@ -419,7 +397,6 @@ export type ResultMaxOrderByAggregateInput = {
   grade?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  subjectId?: Prisma.SortOrder
 }
 
 export type ResultMinOrderByAggregateInput = {
@@ -430,53 +407,10 @@ export type ResultMinOrderByAggregateInput = {
   grade?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  subjectId?: Prisma.SortOrder
 }
 
 export type ResultSumOrderByAggregateInput = {
   mark?: Prisma.SortOrder
-}
-
-export type ResultCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput> | Prisma.ResultCreateWithoutSubjectInput[] | Prisma.ResultUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.ResultCreateOrConnectWithoutSubjectInput | Prisma.ResultCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.ResultCreateManySubjectInputEnvelope
-  connect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-}
-
-export type ResultUncheckedCreateNestedManyWithoutSubjectInput = {
-  create?: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput> | Prisma.ResultCreateWithoutSubjectInput[] | Prisma.ResultUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.ResultCreateOrConnectWithoutSubjectInput | Prisma.ResultCreateOrConnectWithoutSubjectInput[]
-  createMany?: Prisma.ResultCreateManySubjectInputEnvelope
-  connect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-}
-
-export type ResultUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput> | Prisma.ResultCreateWithoutSubjectInput[] | Prisma.ResultUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.ResultCreateOrConnectWithoutSubjectInput | Prisma.ResultCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.ResultUpsertWithWhereUniqueWithoutSubjectInput | Prisma.ResultUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.ResultCreateManySubjectInputEnvelope
-  set?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  disconnect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  delete?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  connect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  update?: Prisma.ResultUpdateWithWhereUniqueWithoutSubjectInput | Prisma.ResultUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.ResultUpdateManyWithWhereWithoutSubjectInput | Prisma.ResultUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
-}
-
-export type ResultUncheckedUpdateManyWithoutSubjectNestedInput = {
-  create?: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput> | Prisma.ResultCreateWithoutSubjectInput[] | Prisma.ResultUncheckedCreateWithoutSubjectInput[]
-  connectOrCreate?: Prisma.ResultCreateOrConnectWithoutSubjectInput | Prisma.ResultCreateOrConnectWithoutSubjectInput[]
-  upsert?: Prisma.ResultUpsertWithWhereUniqueWithoutSubjectInput | Prisma.ResultUpsertWithWhereUniqueWithoutSubjectInput[]
-  createMany?: Prisma.ResultCreateManySubjectInputEnvelope
-  set?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  disconnect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  delete?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  connect?: Prisma.ResultWhereUniqueInput | Prisma.ResultWhereUniqueInput[]
-  update?: Prisma.ResultUpdateWithWhereUniqueWithoutSubjectInput | Prisma.ResultUpdateWithWhereUniqueWithoutSubjectInput[]
-  updateMany?: Prisma.ResultUpdateManyWithWhereWithoutSubjectInput | Prisma.ResultUpdateManyWithWhereWithoutSubjectInput[]
-  deleteMany?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
 }
 
 export type ResultCreateNestedManyWithoutExamInput = {
@@ -521,14 +455,6 @@ export type ResultUncheckedUpdateManyWithoutExamNestedInput = {
   deleteMany?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ResultCreateNestedManyWithoutStudentInput = {
   create?: Prisma.XOR<Prisma.ResultCreateWithoutStudentInput, Prisma.ResultUncheckedCreateWithoutStudentInput> | Prisma.ResultCreateWithoutStudentInput[] | Prisma.ResultUncheckedCreateWithoutStudentInput[]
   connectOrCreate?: Prisma.ResultCreateOrConnectWithoutStudentInput | Prisma.ResultCreateOrConnectWithoutStudentInput[]
@@ -571,66 +497,6 @@ export type ResultUncheckedUpdateManyWithoutStudentNestedInput = {
   deleteMany?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
 }
 
-export type ResultCreateWithoutSubjectInput = {
-  id?: string
-  mark: number
-  grade?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  student: Prisma.StudentCreateNestedOneWithoutResultsInput
-  exam: Prisma.ExamCreateNestedOneWithoutResultsInput
-}
-
-export type ResultUncheckedCreateWithoutSubjectInput = {
-  id?: string
-  studentId: string
-  examId: string
-  mark: number
-  grade?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ResultCreateOrConnectWithoutSubjectInput = {
-  where: Prisma.ResultWhereUniqueInput
-  create: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput>
-}
-
-export type ResultCreateManySubjectInputEnvelope = {
-  data: Prisma.ResultCreateManySubjectInput | Prisma.ResultCreateManySubjectInput[]
-  skipDuplicates?: boolean
-}
-
-export type ResultUpsertWithWhereUniqueWithoutSubjectInput = {
-  where: Prisma.ResultWhereUniqueInput
-  update: Prisma.XOR<Prisma.ResultUpdateWithoutSubjectInput, Prisma.ResultUncheckedUpdateWithoutSubjectInput>
-  create: Prisma.XOR<Prisma.ResultCreateWithoutSubjectInput, Prisma.ResultUncheckedCreateWithoutSubjectInput>
-}
-
-export type ResultUpdateWithWhereUniqueWithoutSubjectInput = {
-  where: Prisma.ResultWhereUniqueInput
-  data: Prisma.XOR<Prisma.ResultUpdateWithoutSubjectInput, Prisma.ResultUncheckedUpdateWithoutSubjectInput>
-}
-
-export type ResultUpdateManyWithWhereWithoutSubjectInput = {
-  where: Prisma.ResultScalarWhereInput
-  data: Prisma.XOR<Prisma.ResultUpdateManyMutationInput, Prisma.ResultUncheckedUpdateManyWithoutSubjectInput>
-}
-
-export type ResultScalarWhereInput = {
-  AND?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
-  OR?: Prisma.ResultScalarWhereInput[]
-  NOT?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
-  id?: Prisma.StringFilter<"Result"> | string
-  studentId?: Prisma.StringFilter<"Result"> | string
-  examId?: Prisma.StringFilter<"Result"> | string
-  mark?: Prisma.FloatFilter<"Result"> | number
-  grade?: Prisma.StringNullableFilter<"Result"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Result"> | Date | string
-  subjectId?: Prisma.StringNullableFilter<"Result"> | string | null
-}
-
 export type ResultCreateWithoutExamInput = {
   id?: string
   mark: number
@@ -638,7 +504,6 @@ export type ResultCreateWithoutExamInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutResultsInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutResultsInput
 }
 
 export type ResultUncheckedCreateWithoutExamInput = {
@@ -648,7 +513,6 @@ export type ResultUncheckedCreateWithoutExamInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultCreateOrConnectWithoutExamInput = {
@@ -677,6 +541,19 @@ export type ResultUpdateManyWithWhereWithoutExamInput = {
   data: Prisma.XOR<Prisma.ResultUpdateManyMutationInput, Prisma.ResultUncheckedUpdateManyWithoutExamInput>
 }
 
+export type ResultScalarWhereInput = {
+  AND?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
+  OR?: Prisma.ResultScalarWhereInput[]
+  NOT?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
+  id?: Prisma.StringFilter<"Result"> | string
+  studentId?: Prisma.StringFilter<"Result"> | string
+  examId?: Prisma.StringFilter<"Result"> | string
+  mark?: Prisma.FloatFilter<"Result"> | number
+  grade?: Prisma.StringNullableFilter<"Result"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Result"> | Date | string
+}
+
 export type ResultCreateWithoutStudentInput = {
   id?: string
   mark: number
@@ -684,7 +561,6 @@ export type ResultCreateWithoutStudentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutResultsInput
-  subject?: Prisma.SubjectCreateNestedOneWithoutResultsInput
 }
 
 export type ResultUncheckedCreateWithoutStudentInput = {
@@ -694,7 +570,6 @@ export type ResultUncheckedCreateWithoutStudentInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultCreateOrConnectWithoutStudentInput = {
@@ -723,46 +598,6 @@ export type ResultUpdateManyWithWhereWithoutStudentInput = {
   data: Prisma.XOR<Prisma.ResultUpdateManyMutationInput, Prisma.ResultUncheckedUpdateManyWithoutStudentInput>
 }
 
-export type ResultCreateManySubjectInput = {
-  id?: string
-  studentId: string
-  examId: string
-  mark: number
-  grade?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ResultUpdateWithoutSubjectInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  mark?: Prisma.FloatFieldUpdateOperationsInput | number
-  grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.StudentUpdateOneRequiredWithoutResultsNestedInput
-  exam?: Prisma.ExamUpdateOneRequiredWithoutResultsNestedInput
-}
-
-export type ResultUncheckedUpdateWithoutSubjectInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  examId?: Prisma.StringFieldUpdateOperationsInput | string
-  mark?: Prisma.FloatFieldUpdateOperationsInput | number
-  grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ResultUncheckedUpdateManyWithoutSubjectInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  examId?: Prisma.StringFieldUpdateOperationsInput | string
-  mark?: Prisma.FloatFieldUpdateOperationsInput | number
-  grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type ResultCreateManyExamInput = {
   id?: string
   studentId: string
@@ -770,7 +605,6 @@ export type ResultCreateManyExamInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultUpdateWithoutExamInput = {
@@ -780,7 +614,6 @@ export type ResultUpdateWithoutExamInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutResultsNestedInput
-  subject?: Prisma.SubjectUpdateOneWithoutResultsNestedInput
 }
 
 export type ResultUncheckedUpdateWithoutExamInput = {
@@ -790,7 +623,6 @@ export type ResultUncheckedUpdateWithoutExamInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ResultUncheckedUpdateManyWithoutExamInput = {
@@ -800,7 +632,6 @@ export type ResultUncheckedUpdateManyWithoutExamInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ResultCreateManyStudentInput = {
@@ -810,7 +641,6 @@ export type ResultCreateManyStudentInput = {
   grade?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  subjectId?: string | null
 }
 
 export type ResultUpdateWithoutStudentInput = {
@@ -820,7 +650,6 @@ export type ResultUpdateWithoutStudentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutResultsNestedInput
-  subject?: Prisma.SubjectUpdateOneWithoutResultsNestedInput
 }
 
 export type ResultUncheckedUpdateWithoutStudentInput = {
@@ -830,7 +659,6 @@ export type ResultUncheckedUpdateWithoutStudentInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ResultUncheckedUpdateManyWithoutStudentInput = {
@@ -840,7 +668,6 @@ export type ResultUncheckedUpdateManyWithoutStudentInput = {
   grade?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -853,10 +680,8 @@ export type ResultSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   grade?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  subjectId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }, ExtArgs["result"]["result"]>
 
 export type ResultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -867,10 +692,8 @@ export type ResultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   grade?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  subjectId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }, ExtArgs["result"]["result"]>
 
 export type ResultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -881,10 +704,8 @@ export type ResultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   grade?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  subjectId?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }, ExtArgs["result"]["result"]>
 
 export type ResultSelectScalar = {
@@ -895,24 +716,20 @@ export type ResultSelectScalar = {
   grade?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  subjectId?: boolean
 }
 
-export type ResultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "examId" | "mark" | "grade" | "createdAt" | "updatedAt" | "subjectId", ExtArgs["result"]["result"]>
+export type ResultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "examId" | "mark" | "grade" | "createdAt" | "updatedAt", ExtArgs["result"]["result"]>
 export type ResultInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }
 export type ResultIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }
 export type ResultIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
-  subject?: boolean | Prisma.Result$subjectArgs<ExtArgs>
 }
 
 export type $ResultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -920,7 +737,6 @@ export type $ResultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     student: Prisma.$StudentPayload<ExtArgs>
     exam: Prisma.$ExamPayload<ExtArgs>
-    subject: Prisma.$SubjectPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -930,7 +746,6 @@ export type $ResultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     grade: string | null
     createdAt: Date
     updatedAt: Date
-    subjectId: string | null
   }, ExtArgs["result"]["result"]>
   composites: {}
 }
@@ -1327,7 +1142,6 @@ export interface Prisma__ResultClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   student<T extends Prisma.StudentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudentDefaultArgs<ExtArgs>>): Prisma.Prisma__StudentClient<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   exam<T extends Prisma.ExamDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamDefaultArgs<ExtArgs>>): Prisma.Prisma__ExamClient<runtime.Types.Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  subject<T extends Prisma.Result$subjectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Result$subjectArgs<ExtArgs>>): Prisma.Prisma__SubjectClient<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1364,7 +1178,6 @@ export interface ResultFieldRefs {
   readonly grade: Prisma.FieldRef<"Result", 'String'>
   readonly createdAt: Prisma.FieldRef<"Result", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Result", 'DateTime'>
-  readonly subjectId: Prisma.FieldRef<"Result", 'String'>
 }
     
 
@@ -1763,25 +1576,6 @@ export type ResultDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Results to delete.
    */
   limit?: number
-}
-
-/**
- * Result.subject
- */
-export type Result$subjectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Subject
-   */
-  select?: Prisma.SubjectSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Subject
-   */
-  omit?: Prisma.SubjectOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SubjectInclude<ExtArgs> | null
-  where?: Prisma.SubjectWhereInput
 }
 
 /**

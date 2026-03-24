@@ -433,6 +433,14 @@ export type MarkUncheckedUpdateManyWithoutExamNestedInput = {
   deleteMany?: Prisma.MarkScalarWhereInput | Prisma.MarkScalarWhereInput[]
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type MarkCreateNestedManyWithoutStudentInput = {
   create?: Prisma.XOR<Prisma.MarkCreateWithoutStudentInput, Prisma.MarkUncheckedCreateWithoutStudentInput> | Prisma.MarkCreateWithoutStudentInput[] | Prisma.MarkUncheckedCreateWithoutStudentInput[]
   connectOrCreate?: Prisma.MarkCreateOrConnectWithoutStudentInput | Prisma.MarkCreateOrConnectWithoutStudentInput[]

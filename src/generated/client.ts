@@ -102,15 +102,15 @@ export type Exam = Prisma.ExamModel
  */
 export type Payment = Prisma.PaymentModel
 /**
- * Model Result
- * 
- */
-export type Result = Prisma.ResultModel
-/**
  * Model Mark
  * 
  */
 export type Mark = Prisma.MarkModel
+/**
+ * Model Result
+ * 
+ */
+export type Result = Prisma.ResultModel
 /**
  * Model Student
  * 

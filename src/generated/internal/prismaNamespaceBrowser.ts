@@ -63,8 +63,8 @@ export const ModelName = {
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
   Payment: 'Payment',
-  Result: 'Result',
   Mark: 'Mark',
+  Result: 'Result',
   Student: 'Student',
   BatchStudent: 'BatchStudent',
   StudentFee: 'StudentFee',
@@ -286,20 +286,6 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
-export const ResultScalarFieldEnum = {
-  id: 'id',
-  studentId: 'studentId',
-  examId: 'examId',
-  mark: 'mark',
-  grade: 'grade',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  subjectId: 'subjectId'
-} as const
-
-export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof ResultScalarFieldEnum]
-
-
 export const MarkScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
@@ -310,6 +296,19 @@ export const MarkScalarFieldEnum = {
 } as const
 
 export type MarkScalarFieldEnum = (typeof MarkScalarFieldEnum)[keyof typeof MarkScalarFieldEnum]
+
+
+export const ResultScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  examId: 'examId',
+  mark: 'mark',
+  grade: 'grade',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResultScalarFieldEnum = (typeof ResultScalarFieldEnum)[keyof typeof ResultScalarFieldEnum]
 
 
 export const StudentScalarFieldEnum = {

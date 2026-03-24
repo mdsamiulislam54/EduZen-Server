@@ -694,20 +694,6 @@ export type StudentUncheckedUpdateManyWithoutCoachingCenterNestedInput = {
   deleteMany?: Prisma.StudentScalarWhereInput | Prisma.StudentScalarWhereInput[]
 }
 
-export type StudentCreateNestedOneWithoutResultsInput = {
-  create?: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutResultsInput
-  connect?: Prisma.StudentWhereUniqueInput
-}
-
-export type StudentUpdateOneRequiredWithoutResultsNestedInput = {
-  create?: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutResultsInput
-  upsert?: Prisma.StudentUpsertWithoutResultsInput
-  connect?: Prisma.StudentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutResultsInput, Prisma.StudentUpdateWithoutResultsInput>, Prisma.StudentUncheckedUpdateWithoutResultsInput>
-}
-
 export type StudentCreateNestedOneWithoutMarksInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutMarksInput, Prisma.StudentUncheckedCreateWithoutMarksInput>
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutMarksInput
@@ -720,6 +706,20 @@ export type StudentUpdateOneRequiredWithoutMarksNestedInput = {
   upsert?: Prisma.StudentUpsertWithoutMarksInput
   connect?: Prisma.StudentWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutMarksInput, Prisma.StudentUpdateWithoutMarksInput>, Prisma.StudentUncheckedUpdateWithoutMarksInput>
+}
+
+export type StudentCreateNestedOneWithoutResultsInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutResultsInput
+  connect?: Prisma.StudentWhereUniqueInput
+}
+
+export type StudentUpdateOneRequiredWithoutResultsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutResultsInput
+  upsert?: Prisma.StudentUpsertWithoutResultsInput
+  connect?: Prisma.StudentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutResultsInput, Prisma.StudentUpdateWithoutResultsInput>, Prisma.StudentUncheckedUpdateWithoutResultsInput>
 }
 
 export type NullableEnumGenderFieldUpdateOperationsInput = {
@@ -1072,114 +1072,6 @@ export type StudentScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Student"> | Date | string
 }
 
-export type StudentCreateWithoutResultsInput = {
-  id?: string
-  name: string
-  email: string
-  dateOfBirth?: Date | string | null
-  phone: string
-  image?: string | null
-  rollNumber?: string | null
-  gender?: $Enums.Gender | null
-  bloodGroup?: $Enums.BloodGroup | null
-  enrollmentDate?: Date | string
-  status?: $Enums.StudentStatus
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  coachingCenter: Prisma.CoachingCenterCreateNestedOneWithoutStudentsInput
-  user: Prisma.UserCreateNestedOneWithoutStudentsInput
-  batchStudents?: Prisma.BatchStudentCreateNestedManyWithoutStudentInput
-  marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
-  attendances?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
-  studentFees?: Prisma.StudentFeeCreateNestedManyWithoutStudentInput
-}
-
-export type StudentUncheckedCreateWithoutResultsInput = {
-  id?: string
-  coachingCenterId: string
-  userId: string
-  name: string
-  email: string
-  dateOfBirth?: Date | string | null
-  phone: string
-  image?: string | null
-  rollNumber?: string | null
-  gender?: $Enums.Gender | null
-  bloodGroup?: $Enums.BloodGroup | null
-  enrollmentDate?: Date | string
-  status?: $Enums.StudentStatus
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  batchStudents?: Prisma.BatchStudentUncheckedCreateNestedManyWithoutStudentInput
-  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
-  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
-  studentFees?: Prisma.StudentFeeUncheckedCreateNestedManyWithoutStudentInput
-}
-
-export type StudentCreateOrConnectWithoutResultsInput = {
-  where: Prisma.StudentWhereUniqueInput
-  create: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
-}
-
-export type StudentUpsertWithoutResultsInput = {
-  update: Prisma.XOR<Prisma.StudentUpdateWithoutResultsInput, Prisma.StudentUncheckedUpdateWithoutResultsInput>
-  create: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
-  where?: Prisma.StudentWhereInput
-}
-
-export type StudentUpdateToOneWithWhereWithoutResultsInput = {
-  where?: Prisma.StudentWhereInput
-  data: Prisma.XOR<Prisma.StudentUpdateWithoutResultsInput, Prisma.StudentUncheckedUpdateWithoutResultsInput>
-}
-
-export type StudentUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rollNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-  bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
-  enrollmentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coachingCenter?: Prisma.CoachingCenterUpdateOneRequiredWithoutStudentsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutStudentsNestedInput
-  batchStudents?: Prisma.BatchStudentUpdateManyWithoutStudentNestedInput
-  marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
-  attendances?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
-  studentFees?: Prisma.StudentFeeUpdateManyWithoutStudentNestedInput
-}
-
-export type StudentUncheckedUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rollNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-  bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
-  enrollmentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  batchStudents?: Prisma.BatchStudentUncheckedUpdateManyWithoutStudentNestedInput
-  marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
-  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
-  studentFees?: Prisma.StudentFeeUncheckedUpdateManyWithoutStudentNestedInput
-}
-
 export type StudentCreateWithoutMarksInput = {
   id?: string
   name: string
@@ -1284,6 +1176,114 @@ export type StudentUncheckedUpdateWithoutMarksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batchStudents?: Prisma.BatchStudentUncheckedUpdateManyWithoutStudentNestedInput
   results?: Prisma.ResultUncheckedUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+  studentFees?: Prisma.StudentFeeUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentCreateWithoutResultsInput = {
+  id?: string
+  name: string
+  email: string
+  dateOfBirth?: Date | string | null
+  phone: string
+  image?: string | null
+  rollNumber?: string | null
+  gender?: $Enums.Gender | null
+  bloodGroup?: $Enums.BloodGroup | null
+  enrollmentDate?: Date | string
+  status?: $Enums.StudentStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  coachingCenter: Prisma.CoachingCenterCreateNestedOneWithoutStudentsInput
+  user: Prisma.UserCreateNestedOneWithoutStudentsInput
+  batchStudents?: Prisma.BatchStudentCreateNestedManyWithoutStudentInput
+  marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
+  studentFees?: Prisma.StudentFeeCreateNestedManyWithoutStudentInput
+}
+
+export type StudentUncheckedCreateWithoutResultsInput = {
+  id?: string
+  coachingCenterId: string
+  userId: string
+  name: string
+  email: string
+  dateOfBirth?: Date | string | null
+  phone: string
+  image?: string | null
+  rollNumber?: string | null
+  gender?: $Enums.Gender | null
+  bloodGroup?: $Enums.BloodGroup | null
+  enrollmentDate?: Date | string
+  status?: $Enums.StudentStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  batchStudents?: Prisma.BatchStudentUncheckedCreateNestedManyWithoutStudentInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
+  studentFees?: Prisma.StudentFeeUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type StudentCreateOrConnectWithoutResultsInput = {
+  where: Prisma.StudentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
+}
+
+export type StudentUpsertWithoutResultsInput = {
+  update: Prisma.XOR<Prisma.StudentUpdateWithoutResultsInput, Prisma.StudentUncheckedUpdateWithoutResultsInput>
+  create: Prisma.XOR<Prisma.StudentCreateWithoutResultsInput, Prisma.StudentUncheckedCreateWithoutResultsInput>
+  where?: Prisma.StudentWhereInput
+}
+
+export type StudentUpdateToOneWithWhereWithoutResultsInput = {
+  where?: Prisma.StudentWhereInput
+  data: Prisma.XOR<Prisma.StudentUpdateWithoutResultsInput, Prisma.StudentUncheckedUpdateWithoutResultsInput>
+}
+
+export type StudentUpdateWithoutResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rollNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
+  enrollmentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  coachingCenter?: Prisma.CoachingCenterUpdateOneRequiredWithoutStudentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutStudentsNestedInput
+  batchStudents?: Prisma.BatchStudentUpdateManyWithoutStudentNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
+  studentFees?: Prisma.StudentFeeUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentUncheckedUpdateWithoutResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rollNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
+  enrollmentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchStudents?: Prisma.BatchStudentUncheckedUpdateManyWithoutStudentNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   studentFees?: Prisma.StudentFeeUncheckedUpdateManyWithoutStudentNestedInput
 }

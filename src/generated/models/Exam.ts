@@ -652,20 +652,6 @@ export type EnumExamStatusFieldUpdateOperationsInput = {
   set?: $Enums.ExamStatus
 }
 
-export type ExamCreateNestedOneWithoutResultsInput = {
-  create?: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.ExamCreateOrConnectWithoutResultsInput
-  connect?: Prisma.ExamWhereUniqueInput
-}
-
-export type ExamUpdateOneRequiredWithoutResultsNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.ExamCreateOrConnectWithoutResultsInput
-  upsert?: Prisma.ExamUpsertWithoutResultsInput
-  connect?: Prisma.ExamWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ExamUpdateToOneWithWhereWithoutResultsInput, Prisma.ExamUpdateWithoutResultsInput>, Prisma.ExamUncheckedUpdateWithoutResultsInput>
-}
-
 export type ExamCreateNestedOneWithoutMarkInput = {
   create?: Prisma.XOR<Prisma.ExamCreateWithoutMarkInput, Prisma.ExamUncheckedCreateWithoutMarkInput>
   connectOrCreate?: Prisma.ExamCreateOrConnectWithoutMarkInput
@@ -678,6 +664,20 @@ export type ExamUpdateOneRequiredWithoutMarkNestedInput = {
   upsert?: Prisma.ExamUpsertWithoutMarkInput
   connect?: Prisma.ExamWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ExamUpdateToOneWithWhereWithoutMarkInput, Prisma.ExamUpdateWithoutMarkInput>, Prisma.ExamUncheckedUpdateWithoutMarkInput>
+}
+
+export type ExamCreateNestedOneWithoutResultsInput = {
+  create?: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
+  connectOrCreate?: Prisma.ExamCreateOrConnectWithoutResultsInput
+  connect?: Prisma.ExamWhereUniqueInput
+}
+
+export type ExamUpdateOneRequiredWithoutResultsNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
+  connectOrCreate?: Prisma.ExamCreateOrConnectWithoutResultsInput
+  upsert?: Prisma.ExamUpsertWithoutResultsInput
+  connect?: Prisma.ExamWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ExamUpdateToOneWithWhereWithoutResultsInput, Prisma.ExamUpdateWithoutResultsInput>, Prisma.ExamUncheckedUpdateWithoutResultsInput>
 }
 
 export type ExamCreateWithoutSubjectInput = {
@@ -819,90 +819,6 @@ export type ExamUpdateManyWithWhereWithoutBatchInput = {
   data: Prisma.XOR<Prisma.ExamUpdateManyMutationInput, Prisma.ExamUncheckedUpdateManyWithoutBatchInput>
 }
 
-export type ExamCreateWithoutResultsInput = {
-  id?: string
-  name: string
-  totalMarks: number
-  passMarks: number
-  examDate: Date | string
-  startTime: Date | string
-  endTime: Date | string
-  status?: $Enums.ExamStatus
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  batch: Prisma.BatchCreateNestedOneWithoutExamsInput
-  subject: Prisma.SubjectCreateNestedOneWithoutExamInput
-  mark?: Prisma.MarkCreateNestedManyWithoutExamInput
-}
-
-export type ExamUncheckedCreateWithoutResultsInput = {
-  id?: string
-  batchId: string
-  subjectId: string
-  name: string
-  totalMarks: number
-  passMarks: number
-  examDate: Date | string
-  startTime: Date | string
-  endTime: Date | string
-  status?: $Enums.ExamStatus
-  isDeleted?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  mark?: Prisma.MarkUncheckedCreateNestedManyWithoutExamInput
-}
-
-export type ExamCreateOrConnectWithoutResultsInput = {
-  where: Prisma.ExamWhereUniqueInput
-  create: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
-}
-
-export type ExamUpsertWithoutResultsInput = {
-  update: Prisma.XOR<Prisma.ExamUpdateWithoutResultsInput, Prisma.ExamUncheckedUpdateWithoutResultsInput>
-  create: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
-  where?: Prisma.ExamWhereInput
-}
-
-export type ExamUpdateToOneWithWhereWithoutResultsInput = {
-  where?: Prisma.ExamWhereInput
-  data: Prisma.XOR<Prisma.ExamUpdateWithoutResultsInput, Prisma.ExamUncheckedUpdateWithoutResultsInput>
-}
-
-export type ExamUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  totalMarks?: Prisma.IntFieldUpdateOperationsInput | number
-  passMarks?: Prisma.IntFieldUpdateOperationsInput | number
-  examDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  batch?: Prisma.BatchUpdateOneRequiredWithoutExamsNestedInput
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutExamNestedInput
-  mark?: Prisma.MarkUpdateManyWithoutExamNestedInput
-}
-
-export type ExamUncheckedUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  batchId?: Prisma.StringFieldUpdateOperationsInput | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  totalMarks?: Prisma.IntFieldUpdateOperationsInput | number
-  passMarks?: Prisma.IntFieldUpdateOperationsInput | number
-  examDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mark?: Prisma.MarkUncheckedUpdateManyWithoutExamNestedInput
-}
-
 export type ExamCreateWithoutMarkInput = {
   id?: string
   name: string
@@ -985,6 +901,90 @@ export type ExamUncheckedUpdateWithoutMarkInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   results?: Prisma.ResultUncheckedUpdateManyWithoutExamNestedInput
+}
+
+export type ExamCreateWithoutResultsInput = {
+  id?: string
+  name: string
+  totalMarks: number
+  passMarks: number
+  examDate: Date | string
+  startTime: Date | string
+  endTime: Date | string
+  status?: $Enums.ExamStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  batch: Prisma.BatchCreateNestedOneWithoutExamsInput
+  subject: Prisma.SubjectCreateNestedOneWithoutExamInput
+  mark?: Prisma.MarkCreateNestedManyWithoutExamInput
+}
+
+export type ExamUncheckedCreateWithoutResultsInput = {
+  id?: string
+  batchId: string
+  subjectId: string
+  name: string
+  totalMarks: number
+  passMarks: number
+  examDate: Date | string
+  startTime: Date | string
+  endTime: Date | string
+  status?: $Enums.ExamStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mark?: Prisma.MarkUncheckedCreateNestedManyWithoutExamInput
+}
+
+export type ExamCreateOrConnectWithoutResultsInput = {
+  where: Prisma.ExamWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
+}
+
+export type ExamUpsertWithoutResultsInput = {
+  update: Prisma.XOR<Prisma.ExamUpdateWithoutResultsInput, Prisma.ExamUncheckedUpdateWithoutResultsInput>
+  create: Prisma.XOR<Prisma.ExamCreateWithoutResultsInput, Prisma.ExamUncheckedCreateWithoutResultsInput>
+  where?: Prisma.ExamWhereInput
+}
+
+export type ExamUpdateToOneWithWhereWithoutResultsInput = {
+  where?: Prisma.ExamWhereInput
+  data: Prisma.XOR<Prisma.ExamUpdateWithoutResultsInput, Prisma.ExamUncheckedUpdateWithoutResultsInput>
+}
+
+export type ExamUpdateWithoutResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMarks?: Prisma.IntFieldUpdateOperationsInput | number
+  passMarks?: Prisma.IntFieldUpdateOperationsInput | number
+  examDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batch?: Prisma.BatchUpdateOneRequiredWithoutExamsNestedInput
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutExamNestedInput
+  mark?: Prisma.MarkUpdateManyWithoutExamNestedInput
+}
+
+export type ExamUncheckedUpdateWithoutResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  batchId?: Prisma.StringFieldUpdateOperationsInput | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  totalMarks?: Prisma.IntFieldUpdateOperationsInput | number
+  passMarks?: Prisma.IntFieldUpdateOperationsInput | number
+  examDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mark?: Prisma.MarkUncheckedUpdateManyWithoutExamNestedInput
 }
 
 export type ExamCreateManySubjectInput = {
