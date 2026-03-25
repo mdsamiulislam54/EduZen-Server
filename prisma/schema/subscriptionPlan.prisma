@@ -19,16 +19,4 @@ model SubscriptionPlan {
     payments      Payment[]
 }
 
-model Subscription {
-    id                 String             @id @default(cuid())
-    coachingCenterId   String
-    subscriptionPlanId String
-    startDate          DateTime           @default(now())
-    endDate            DateTime
-    status             SubscriptionStatus @default(ACTIVE)
-    createdAt          DateTime           @default(now())
-    updatedAt          DateTime           @updatedAt
 
-    coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
-    subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
-}
