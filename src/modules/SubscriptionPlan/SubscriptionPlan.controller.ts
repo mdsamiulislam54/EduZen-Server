@@ -10,6 +10,7 @@ import { sendResponse } from "../../shared/utils/send-response";
 
 export const createSubscriptionPlan = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
+  console.log(payload)
   const plan = await subscriptionPlanService.createSubscriptionPlan(payload);
 
   sendResponse(res, {

@@ -427,6 +427,10 @@ export type SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput = {
   deleteMany?: Prisma.SubscriptionScalarWhereInput | Prisma.SubscriptionScalarWhereInput[]
 }
 
+export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SubscriptionStatus
+}
+
 export type SubscriptionCreateNestedManyWithoutSubscriptionPlanInput = {
   create?: Prisma.XOR<Prisma.SubscriptionCreateWithoutSubscriptionPlanInput, Prisma.SubscriptionUncheckedCreateWithoutSubscriptionPlanInput> | Prisma.SubscriptionCreateWithoutSubscriptionPlanInput[] | Prisma.SubscriptionUncheckedCreateWithoutSubscriptionPlanInput[]
   connectOrCreate?: Prisma.SubscriptionCreateOrConnectWithoutSubscriptionPlanInput | Prisma.SubscriptionCreateOrConnectWithoutSubscriptionPlanInput[]
@@ -467,10 +471,6 @@ export type SubscriptionUncheckedUpdateManyWithoutSubscriptionPlanNestedInput = 
   update?: Prisma.SubscriptionUpdateWithWhereUniqueWithoutSubscriptionPlanInput | Prisma.SubscriptionUpdateWithWhereUniqueWithoutSubscriptionPlanInput[]
   updateMany?: Prisma.SubscriptionUpdateManyWithWhereWithoutSubscriptionPlanInput | Prisma.SubscriptionUpdateManyWithWhereWithoutSubscriptionPlanInput[]
   deleteMany?: Prisma.SubscriptionScalarWhereInput | Prisma.SubscriptionScalarWhereInput[]
-}
-
-export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
-  set?: $Enums.SubscriptionStatus
 }
 
 export type SubscriptionCreateWithoutCoachingCenterInput = {

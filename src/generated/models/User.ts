@@ -35,6 +35,7 @@ export type UserMinAggregateOutputType = {
   isDeleted: boolean | null
   deletedAt: Date | null
   image: string | null
+  hasSubscription: boolean | null
   teamPassword: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -51,6 +52,7 @@ export type UserMaxAggregateOutputType = {
   isDeleted: boolean | null
   deletedAt: Date | null
   image: string | null
+  hasSubscription: boolean | null
   teamPassword: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,6 +69,7 @@ export type UserCountAggregateOutputType = {
   isDeleted: number
   deletedAt: number
   image: number
+  hasSubscription: number
   teamPassword: number
   createdAt: number
   updatedAt: number
@@ -85,6 +88,7 @@ export type UserMinAggregateInputType = {
   isDeleted?: true
   deletedAt?: true
   image?: true
+  hasSubscription?: true
   teamPassword?: true
   createdAt?: true
   updatedAt?: true
@@ -101,6 +105,7 @@ export type UserMaxAggregateInputType = {
   isDeleted?: true
   deletedAt?: true
   image?: true
+  hasSubscription?: true
   teamPassword?: true
   createdAt?: true
   updatedAt?: true
@@ -117,6 +122,7 @@ export type UserCountAggregateInputType = {
   isDeleted?: true
   deletedAt?: true
   image?: true
+  hasSubscription?: true
   teamPassword?: true
   createdAt?: true
   updatedAt?: true
@@ -206,6 +212,7 @@ export type UserGroupByOutputType = {
   isDeleted: boolean
   deletedAt: Date | null
   image: string | null
+  hasSubscription: boolean
   teamPassword: string | null
   createdAt: Date
   updatedAt: Date
@@ -243,6 +250,7 @@ export type UserWhereInput = {
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  hasSubscription?: Prisma.BoolFilter<"User"> | boolean
   teamPassword?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -265,6 +273,7 @@ export type UserOrderByWithRelationInput = {
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  hasSubscription?: Prisma.SortOrder
   teamPassword?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -290,6 +299,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  hasSubscription?: Prisma.BoolFilter<"User"> | boolean
   teamPassword?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -312,6 +322,7 @@ export type UserOrderByWithAggregationInput = {
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  hasSubscription?: Prisma.SortOrder
   teamPassword?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -334,6 +345,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  hasSubscription?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   teamPassword?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -350,6 +362,7 @@ export type UserCreateInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -372,6 +385,7 @@ export type UserUncheckedCreateInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -394,6 +408,7 @@ export type UserUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,6 +431,7 @@ export type UserUncheckedUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -438,6 +454,7 @@ export type UserCreateManyInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -454,6 +471,7 @@ export type UserUpdateManyMutationInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -470,6 +488,7 @@ export type UserUncheckedUpdateManyInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -491,6 +510,7 @@ export type UserCountOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  hasSubscription?: Prisma.SortOrder
   teamPassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -507,6 +527,7 @@ export type UserMaxOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  hasSubscription?: Prisma.SortOrder
   teamPassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -523,6 +544,7 @@ export type UserMinOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  hasSubscription?: Prisma.SortOrder
   teamPassword?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -642,6 +664,7 @@ export type UserCreateWithoutAttendancesInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -663,6 +686,7 @@ export type UserUncheckedCreateWithoutAttendancesInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -700,6 +724,7 @@ export type UserUpdateWithoutAttendancesInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -721,6 +746,7 @@ export type UserUncheckedUpdateWithoutAttendancesInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -742,6 +768,7 @@ export type UserCreateWithoutSessionsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -763,6 +790,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -800,6 +828,7 @@ export type UserUpdateWithoutSessionsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -821,6 +850,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -842,6 +872,7 @@ export type UserCreateWithoutAccountsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -863,6 +894,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -900,6 +932,7 @@ export type UserUpdateWithoutAccountsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -921,6 +954,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -942,6 +976,7 @@ export type UserCreateWithoutCoachingCenterInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -963,6 +998,7 @@ export type UserUncheckedCreateWithoutCoachingCenterInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1000,6 +1036,7 @@ export type UserUpdateWithoutCoachingCenterInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1021,6 +1058,7 @@ export type UserUncheckedUpdateWithoutCoachingCenterInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1042,6 +1080,7 @@ export type UserCreateWithoutStudentsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1063,6 +1102,7 @@ export type UserUncheckedCreateWithoutStudentsInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1100,6 +1140,7 @@ export type UserUpdateWithoutStudentsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1121,6 +1162,7 @@ export type UserUncheckedUpdateWithoutStudentsInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1142,6 +1184,7 @@ export type UserCreateWithoutTeacherInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1163,6 +1206,7 @@ export type UserUncheckedCreateWithoutTeacherInput = {
   isDeleted?: boolean
   deletedAt?: Date | string | null
   image?: string | null
+  hasSubscription?: boolean
   teamPassword?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1200,6 +1244,7 @@ export type UserUpdateWithoutTeacherInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,6 +1266,7 @@ export type UserUncheckedUpdateWithoutTeacherInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasSubscription?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teamPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1291,6 +1337,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isDeleted?: boolean
   deletedAt?: boolean
   image?: boolean
+  hasSubscription?: boolean
   teamPassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1314,6 +1361,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isDeleted?: boolean
   deletedAt?: boolean
   image?: boolean
+  hasSubscription?: boolean
   teamPassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1330,6 +1378,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isDeleted?: boolean
   deletedAt?: boolean
   image?: boolean
+  hasSubscription?: boolean
   teamPassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1346,12 +1395,13 @@ export type UserSelectScalar = {
   isDeleted?: boolean
   deletedAt?: boolean
   image?: boolean
+  hasSubscription?: boolean
   teamPassword?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "role" | "status" | "needPasswordChange" | "isDeleted" | "deletedAt" | "image" | "teamPassword" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "role" | "status" | "needPasswordChange" | "isDeleted" | "deletedAt" | "image" | "hasSubscription" | "teamPassword" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1385,6 +1435,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isDeleted: boolean
     deletedAt: Date | null
     image: string | null
+    hasSubscription: boolean
     teamPassword: string | null
     createdAt: Date
     updatedAt: Date
@@ -1827,6 +1878,7 @@ export interface UserFieldRefs {
   readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly hasSubscription: Prisma.FieldRef<"User", 'Boolean'>
   readonly teamPassword: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>

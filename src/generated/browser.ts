@@ -78,6 +78,11 @@ export type Exam = Prisma.ExamModel
  */
 export type Payment = Prisma.PaymentModel
 /**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
  * Model Mark
  * 
  */
@@ -107,11 +112,6 @@ export type StudentFee = Prisma.StudentFeeModel
  * 
  */
 export type SubscriptionPlan = Prisma.SubscriptionPlanModel
-/**
- * Model Subscription
- * 
- */
-export type Subscription = Prisma.SubscriptionModel
 /**
  * Model Teacher
  * 

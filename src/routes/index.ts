@@ -10,10 +10,13 @@ import { attendanceRoutes } from "../modules/attendance/attendance.route";
 import { examRoutes } from "../modules/exam/exam.route";
 import { markRoutes } from "../modules/mark/mark.route";
 import { subscriptionPlanRoutes } from "../modules/SubscriptionPlan/SubscriptionPlan.route";
+import { adminRoute } from "../modules/admin/admin.route";
 
 
 const router = Router();
 router.use("/health", healthRoutes);
+router.use("/auth", authRoutes);
+router.use("/admin", adminRoute);
 router.use("/auth", authRoutes);
 router.use("/coaching", coachingRoutes);
 router.use("/student", studentRoutes);

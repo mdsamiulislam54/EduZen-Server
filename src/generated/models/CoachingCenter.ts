@@ -701,20 +701,6 @@ export type CoachingCenterUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutPaymentsInput, Prisma.CoachingCenterUpdateWithoutPaymentsInput>, Prisma.CoachingCenterUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type CoachingCenterCreateNestedOneWithoutStudentsInput = {
-  create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
-  connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutStudentsInput
-  connect?: Prisma.CoachingCenterWhereUniqueInput
-}
-
-export type CoachingCenterUpdateOneRequiredWithoutStudentsNestedInput = {
-  create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
-  connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutStudentsInput
-  upsert?: Prisma.CoachingCenterUpsertWithoutStudentsInput
-  connect?: Prisma.CoachingCenterWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutStudentsInput, Prisma.CoachingCenterUpdateWithoutStudentsInput>, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
-}
-
 export type CoachingCenterCreateNestedOneWithoutSubscriptionInput = {
   create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutSubscriptionInput, Prisma.CoachingCenterUncheckedCreateWithoutSubscriptionInput>
   connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutSubscriptionInput
@@ -727,6 +713,20 @@ export type CoachingCenterUpdateOneRequiredWithoutSubscriptionNestedInput = {
   upsert?: Prisma.CoachingCenterUpsertWithoutSubscriptionInput
   connect?: Prisma.CoachingCenterWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.CoachingCenterUpdateWithoutSubscriptionInput>, Prisma.CoachingCenterUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type CoachingCenterCreateNestedOneWithoutStudentsInput = {
+  create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
+  connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutStudentsInput
+  connect?: Prisma.CoachingCenterWhereUniqueInput
+}
+
+export type CoachingCenterUpdateOneRequiredWithoutStudentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
+  connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutStudentsInput
+  upsert?: Prisma.CoachingCenterUpsertWithoutStudentsInput
+  connect?: Prisma.CoachingCenterWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutStudentsInput, Prisma.CoachingCenterUpdateWithoutStudentsInput>, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
 }
 
 export type CoachingCenterCreateNestedOneWithoutTeachersInput = {
@@ -1207,122 +1207,6 @@ export type CoachingCenterUncheckedUpdateWithoutPaymentsInput = {
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
-export type CoachingCenterCreateWithoutStudentsInput = {
-  id?: string
-  name: string
-  email: string
-  phone?: string | null
-  image?: string | null
-  address: string
-  city?: string | null
-  area?: string | null
-  logo?: string | null
-  currency?: string | null
-  plan?: string | null
-  status?: $Enums.CoachingStatus
-  isDeleted?: boolean
-  isDeletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutCoachingCenterInput
-  teachers?: Prisma.TeacherCreateNestedManyWithoutCoachingCenterInput
-  batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
-  subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
-}
-
-export type CoachingCenterUncheckedCreateWithoutStudentsInput = {
-  id?: string
-  ownerId: string
-  name: string
-  email: string
-  phone?: string | null
-  image?: string | null
-  address: string
-  city?: string | null
-  area?: string | null
-  logo?: string | null
-  currency?: string | null
-  plan?: string | null
-  status?: $Enums.CoachingStatus
-  isDeleted?: boolean
-  isDeletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  teachers?: Prisma.TeacherUncheckedCreateNestedManyWithoutCoachingCenterInput
-  batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
-  subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
-}
-
-export type CoachingCenterCreateOrConnectWithoutStudentsInput = {
-  where: Prisma.CoachingCenterWhereUniqueInput
-  create: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
-}
-
-export type CoachingCenterUpsertWithoutStudentsInput = {
-  update: Prisma.XOR<Prisma.CoachingCenterUpdateWithoutStudentsInput, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
-  create: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
-  where?: Prisma.CoachingCenterWhereInput
-}
-
-export type CoachingCenterUpdateToOneWithWhereWithoutStudentsInput = {
-  where?: Prisma.CoachingCenterWhereInput
-  data: Prisma.XOR<Prisma.CoachingCenterUpdateWithoutStudentsInput, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
-}
-
-export type CoachingCenterUpdateWithoutStudentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumCoachingStatusFieldUpdateOperationsInput | $Enums.CoachingStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutCoachingCenterNestedInput
-  teachers?: Prisma.TeacherUpdateManyWithoutCoachingCenterNestedInput
-  batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
-  subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
-}
-
-export type CoachingCenterUncheckedUpdateWithoutStudentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumCoachingStatusFieldUpdateOperationsInput | $Enums.CoachingStatus
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
-}
-
 export type CoachingCenterCreateWithoutSubscriptionInput = {
   id?: string
   name: string
@@ -1436,6 +1320,122 @@ export type CoachingCenterUncheckedUpdateWithoutSubscriptionInput = {
   teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+}
+
+export type CoachingCenterCreateWithoutStudentsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  image?: string | null
+  address: string
+  city?: string | null
+  area?: string | null
+  logo?: string | null
+  currency?: string | null
+  plan?: string | null
+  status?: $Enums.CoachingStatus
+  isDeleted?: boolean
+  isDeletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutCoachingCenterInput
+  teachers?: Prisma.TeacherCreateNestedManyWithoutCoachingCenterInput
+  batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
+  subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
+  subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+}
+
+export type CoachingCenterUncheckedCreateWithoutStudentsInput = {
+  id?: string
+  ownerId: string
+  name: string
+  email: string
+  phone?: string | null
+  image?: string | null
+  address: string
+  city?: string | null
+  area?: string | null
+  logo?: string | null
+  currency?: string | null
+  plan?: string | null
+  status?: $Enums.CoachingStatus
+  isDeleted?: boolean
+  isDeletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  teachers?: Prisma.TeacherUncheckedCreateNestedManyWithoutCoachingCenterInput
+  batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
+  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+}
+
+export type CoachingCenterCreateOrConnectWithoutStudentsInput = {
+  where: Prisma.CoachingCenterWhereUniqueInput
+  create: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
+}
+
+export type CoachingCenterUpsertWithoutStudentsInput = {
+  update: Prisma.XOR<Prisma.CoachingCenterUpdateWithoutStudentsInput, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
+  create: Prisma.XOR<Prisma.CoachingCenterCreateWithoutStudentsInput, Prisma.CoachingCenterUncheckedCreateWithoutStudentsInput>
+  where?: Prisma.CoachingCenterWhereInput
+}
+
+export type CoachingCenterUpdateToOneWithWhereWithoutStudentsInput = {
+  where?: Prisma.CoachingCenterWhereInput
+  data: Prisma.XOR<Prisma.CoachingCenterUpdateWithoutStudentsInput, Prisma.CoachingCenterUncheckedUpdateWithoutStudentsInput>
+}
+
+export type CoachingCenterUpdateWithoutStudentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCoachingStatusFieldUpdateOperationsInput | $Enums.CoachingStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutCoachingCenterNestedInput
+  teachers?: Prisma.TeacherUpdateManyWithoutCoachingCenterNestedInput
+  batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
+  subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
+  subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+}
+
+export type CoachingCenterUncheckedUpdateWithoutStudentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCoachingStatusFieldUpdateOperationsInput | $Enums.CoachingStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 

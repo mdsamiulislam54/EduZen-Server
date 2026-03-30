@@ -626,10 +626,6 @@ export type SubscriptionPlanUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriptionPlanUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SubscriptionPlanUpdateWithoutPaymentsInput>, Prisma.SubscriptionPlanUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type EnumSubscriptionPlanStatusFieldUpdateOperationsInput = {
-  set?: $Enums.SubscriptionPlanStatus
-}
-
 export type SubscriptionPlanCreateNestedOneWithoutSubscriptionsInput = {
   create?: Prisma.XOR<Prisma.SubscriptionPlanCreateWithoutSubscriptionsInput, Prisma.SubscriptionPlanUncheckedCreateWithoutSubscriptionsInput>
   connectOrCreate?: Prisma.SubscriptionPlanCreateOrConnectWithoutSubscriptionsInput
@@ -642,6 +638,10 @@ export type SubscriptionPlanUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   upsert?: Prisma.SubscriptionPlanUpsertWithoutSubscriptionsInput
   connect?: Prisma.SubscriptionPlanWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriptionPlanUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.SubscriptionPlanUpdateWithoutSubscriptionsInput>, Prisma.SubscriptionPlanUncheckedUpdateWithoutSubscriptionsInput>
+}
+
+export type EnumSubscriptionPlanStatusFieldUpdateOperationsInput = {
+  set?: $Enums.SubscriptionPlanStatus
 }
 
 export type SubscriptionPlanCreateWithoutPaymentsInput = {

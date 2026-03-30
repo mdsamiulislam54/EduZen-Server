@@ -63,13 +63,13 @@ export const ModelName = {
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
   Payment: 'Payment',
+  Subscription: 'Subscription',
   Mark: 'Mark',
   Result: 'Result',
   Student: 'Student',
   BatchStudent: 'BatchStudent',
   StudentFee: 'StudentFee',
   SubscriptionPlan: 'SubscriptionPlan',
-  Subscription: 'Subscription',
   Teacher: 'Teacher',
   TeacherSubject: 'TeacherSubject'
 } as const
@@ -131,6 +131,7 @@ export const UserScalarFieldEnum = {
   isDeleted: 'isDeleted',
   deletedAt: 'deletedAt',
   image: 'image',
+  hasSubscription: 'hasSubscription',
   teamPassword: 'teamPassword',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -286,6 +287,20 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  coachingCenterId: 'coachingCenterId',
+  subscriptionPlanId: 'subscriptionPlanId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
 export const MarkScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
@@ -382,20 +397,6 @@ export const SubscriptionPlanScalarFieldEnum = {
 } as const
 
 export type SubscriptionPlanScalarFieldEnum = (typeof SubscriptionPlanScalarFieldEnum)[keyof typeof SubscriptionPlanScalarFieldEnum]
-
-
-export const SubscriptionScalarFieldEnum = {
-  id: 'id',
-  coachingCenterId: 'coachingCenterId',
-  subscriptionPlanId: 'subscriptionPlanId',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
 export const TeacherScalarFieldEnum = {
