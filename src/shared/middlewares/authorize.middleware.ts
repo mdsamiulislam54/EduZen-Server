@@ -13,11 +13,18 @@ export const authorize = (...authRoles: Role[]) =>
 
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("Authorize Middleware called with roles:", authRoles);
+      console.log("Request URL:", req.originalUrl);
+      console.log("Request Method:", req.method);
+      console.log("Request Headers:", req.headers);
+      console.log("Request Cookies:", req.cookies);
       //Session Token Verification
       const sessionToken = cookieUtils.getCookie(
         req,
         "better-auth.session_token",
       );
+
+      console.log("Session Token from cookie:", sessionToken);
 
       if (!sessionToken) {
         throw new Error("Unauthorized access! No session token provided.");
@@ -41,7 +48,13 @@ export const authorize = (...authRoles: Role[]) =>
         if (sessionExists && sessionExists.user) {
           const user = sessionExists.user;
 
-
+          console.log("Session Token is valid. User:", {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            status: user.status,
+          });
 
           const now = new Date();
           const expiresAt = new Date(sessionExists.expiresAt);

@@ -73,7 +73,9 @@ export const coachingCenterUpdateSchema = z.object({
     .nullable(),
 
   address: z.string("Address is required").min(5, "Address must be at least 5 characters long")
-    .max(500, "Address cannot exceed 500 characters"),
+    .max(500, "Address cannot exceed 500 characters")
+    .optional()
+    ,
 
   city: z.string()
     .max(100, "City name cannot exceed 100 characters")

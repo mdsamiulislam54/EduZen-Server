@@ -5,12 +5,12 @@ import { Role } from "../../generated/enums";
 
 const router = Router();
 
-router.get("/", authorize(Role.ADMIN), adminController.getAllOwners);
+router.get("/owners", authorize(Role.ADMIN), adminController.getAllOwners);
 router.get("/dashboard-data", authorize(Role.ADMIN), adminController.adminDashboardData);
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
-router.get("/:id", authorize(Role.ADMIN), adminController.getOwnerById);
+router.get("/owner/:id", authorize(Role.ADMIN), adminController.getOwnerById);
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
 
-router.patch('/:id', authorize(Role.ADMIN), adminController.deleteOwner);
+router.patch('/owner/:id', authorize(Role.ADMIN), adminController.deleteOwner);
 
 export const adminRoute = router;

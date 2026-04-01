@@ -2,7 +2,7 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import helmet from "helmet";
 import qs from "qs";
-import { cors } from "./config/cors";
+
 import { logger } from "./config/logger";
 import { limiter } from "./config/rate-limit";
 import { apiRoutes } from "./routes";
@@ -11,6 +11,7 @@ import { notFound } from "./shared/middlewares/not-found.middleware";
 // import { auth } from "./lib/auth";
 // import { toNodeHandler } from "better-auth/node";
 import path from "path";
+import { cors } from "./config/cors";
 
 // app initialization
 const app: Application = express();
@@ -21,12 +22,14 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(process.cwd(), `src/templates`));
 
 // middlewares
+
 app.use(express.json());
+app.use(cookieParser());
 app.use(helmet());
 app.use(logger);
 app.use(cors);
 app.use(limiter);
-app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
 
 // trust proxy when behind proxies (load balancers)

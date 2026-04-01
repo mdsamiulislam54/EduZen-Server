@@ -10,27 +10,27 @@ const router = Router();
 router.post(
   "/",
   requestValidation(subscriptionPlanSchema),
-  authorize(Role.ADMIN, Role.OWNER),
+  authorize(Role.ADMIN),
   subscriptionPlanController.createSubscriptionPlan
 );
 
 
-router.get("/", subscriptionPlanController.getAllSubscriptionPlans);
+router.get("/",  authorize(Role.ADMIN), subscriptionPlanController.getAllSubscriptionPlans);
 
 
-router.get("/:id", subscriptionPlanController.getSubscriptionPlanById);
+router.get("/:id",  authorize(Role.ADMIN), subscriptionPlanController.getSubscriptionPlanById);
 
 
 router.patch(
   "/:id",
-  authorize(Role.ADMIN, Role.OWNER),
+  authorize(Role.ADMIN),
   subscriptionPlanController.updateSubscriptionPlan
 );
 
 
 router.delete(
   "/:id",
-  authorize(Role.ADMIN, Role.OWNER),
+  authorize(Role.ADMIN),
   subscriptionPlanController.deleteSubscriptionPlan
 );
 
