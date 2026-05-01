@@ -8,7 +8,7 @@ const router = Router();
 router.get("/owners", authorize(Role.ADMIN), adminController.getAllOwners);
 router.get("/dashboard-data", authorize(Role.ADMIN), adminController.adminDashboardData);
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
-router.get("/owner/:id", authorize(Role.ADMIN), adminController.getOwnerById);
+router.get("/owners/:id", authorize(Role.ADMIN), adminController.getOwnerById);
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
 
 router.patch('/owner/:id', authorize(Role.ADMIN), adminController.deleteOwner);

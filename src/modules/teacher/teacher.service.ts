@@ -5,6 +5,8 @@ import { ITeacher, ITeacherUpdate } from "./teacher.interface"
 import { auth } from "../../lib/auth";
 import { generateRandomPassword } from "../../shared/utils/randomPasswordGenerate";
 import { Role } from "../../generated/enums";
+import { QueryBuilder } from "../../shared/utils/queryBuilder";
+import { IQueryParams } from "../../types/query.type";
 
 const createTeacher = async (payload: ITeacher, userId: string) => {
     const { subjectIds, teacherData } = payload;
@@ -136,23 +138,51 @@ const updateTeacher = async (payload: Partial<ITeacherUpdate>, teacherId: string
     return updateTeacher
 }
 
-const getAllTeacher = async () => {
-    return await prisma.teacher.findMany({
+const getAllTeacher = async (query: IQueryParams) => {
+    console.log(query)
+    const builder = new QueryBuilder({}, query)
+        .search(["name", "id", "phone", "address", "email"])
+        .filter()
+        .paginate()
+        .sort()
+
+    const meta = await builder.getMeta(prisma.teacher)
+
+
+    const data = await prisma.teacher.findMany({
+
         where: {
-            isDeleted: false
+            ...builder.query.where,
+            isDeleted: false,
+
+
+        },
+        include: {
+            teacherSubjects: {
+                select: {
+                    subjectId: true
+                }
+            }
         }
     })
+
+    return {
+        data,
+        meta
+    }
 }
-const getAllTeacherById = async (id:string) => {
+const getAllTeacherById = async (id: string) => {
     return await prisma.teacher.findFirst({
         where: {
             id,
             isDeleted: false
         },
-        include:{
-            coachingCenter:true,
-            teacherSubjects:true,
-            user:true
+        include: {
+            batchTeachers: true,
+            teacherSubjects: true,
+            coachingCenter: true,
+            user: true,
+
         }
     })
 }
@@ -192,10 +222,69 @@ const deleteTeacher = async (teacherId: string) => {
     return result
 }
 
+const getTeacherDashboard = async (teacherId: string) => {
+    const teacher = await prisma.teacher.findUnique({
+        where: { id: teacherId },
+    });
+
+
+    const [totalStudent, totalBatches, totalSubjects] = await Promise.all([
+        await prisma.student.count(),
+        await prisma.batch.count(),
+        await prisma.subject.count()
+    ]);
+
+    return {
+        totalStudent,
+        totalBatches,
+        totalSubjects
+    }
+
+}
+
+const classSchedule = async () => {
+    const batches = await prisma.batch.findMany({
+        where: { isDeleted: false },
+        include: {
+            batchTeachers: {
+                select: {
+                    teacher:true
+                }
+            }
+        }
+
+    });
+    console.log(batches)
+    const schedule: any[] = [];
+
+    batches.forEach((batch) => {
+        const days = Array.isArray(batch.daysOfWeek)
+            ? batch.daysOfWeek
+            : [];
+        days.forEach((day) => {
+            schedule.push({
+                batchName: batch.batchName,
+                day,
+                startTime: batch.startTime.toLocaleTimeString(),
+                endTime: batch.endTime.toLocaleTimeString(),
+                teacherName: batch.batchTeachers
+                    .map((bt) => bt.teacher?.name)
+                    .filter(Boolean)
+                    .join(", ") || "Not Assigned"
+
+            });
+        });
+    });
+
+    return schedule
+}
+
 export const teacherService = {
     createTeacher,
     getAllTeacher,
     updateTeacher,
     deleteTeacher,
-    getAllTeacherById
+    getAllTeacherById,
+    getTeacherDashboard,
+    classSchedule
 }

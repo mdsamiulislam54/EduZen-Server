@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BloodGroup, Gender, StudentStatus } from "../../generated/enums";
+import { add } from "date-fns";
 
 // enum convert
 const GenderEnum = z.nativeEnum(Gender);
@@ -12,10 +13,6 @@ export const createStudentSchema = z.object({
         .min(1, "At least one batch is required"),
 
     studentData: z.object({
-        coachingCenterId: z
-            .string()
-            .min(1, "Coaching Center ID is required"),
-
         name: z
             .string()
             .min(1, "Name is required")
@@ -30,13 +27,15 @@ export const createStudentSchema = z.object({
         phone: z
             .string()
             .min(1, "Phone is required")
-            .regex(/^01[3-9]\d{8}$/, "Invalid Bangladeshi phone number"),
+      
+        ,
+        image: z.any().optional(),
 
-        image: z
-            .string()
-            .url("Image must be a valid URL")
-            .nullable()
-            .optional(),
+        fatherName: z.string().optional(),
+
+        motherName: z.string().optional(),
+        age: z.number().int().nonnegative("Age cannot be negative").optional(),
+        address: z.string().optional(),
 
         dateOfBirth: z
             .string()
@@ -80,14 +79,16 @@ export const updateZodSchema = z.object({
         phone: z
             .string()
             .min(1, "Phone is required")
-            .regex(/^01[3-9]\d{8}$/, "Invalid Bangladeshi phone number")
+           
             .optional(),
 
-        image: z
-            .string()
-            .url("Image must be a valid URL")
-            .nullable()
-            .optional(),
+        image: z.any().optional(),
+
+        fatherName: z.string().optional(),
+
+        motherName: z.string().optional(),
+        age: z.number().int().nonnegative("Age cannot be negative").optional(),
+        address: z.string().optional(),
 
         dateOfBirth: z
             .string()

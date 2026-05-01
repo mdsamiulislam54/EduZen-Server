@@ -7,9 +7,13 @@ import { auth } from "../../lib/auth";
 import { ICreateStudent, IStudentUpdate } from "./student.interface";
 import { generateRollNumber } from "./utils";
 import ApiError from "../../shared/errors/api-error";
+import { QueryBuilder } from "../../shared/utils/queryBuilder";
+import { IQueryParams } from "../../types/query.type";
+import { success } from "zod";
 
 
 const createStudent = async (payload: ICreateStudent, userId: string) => {
+
     const { batchId, studentData } = payload;
     const password = generateRandomPassword(8)
     const isExistingStudent = await prisma.student.findUnique({
@@ -20,15 +24,17 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
         throw new AppError(status.CONFLICT, "Student  already exists");
     };
     const user = await prisma.user.findUnique({
-        where: { id:userId},
-        select: { coachingCenter: {
-            select:{
-                id:true
+        where: { id: userId },
+        select: {
+            coachingCenter: {
+                select: {
+                    id: true
+                }
             }
-        } }
+        }
     });
-    if(!user){
-        throw new AppError(status.BAD_REQUEST,"User Not Found")
+    if (!user) {
+        throw new AppError(status.BAD_REQUEST, "User Not Found")
     }
     const coachingCenterId = user?.coachingCenter?.id as string
     const existingUser = await prisma.user.findUnique({
@@ -52,6 +58,7 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
         }
     });
 
+
     let student;
 
     try {
@@ -60,6 +67,7 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
             const s = await tx.student.create({
                 data: {
                     ...studentData,
+                    image: typeof studentData.image === "string" ? studentData.image : undefined,
                     coachingCenterId,
                     userId: userData.user.id,
                     rollNumber: generateRollNumber()
@@ -106,6 +114,12 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
 
             return s
         });
+
+        return {
+            message: "Student created successfully",
+            success: true,
+
+        }
     } catch (error) {
         await prisma.user.delete({
             where: { id: userData?.user.id }
@@ -114,37 +128,71 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
         throw new AppError(status.BAD_REQUEST, "User Delete")
     }
 
-    return student
+
 }
 
-const getAllStudent = async () => {
+const getAllStudent = async (id: string, query: IQueryParams) => {
 
-    return await prisma.student.findMany({
+
+    if (!id) {
+        throw new AppError(status.BAD_REQUEST, "Owner ID is required")
+    }
+
+    console.log("Fetching students for owner ID:", id);
+
+    const builder = new QueryBuilder({}, query)
+        .search(["name", "phone", "rollNumber", "id"])
+        .filter()
+        .paginate()
+        .sort();
+    const data = await prisma.student.findMany({
         where: {
-            isDeleted: false
+            ...builder.query.where,
+            isDeleted: false,
+
         },
+        include: {
+            batchStudents: {
+                select: {
+                    batch: {
+                        select: {
+                            id: true
+                        }
+                    }
+                }
+            }
+        }
 
     })
+    const meta = await builder.getMeta(prisma.student)
+
+    return {
+        data,
+        meta
+    }
 }
 const getStudentById = async (id: string) => {
     const isExistStudent = prisma.student.findUnique({ where: { id, isDeleted: false } });
     if (!isExistStudent) {
         throw new ApiError(status.BAD_REQUEST, "Student not found by id")
     }
-    return await prisma.student.findMany({
+    return await prisma.student.findFirst({
         where: {
             isDeleted: false,
             id
         },
         include: {
             attendances: true,
-            batchStudents: true,
+            batchStudents:{
+                include:{
+                    batch:true
+                }
+            },
             coachingCenter: true,
             marks: true,
             results: true,
-            studentFees: true,
-            user: true,
-            _count: true
+            studentFees:true,
+            user: true
         }
     })
 }
@@ -172,6 +220,8 @@ const updateStudent = async (payload: IStudentUpdate, studentId: string) => {
                 where: { id: studentId },
                 data: {
                     ...studentData,
+                    image: typeof studentData.image === "string" ? studentData.image : undefined,
+
                 },
                 select: {
                     id: true,
@@ -281,7 +331,7 @@ const studentDelete = async (studentId: string) => {
                 }
             })
 
-         
+
         });
     } catch (error) {
         console.log(error)

@@ -3,6 +3,7 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { studentService } from "./student.service";
 import { sendResponse } from "../../shared/utils/send-response";
 import status from "http-status";
+import { IQueryParams } from "../../types/query.type";
 
 const createStudent = catchAsync(async(req: Request, res: Response) => {
  
@@ -30,8 +31,10 @@ const studentUpdate = catchAsync(async(req: Request, res: Response) => {
     })
 });
 const getAllStudent = catchAsync(async(req: Request, res: Response) => {
-
-    const result = await studentService.getAllStudent()
+    const id = req.user.id as string;
+    const query = req.query as IQueryParams
+    console.log(query)
+    const result = await studentService.getAllStudent(id,query)
     sendResponse(res, {
         status: status.OK,
         success: true,

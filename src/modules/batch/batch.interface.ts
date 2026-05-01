@@ -9,8 +9,8 @@ export interface ICreateBatchPayload {
     batchName: string;
     batchCode?: string;
     max_students: number;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
     daysOfWeek: (
       | "SUNDAY"
       | "MONDAY"

@@ -3,6 +3,7 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { sendResponse } from "../../shared/utils/send-response";
 import status from "http-status";
 import { teacherService } from "./teacher.service";
+import { IQueryParams } from "../../types/query.type";
 
 const createTeacher = catchAsync(async (req: Request, res: Response) => {
 
@@ -30,7 +31,9 @@ const updateTeacher = catchAsync(async (req: Request, res: Response) => {
     })
 });
 const getAllTeacher = catchAsync(async (req: Request, res: Response) => {
-    const result = await teacherService.getAllTeacher()
+    const query = req.query as IQueryParams;
+    console.log(query)
+    const result = await teacherService.getAllTeacher(query)
     sendResponse(res, {
         status: status.OK,
         success: true,
@@ -58,8 +61,27 @@ const deleteTeacher = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 });
+const getTeacherDashboard = catchAsync(async (req: Request, res: Response) => {
+    const id = req.user.id as string;
+    const result = await teacherService.getTeacherDashboard(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Teacher dashboard retrieved successfully",
+        data: result
+    })
+});
 
+const classSchedule = catchAsync(async (req: Request, res: Response) => {
 
+    const result = await teacherService.classSchedule()
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "ClassSchedule Retrieved successfully",
+        data: result
+    })
+});
 
 
 export const teacherController = {
@@ -67,5 +89,7 @@ export const teacherController = {
     getAllTeacher,
     updateTeacher,
     deleteTeacher,
-    getAllTeacherById
+    getAllTeacherById,
+    getTeacherDashboard,
+    classSchedule
 }

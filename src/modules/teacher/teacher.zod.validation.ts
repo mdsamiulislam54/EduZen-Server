@@ -24,7 +24,8 @@ export const createTeacherSchema = z.object({
             .optional()
             .transform((val) => (val ? new Date(val) : undefined)),
 
-        image: z.string().url().optional(),
+        image: z.string().optional(),
+
 
         experience: z
             .number()

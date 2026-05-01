@@ -7,7 +7,7 @@ export interface ICreateStudent {
         name: string;
         email: string;
         phone: string;
-        image?: string | null;
+        image?: File | null | string;
         dateOfBirth?: Date | null;
         gender: Gender
         bloodGroup: BloodGroup
@@ -20,7 +20,7 @@ export interface IStudentUpdate {
         name?: string;
         email?: string;
         phone?: string;
-        image?: string | null;
+        image?: File | null;
         dateOfBirth?: Date | null;
         gender?: Gender
         bloodGroup?: BloodGroup

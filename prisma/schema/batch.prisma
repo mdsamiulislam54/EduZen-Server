@@ -48,3 +48,16 @@ model BatchTeachers {
 
     @@index([batchId, teacherId])
 }
+
+
+model ClassSession {
+  id        String @id @default(cuid())
+  batchId   String
+  teacherId String
+
+  date      DateTime
+  startTime DateTime
+  endTime   DateTime
+
+  status    String @default("SCHEDULED")
+}

@@ -26,12 +26,19 @@ export const batchSchema = z.object({
       ])
     ),
 
-    status: z.enum([BatchStatus.ACTIVE, BatchStatus.COMPLETED, BatchStatus.INACTIVE])
   }),
-}).refine((data) => data.batchData.endTime > data.batchData.startTime, {
-  message: "End time must be after start time",
-  path: ["data", "endTime"]
-});
+}).refine(
+  (data) => {
+    const start = new Date(data.batchData.startTime).getTime()
+    const end = new Date(data.batchData.endTime).getTime()
+
+    return end > start
+  },
+  {
+    message: "End time must be after start time",
+    path: ["batchData", "endTime"],
+  }
+)
 
 
 export const batchUpdateSchema = z.object({
@@ -45,8 +52,15 @@ export const batchUpdateSchema = z.object({
     batchName: z.string().min(1, "Batch name is required").optional(),
     batchCode: z.string().optional(),
     max_students: z.number("Max students must be a number").int("Max students must be an integer").positive("Max students must be greater than 0").optional(),
-    startTime: z.preprocess((val) => new Date(val as string), z.date("Start time is required")).optional(),
-    endTime: z.preprocess((val) => new Date(val as string), z.date("End time is required")).optional(),
+    startTime: z.preprocess(
+      (val) => (val ? new Date(val as string) : undefined),
+      z.date()
+    ),
+
+    endTime: z.preprocess(
+      (val) => (val ? new Date(val as string) : undefined),
+      z.date()
+    ),
 
     daysOfWeek: z.array(
       z.enum([
@@ -60,7 +74,6 @@ export const batchUpdateSchema = z.object({
       ])
     ).optional(),
 
-    status: z.enum([BatchStatus.ACTIVE, BatchStatus.COMPLETED, BatchStatus.INACTIVE]).optional(),
   }),
 })
 

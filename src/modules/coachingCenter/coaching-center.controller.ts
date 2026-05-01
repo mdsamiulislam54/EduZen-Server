@@ -46,6 +46,28 @@ const coachingCenterDeleteById = catchAsync(async(req: Request, res: Response) =
         data:result
     })
 });
+const getCoachingOwnerDashboardData = catchAsync(async(req: Request, res: Response) => {
+ 
+    const id = req.user.id as string;
+    const result = await coachingCenterService.getCoachingOwnerDashboardData(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Coaching Center Delete successfully",
+        data:result
+    })
+});
+const coachingCenterOwnerDashboardStudentGrowth = catchAsync(async(req: Request, res: Response) => {
+ 
+    const id = req.user.id as string;
+    const result = await coachingCenterService.coachingCenterOwnerDashboardStudentGrowth(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Coaching Center Student Growth data retrieved successfully",
+        data:result
+    })
+});
 
 
 
@@ -55,5 +77,7 @@ export const coachingCenterController = {
     createCoachingCenter,
     updateCoachingCenterById,
     getCoachingCenter,
-    coachingCenterDeleteById
+    coachingCenterDeleteById,
+    getCoachingOwnerDashboardData,
+    coachingCenterOwnerDashboardStudentGrowth
 }

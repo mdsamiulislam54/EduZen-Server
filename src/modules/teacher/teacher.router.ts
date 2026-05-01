@@ -9,6 +9,8 @@ const router = Router()
 
 router.get("/", teacherController.getAllTeacher);
 router.get("/:id", teacherController.getAllTeacherById);
+router.get("/dashboard/card", authorize(Role.OWNER, Role.TEACHER, Role.ADMIN), teacherController.getTeacherDashboard);
+router.get("/class/schedule", authorize(Role.ADMIN, Role.TEACHER, Role.OWNER), teacherController.classSchedule)
 
 router.post("/", requestValidation(createTeacherSchema), authorize(Role.OWNER), teacherController.createTeacher);
 router.patch("/:id", requestValidation(updateTeacherSchema), authorize(Role.OWNER), teacherController.updateTeacher);

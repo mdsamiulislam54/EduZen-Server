@@ -3,11 +3,13 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { sendResponse } from "../../shared/utils/send-response";
 import { Request, Response } from "express";
 import { batchService } from "./batch.service";
+import { IQueryParams } from "../../types/query.type";
 
 const createBatch = catchAsync(async (req: Request, res: Response) => {
 
     const payload = req.body;
     const ownerId = req.user.id as string;
+    console.log(payload)
     const result = await batchService.createBatch(payload, ownerId)
     sendResponse(res, {
         status: status.OK,
@@ -17,8 +19,8 @@ const createBatch = catchAsync(async (req: Request, res: Response) => {
     })
 });
 const getAllBatch = catchAsync(async (req: Request, res: Response) => {
-
-    const result = await batchService.getAllBatch()
+    const query = req.query as IQueryParams
+    const result = await batchService.getAllBatch(query)
     sendResponse(res, {
         status: status.OK,
         success: true,
@@ -39,6 +41,7 @@ const getBatchById = catchAsync(async (req: Request, res: Response) => {
 const batchUpdateById = catchAsync(async (req: Request, res: Response) => {
     const batchId = req.params.id as string
     const payload = req.body;
+    console.log(batchId, payload)
     const result = await batchService.batchUpdateById(payload,batchId)
     sendResponse(res, {
         status: status.OK,

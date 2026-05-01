@@ -395,6 +395,7 @@ const resetPassword = async (email: string, otp: string, newPassword: string) =>
             },
             data: {
                 needPasswordChange: false,
+                teamPassword: null,
             }
         })
     }

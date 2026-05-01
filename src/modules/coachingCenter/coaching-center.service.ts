@@ -72,8 +72,68 @@ const getCoachingCenter = async () => {
         where: {
             isDeleted: false
         },
-      
+
     })
+}
+
+const getCoachingOwnerDashboardData = async (ownerId: string) => {
+    const coachingCenter = await prisma.coachingCenter.findFirst({
+        where: {
+            ownerId,
+            isDeleted: false
+        },
+    });
+
+    if (!coachingCenter) {
+        throw new AppError(status.NOT_FOUND, "Coaching center not found for the owner");
+    }
+
+    const [totalStudents, totalBatches, totalRevenue, totalTeachers, totalSubjects] = await Promise.all([
+        prisma.student.count({
+            where: {
+                coachingCenterId: coachingCenter.id,
+                isDeleted: false
+            }
+        }),
+        prisma.batch.count({
+            where: {
+                coachingCenterId: coachingCenter.id,
+                isDeleted: false
+            }
+        }),
+        prisma.batchFee.aggregate({
+            where: {
+                batch: {
+                    coachingCenterId: coachingCenter.id,
+                    isDeleted: false
+                },
+                isDeleted: false
+            },
+            _sum: {
+                amount: true
+            }
+        }),
+        prisma.teacher.count({
+            where: {
+                coachingCenterId: coachingCenter.id,
+                isDeleted: false
+            }
+        }),
+        prisma.subject.count({
+            where: {
+                coachingCenterId: coachingCenter.id,
+                isDeleted: false
+            }
+        })
+
+    ]);
+
+    return {
+        totalStudents,
+        totalBatches,
+        totalRevenue: totalRevenue._sum.amount || 0,
+        totalTeachers, totalSubjects
+    };
 }
 
 const updateCoachingCenterById = async (payload: Partial<CoachingCenter>, id: string) => {
@@ -118,7 +178,7 @@ const coachingCenterDeleteById = async (id: string) => {
             }
         })
 
-      return  await tx.user.update({
+        return await tx.user.update({
             where: {
                 email: coachingData.email
             },
@@ -127,15 +187,65 @@ const coachingCenterDeleteById = async (id: string) => {
             }
         })
 
-       
+
     });
 
     return result
+}
+
+const coachingCenterOwnerDashboardStudentGrowth = async (ownerId: string) => {
+    const coachingCenter = await prisma.coachingCenter.findFirst({
+        where: { ownerId }
+    });
+    if (!coachingCenter) {
+        throw new AppError(status.NOT_FOUND, "Coaching center not found for the owner");
+    }
+    const studentGrowthData = await prisma.student.findMany({
+
+        where: {
+            coachingCenterId: coachingCenter.id,
+            isDeleted: false
+        },
+        select: {
+            createdAt: true,
+            studentFees: {
+                select: {
+                    amount: true,
+                    isDeleted: false
+                }
+            }
+        },
+
+    });
+    const grouped = studentGrowthData.reduce((acc: any, student) => {
+        const date = student.createdAt.toISOString().split("T")[0];
+
+        const totalFee = student.studentFees.reduce((sum, fee) => {
+            return sum + (fee.amount || 0);
+        }, 0);
+
+        if (!acc[date]) {
+            acc[date] = {
+                date,
+                count: 0,
+                totalFee: 0,
+            };
+        }
+
+        acc[date].count += 1;
+        acc[date].totalFee += totalFee;
+
+        return acc;
+    }, {});
+    return  Object.values(grouped);
+
 }
 
 export const coachingCenterService = {
     createCoachingCenter,
     updateCoachingCenterById,
     getCoachingCenter,
-    coachingCenterDeleteById
+    coachingCenterDeleteById,
+    getCoachingOwnerDashboardData,
+    coachingCenterOwnerDashboardStudentGrowth
 }

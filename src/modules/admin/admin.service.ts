@@ -9,7 +9,8 @@ const getAllOwners = async () => {
         where: {
             role: Role.OWNER,
             isDeleted: false
-        }
+        },
+        
     });
     return owners
 };
@@ -19,7 +20,8 @@ const getOwnerById = async (id: string) => {
         where: {
             id,
             isDeleted: false
-        }
+        },
+      
     });
 
     if (!isExistsOwner) {

@@ -3,6 +3,7 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { sendResponse } from "../../shared/utils/send-response";
 import { Request, Response } from "express";
 import { subjectService } from "./subject.service";
+import { IQueryParams } from "../../types/query.type";
 
 
 const createSubject = catchAsync(async (req: Request, res: Response) => {
@@ -18,7 +19,9 @@ const createSubject = catchAsync(async (req: Request, res: Response) => {
     })
 });
 const getAllSubject = catchAsync(async (req: Request, res: Response) => {
-    const result = await subjectService.getAllSubject()
+    const query = req.query as IQueryParams;
+    console.log(query)
+    const result = await subjectService.getAllSubject(query)
     sendResponse(res, {
         status: status.OK,
         success: true,
@@ -63,7 +66,7 @@ export const subjectController = {
     getAllSubject,
     getSubjectById,
     subjectUpdateById,
-deleteSubjectById
+    deleteSubjectById
 
 
 }
