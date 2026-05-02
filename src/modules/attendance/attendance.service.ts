@@ -141,10 +141,53 @@ const deleteAttendance = async (id: string) => {
   return result;
 };
 
+const getAttendanceByStudentId = async (studentId: string, query: IQueryParams) => {
+
+  const builder = new QueryBuilder({}, query)
+    .paginate()
+
+  const result = await prisma.attendance.findMany({
+    where: {
+      ...builder.query.where,
+      isDeleted: false,
+      studentId: studentId,
+    },
+    select: {
+      status: true,
+      date: true,
+      studentId: true,
+      batchId: true,
+
+      student: {
+        select: {
+          name: true,
+          image: true,
+          rollNumber: true
+        }
+      },
+      batch: {
+        select: {
+          batchName: true
+        }
+      },
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
+
+  const meta = await builder.getMeta(prisma.attendance)
+  return {
+    data: result,
+    meta
+  }
+};
+
 export const attendanceService = {
   createAttendance,
   getAllAttendance,
   updateAttendance,
   deleteAttendance,
-  getStudentById
+  getStudentById,
+  getAttendanceByStudentId
 }

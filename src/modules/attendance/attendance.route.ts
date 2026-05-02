@@ -8,6 +8,7 @@ import { attendanceController } from "./attendance.controller";
 const router = Router()
 router.get("/", authorize(Role.ADMIN, Role.OWNER, Role.STUDENT, Role.TEACHER), attendanceController.getAllAttendance);
 router.get("/student/:id", authorize(Role.ADMIN, Role.OWNER, Role.STUDENT, Role.TEACHER), attendanceController.getStudentById);
+router.get("/:id", authorize(Role.ADMIN, Role.OWNER, Role.STUDENT, Role.TEACHER), attendanceController.getAttendanceByStudentId);
 // router.get("/:id")
 
 router.post("/",  authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), attendanceController.createAttendance)

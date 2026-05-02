@@ -29,7 +29,6 @@ const getAllAttendance = catchAsync(async (req: Request, res: Response) => {
     })
 });
 const getStudentById = catchAsync(async (req: Request, res: Response) => {
-
     const query = req.query as IQueryParams
     const batchId = req.params.id as string;
 
@@ -42,6 +41,17 @@ const getStudentById = catchAsync(async (req: Request, res: Response) => {
         status: status.OK,
         success: true,
         message: "Student Retrieved successfully",
+        data: result
+    })
+});
+const getAttendanceByStudentId = catchAsync(async (req: Request, res: Response) => {
+    const studentId = req.params.id as string;
+    const query = req.query as IQueryParams
+    const result = await attendanceService.getAttendanceByStudentId(studentId, query)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student Attendance Retrieved successfully",
         data: result
     })
 });
@@ -74,5 +84,6 @@ export const attendanceController = {
     getAllAttendance,
     updateAttendance,
     deleteAttendance,
-    getStudentById
+    getStudentById,
+    getAttendanceByStudentId
 }

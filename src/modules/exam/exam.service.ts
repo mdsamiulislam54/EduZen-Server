@@ -1,7 +1,9 @@
 import { prisma } from "../../database/prisma";
+import { QueryBuilder } from "../../shared/utils/queryBuilder";
+import { IQueryParams } from "../../types/query.type";
 
 const createExam = async (payload: any) => {
-  const {batchId,subjectId,name,totalMarks,passMarks,examDate,startTime,endTime,Status} = payload;
+  const { batchId, subjectId, name, totalMarks, passMarks, examDate, startTime, endTime, Status } = payload;
 
   if (new Date(startTime) >= new Date(endTime)) {
     throw new Error("Start time must be before end time");
@@ -94,32 +96,28 @@ const updateExam = async (id: string, payload: any) => {
   return updatedExam;
 };
 
-const getAllExams = async (query: any) => {
-  const { page = 1, limit = 10, search, batchId, subjectId } = query;
-  const where: any = {
-    isDeleted: false,
-    ...(batchId && { batchId }),
-    ...(subjectId && { subjectId }),
-    ...(search && {
-      name: {
-        contains: search,
-        mode: "insensitive",
-      },
-    }),
-  };
+const getAllExams = async (query: IQueryParams) => {
 
+  const builder = new QueryBuilder({}, query)
+    .search(["name"])
+    .paginate()
   const exams = await prisma.exam.findMany({
-    where,
-    take: Number(limit),
-    orderBy: { createdAt: "desc" },
-    include: {
-      batch: true,
-      subject: true,
+    where: {
+      ...builder.query.where,
+      isDeleted: false
     },
+    orderBy: { createdAt: "desc" },
+
   });
 
+  const meta = await builder.getMeta(prisma.exam);
 
-  return exams
+
+
+  return {
+    data: exams,
+    meta
+  }
 };
 
 const getExamById = async (id: string) => {
@@ -162,9 +160,9 @@ const deleteExam = async (id: string) => {
 };
 
 export const examService = {
-    createExam,
-    updateExam,
-    getAllExams,
-    getExamById,
-    deleteExam
+  createExam,
+  updateExam,
+  getAllExams,
+  getExamById,
+  deleteExam
 }

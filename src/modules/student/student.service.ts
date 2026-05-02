@@ -339,6 +339,8 @@ const studentDelete = async (studentId: string) => {
     }
 };
 
+const getStudentResultById = async(id:string)=>{}
+
 
 
 
