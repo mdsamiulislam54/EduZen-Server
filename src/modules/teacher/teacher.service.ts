@@ -139,7 +139,7 @@ const updateTeacher = async (payload: Partial<ITeacherUpdate>, teacherId: string
 }
 
 const getAllTeacher = async (query: IQueryParams) => {
-    console.log(query)
+
     const builder = new QueryBuilder({}, query)
         .search(["name", "id", "phone", "address", "email"])
         .filter()

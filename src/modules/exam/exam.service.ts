@@ -1,27 +1,38 @@
+import status from "http-status";
 import { prisma } from "../../database/prisma";
+import { Exam } from "../../generated/client";
+import { AppError } from "../../shared/errors/app-error";
 import { QueryBuilder } from "../../shared/utils/queryBuilder";
 import { IQueryParams } from "../../types/query.type";
 
-const createExam = async (payload: any) => {
-  const { batchId, subjectId, name, totalMarks, passMarks, examDate, startTime, endTime, Status } = payload;
-
-  if (new Date(startTime) >= new Date(endTime)) {
-    throw new Error("Start time must be before end time");
+const createExam = async (payload: Exam) => {
+  console.log({ payload })
+  const { batchId, subjectId, name, examDate, startTime, endTime, } = payload;
+  const startDateTime = new Date(`${examDate}T${startTime}`);
+  const endDateTime = new Date(`${examDate}T${endTime}`);
+  if (startDateTime >= endDateTime) {
+    throw new AppError(400, "Start time must be before end time");
+  }
+  if (!payload.batchId) {
+    throw new AppError(status.BAD_REQUEST, "BatchId is required");
   }
   const batch = await prisma.batch.findUnique({
     where: { id: batchId },
   });
 
-  if (!batch) {
-    throw new Error("Batch not found");
-  }
 
+  if (!batch) {
+    throw new AppError(status.BAD_REQUEST, "Batch not found");
+  }
+  if (!payload.subjectId) {
+    throw new AppError(status.BAD_REQUEST, "Subject is required");
+  }
   const subject = await prisma.subject.findUnique({
     where: { id: subjectId },
   });
 
   if (!subject) {
-    throw new Error("Subject not found");
+    throw new AppError(status.BAD_REQUEST, "Subject not found");
   }
 
   const existingExam = await prisma.exam.findFirst({
@@ -33,19 +44,16 @@ const createExam = async (payload: any) => {
   });
 
   if (existingExam) {
-    throw new Error("Exam already exists for this subject in this batch");
+    throw new AppError(status.BAD_REQUEST, "Exam already exists for this subject in this batch");
   }
 
   const exam = await prisma.exam.create({
     data: {
-      batchId,
-      subjectId,
-      name,
-      totalMarks,
-      passMarks,
+      ...payload,
       examDate: new Date(examDate),
-      startTime: new Date(startTime),
-      endTime: new Date(endTime),
+      startTime: startDateTime,
+      endTime: endDateTime
+
     },
   });
 
@@ -97,7 +105,7 @@ const updateExam = async (id: string, payload: any) => {
 };
 
 const getAllExams = async (query: IQueryParams) => {
-
+  console.log({ query })
   const builder = new QueryBuilder({}, query)
     .search(["name"])
     .paginate()

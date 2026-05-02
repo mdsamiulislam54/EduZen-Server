@@ -3,6 +3,7 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { examService } from "./exam.service";
 import { sendResponse } from "../../shared/utils/send-response";
 import status from "http-status";
+import { IQueryParams } from "../../types/query.type";
 
 const createExam = catchAsync(async (req: Request, res: Response) => {
 
@@ -17,7 +18,8 @@ const createExam = catchAsync(async (req: Request, res: Response) => {
 });
 const getAllExams = catchAsync(async (req: Request, res: Response) => {
 
-    const query = req.query;
+    const query = req.query as IQueryParams;
+   
     const result = await examService.getAllExams(query)
     sendResponse(res, {
         status: status.OK,
