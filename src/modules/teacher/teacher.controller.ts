@@ -83,6 +83,17 @@ const classSchedule = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
+const coachingCenterOwnerDashboardStudentGrowth = catchAsync(async(req: Request, res: Response) => {
+ 
+    const id = req.user.id as string;
+    const result = await teacherService.coachingCenterOwnerDashboardStudentGrowth(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Coaching Center Student Growth data retrieved successfully",
+        data:result
+    })
+});
 
 export const teacherController = {
     createTeacher,
@@ -91,5 +102,6 @@ export const teacherController = {
     deleteTeacher,
     getAllTeacherById,
     getTeacherDashboard,
-    classSchedule
+    classSchedule,
+    coachingCenterOwnerDashboardStudentGrowth
 }

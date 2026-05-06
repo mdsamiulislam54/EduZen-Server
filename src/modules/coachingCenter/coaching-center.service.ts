@@ -194,52 +194,59 @@ const coachingCenterDeleteById = async (id: string) => {
 }
 
 const coachingCenterOwnerDashboardStudentGrowth = async (ownerId: string) => {
-    const coachingCenter = await prisma.coachingCenter.findFirst({
-        where: { ownerId }
-    });
-    if (!coachingCenter) {
-        throw new AppError(status.NOT_FOUND, "Coaching center not found for the owner");
+  const coachingCenter = await prisma.coachingCenter.findFirst({
+    where: { 
+        ownerId
+     },
+    select: { id: true },
+  });
+
+  if (!coachingCenter) {
+    throw new AppError(status.NOT_FOUND, "Coaching center not found");
+  }
+
+  const studentGrowthData = await prisma.student.findMany({
+    where: {
+      coachingCenterId: coachingCenter.id,
+      isDeleted: false,
+    },
+    select: {
+      createdAt: true,
+      studentFees: {
+        where: { isDeleted: false }, 
+        select: { amount: true },
+      },
+    },
+    orderBy: { createdAt: "asc" }, 
+  });
+
+  const grouped: Record<
+    string,
+    { date: string; count: number; totalFee: number }
+  > = {};
+
+  for (const student of studentGrowthData) {
+    const date = student.createdAt.toISOString().split("T")[0];
+
+    const totalFee = student.studentFees.reduce(
+      (sum, fee) => sum + (fee.amount || 0),
+      0
+    );
+
+    if (!grouped[date]) {
+      grouped[date] = {
+        date,
+        count: 0,
+        totalFee: 0,
+      };
     }
-    const studentGrowthData = await prisma.student.findMany({
 
-        where: {
-            coachingCenterId: coachingCenter.id,
-            isDeleted: false
-        },
-        select: {
-            createdAt: true,
-            studentFees: {
-                select: {
-                    amount: true,
-                    isDeleted: false
-                }
-            }
-        },
+    grouped[date].count += 1;
+    grouped[date].totalFee += totalFee;
+  }
 
-    });
-    const grouped = studentGrowthData.reduce((acc: any, student) => {
-        const date = student.createdAt.toISOString().split("T")[0];
-
-        const totalFee = student.studentFees.reduce((sum, fee) => {
-            return sum + (fee.amount || 0);
-        }, 0);
-
-        if (!acc[date]) {
-            acc[date] = {
-                date,
-                count: 0,
-                totalFee: 0,
-            };
-        }
-
-        acc[date].count += 1;
-        acc[date].totalFee += totalFee;
-
-        return acc;
-    }, {});
-    return  Object.values(grouped);
-
-}
+  return Object.values(grouped);
+};
 
 export const coachingCenterService = {
     createCoachingCenter,

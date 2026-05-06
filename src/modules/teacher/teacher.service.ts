@@ -248,7 +248,7 @@ const classSchedule = async () => {
         include: {
             batchTeachers: {
                 select: {
-                    teacher:true
+                    teacher: true
                 }
             }
         }
@@ -278,7 +278,66 @@ const classSchedule = async () => {
 
     return schedule
 }
+const coachingCenterOwnerDashboardStudentGrowth = async (teacherId: string) => {
+    const teacher = await prisma.teacher.findUnique({
+        where: {
+            userId:teacherId
+        },
+        select: {
+            coachingCenter: {
+                select: {
+                    id: true
+                }
+            }
+        },
+    });
 
+    if (!teacher) {
+        throw new AppError(status.NOT_FOUND, "Teacher  not found");
+    }
+
+    const studentGrowthData = await prisma.student.findMany({
+        where: {
+            coachingCenterId: teacher.coachingCenter.id,
+            isDeleted: false,
+        },
+        select: {
+            createdAt: true,
+            studentFees: {
+                where: { isDeleted: false },
+                select: { amount: true },
+            },
+        },
+        orderBy: { createdAt: "asc" },
+    });
+
+    const grouped: Record<
+        string,
+        { date: string; count: number; totalFee: number }
+    > = {};
+
+    for (const student of studentGrowthData) {
+        const date = student.createdAt.toISOString().split("T")[0];
+
+        const totalFee = student.studentFees.reduce(
+            (sum, fee) => sum + (fee.amount || 0),
+            0
+        );
+
+        if (!grouped[date]) {
+            grouped[date] = {
+                date,
+                count: 0,
+                totalFee: 0,
+            };
+        }
+
+        grouped[date].count += 1;
+        grouped[date].totalFee += totalFee;
+    }
+
+    return Object.values(grouped);
+};
 export const teacherService = {
     createTeacher,
     getAllTeacher,
@@ -286,5 +345,6 @@ export const teacherService = {
     deleteTeacher,
     getAllTeacherById,
     getTeacherDashboard,
-    classSchedule
+    classSchedule,
+    coachingCenterOwnerDashboardStudentGrowth
 }

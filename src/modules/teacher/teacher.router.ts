@@ -11,7 +11,7 @@ router.get("/", teacherController.getAllTeacher);
 router.get("/:id", teacherController.getAllTeacherById);
 router.get("/dashboard/card", authorize(Role.OWNER, Role.TEACHER, Role.ADMIN), teacherController.getTeacherDashboard);
 router.get("/class/schedule", authorize(Role.ADMIN, Role.TEACHER, Role.OWNER), teacherController.classSchedule)
-
+router.get("/dashboard/student-growth", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), teacherController.coachingCenterOwnerDashboardStudentGrowth);
 router.post("/", requestValidation(createTeacherSchema), authorize(Role.OWNER), teacherController.createTeacher);
 router.patch("/:id", requestValidation(updateTeacherSchema), authorize(Role.OWNER), teacherController.updateTeacher);
 router.patch("/delete/:id", authorize(Role.OWNER), teacherController.deleteTeacher);
