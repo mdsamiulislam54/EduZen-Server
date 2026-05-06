@@ -3,12 +3,11 @@ import { catchAsync } from "../../shared/utils/catch-async";
 import { markService } from "./mark.service";
 import { sendResponse } from "../../shared/utils/send-response";
 import status from "http-status";
+import { IQueryParams } from "../../types/query.type";
 
 const upsertMark = catchAsync(async (req: Request, res: Response) => {
     const payload = req.body;
-
     const result = await markService.upsetMark(payload);
-
     sendResponse(res, {
         status: status.OK,
         success: true,
@@ -55,6 +54,17 @@ const deleteMark = catchAsync(async (req: Request, res: Response) => {
         data: result,
     });
 });
+const getAllStudentByExamId = catchAsync(async (req: Request, res: Response) => {
+    const examId = req.params.examId as string;
+    const query = req.query as IQueryParams
+    const result = await markService.getAllStudentByExamId(examId,query);
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Mark Retrieved successfully",
+        data: result,
+    });
+});
 
 
 export const markController = {
@@ -62,5 +72,6 @@ export const markController = {
     getAllMarks,
     getMarkById,
     getStudentResultsByRoll,
-    deleteMark
+    deleteMark,
+    getAllStudentByExamId
 }

@@ -150,7 +150,7 @@ const getAttendanceByStudentId = async (studentId: string, query: IQueryParams) 
     where: {
       ...builder.query.where,
       isDeleted: false,
-      studentId: studentId,
+      studentId,
     },
     select: {
       status: true,

@@ -9,7 +9,7 @@ import { generateRollNumber } from "./utils";
 import ApiError from "../../shared/errors/api-error";
 import { QueryBuilder } from "../../shared/utils/queryBuilder";
 import { IQueryParams } from "../../types/query.type";
-import { success } from "zod";
+
 
 
 const createStudent = async (payload: ICreateStudent, userId: string) => {
@@ -185,7 +185,14 @@ const getStudentById = async (id: string) => {
             attendances: true,
             batchStudents:{
                 include:{
-                    batch:true
+                    batch:{
+                        select:{
+                            batchName:true,
+                            id:true,
+                            status:true,
+                            
+                        }
+                    }
                 }
             },
             coachingCenter: true,
@@ -339,7 +346,9 @@ const studentDelete = async (studentId: string) => {
     }
 };
 
-const getStudentResultById = async(id:string)=>{}
+const getStudentResultById = async(id:string)=>{
+    
+}
 
 
 

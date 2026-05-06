@@ -18,11 +18,3 @@ export const createExamSchema = z.object({
   status: z.enum(["UPCOMING", "ONGOING", "COMPLETED", "CANCELLED"]),
 });
 export type ExamFormValues = z.infer<typeof createExamSchema>;
-export const updateExamSchema = z.object({
-  name: z.string().optional(),
-  totalMarks: z.number().optional(),
-  passMarks: z.number().optional(),
-  examDate: z.string().optional(),
-  startTime: z.string().optional(),
-  endTime: z.string().optional(),
-});

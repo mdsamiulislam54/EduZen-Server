@@ -11,7 +11,7 @@ const createExam = async (payload: Exam) => {
   const startDateTime = new Date(`${examDate}T${startTime}`);
   const endDateTime = new Date(`${examDate}T${endTime}`);
   if (startDateTime >= endDateTime) {
-    throw new AppError(400, "Start time must be before end time");
+    throw new AppError(status.BAD_REQUEST, "Start time must be before end time");
   }
   if (!payload.batchId) {
     throw new AppError(status.BAD_REQUEST, "BatchId is required");
@@ -60,44 +60,35 @@ const createExam = async (payload: Exam) => {
   return exam;
 };
 
-const updateExam = async (id: string, payload: any) => {
+const updateExam = async (id: string, payload:Partial<Exam>) => {
+
+  console.log({payload})
+  if (!payload.examDate || !payload.startTime || !payload.endTime) {
+  throw new AppError(status.BAD_REQUEST, "Date and time are required");
+}
   const existingExam = await prisma.exam.findUnique({
     where: { id },
   });
 
   if (!existingExam) {
-    throw new Error("Exam not found");
+    throw new AppError(status.BAD_REQUEST, "Exam not found");
   }
 
 
-  if (payload.startTime && payload.endTime) {
-    if (new Date(payload.startTime) >= new Date(payload.endTime)) {
-      throw new Error("Start time must be before end time");
-    }
+  const startDateTime = new Date(`${payload.examDate}T${payload.startTime}`);
+  const endDateTime = new Date(`${payload.examDate}T${payload.endTime}`);
+  if (startDateTime >= endDateTime) {
+    throw new AppError(status.BAD_REQUEST,"Start time must be before end time");
   }
 
-  if (payload.name) {
-    const duplicate = await prisma.exam.findFirst({
-      where: {
-        id: { not: id },
-        batchId: existingExam.batchId,
-        subjectId: existingExam.subjectId,
-        name: payload.name,
-      },
-    });
-
-    if (duplicate) {
-      throw new Error("Exam name already exists");
-    }
-  }
 
   const updatedExam = await prisma.exam.update({
     where: { id },
     data: {
       ...payload,
-      examDate: payload.examDate ? new Date(payload.examDate) : undefined,
-      startTime: payload.startTime ? new Date(payload.startTime) : undefined,
-      endTime: payload.endTime ? new Date(payload.endTime) : undefined,
+      examDate: new Date(payload.examDate),
+      startTime: startDateTime,
+      endTime: endDateTime
     },
   });
 

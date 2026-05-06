@@ -1,7 +1,13 @@
 import { z } from "zod";
 
 export const upsertMarkSchema = z.object({
-  studentId: z.string(),
   examId: z.string(),
-  mark: z.number().min(0),
+  marks: z
+    .array(
+      z.object({
+        studentId: z.string(),
+        mark: z.coerce.number().min(0),
+      })
+    )
+    .min(1),
 });

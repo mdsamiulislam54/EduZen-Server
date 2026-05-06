@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { examController } from "./exam.controller";
 import { requestValidation } from "../../shared/middlewares/zodValidation";
-import { createExamSchema, updateExamSchema } from "./exam.zod.validation";
+import { createExamSchema } from "./exam.zod.validation";
 import { authorize } from "../../shared/middlewares/authorize.middleware";
 import { Role } from "../../generated/enums";
 
@@ -11,7 +11,7 @@ router.get("/:id",examController.getExamById);
 
 router.post("/", requestValidation(createExamSchema),authorize(Role.ADMIN,Role.OWNER,Role.TEACHER), examController.createExam);
 
-router.patch("/:id", requestValidation(updateExamSchema),authorize(Role.ADMIN,Role.OWNER,Role.TEACHER), examController.updateExam);
+router.patch("/:id", authorize(Role.ADMIN,Role.OWNER,Role.TEACHER), examController.updateExam);
 
 router.delete("/:id",examController.deleteExam)
 
