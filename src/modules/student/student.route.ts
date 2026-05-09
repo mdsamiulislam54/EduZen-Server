@@ -7,11 +7,13 @@ import { createStudentSchema, updateZodSchema } from "./student.zod.validation";
 
 
 const router = Router()
-router.get("/",authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), studentController.getAllStudent)
-router.get("/:id", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), studentController.getStudentById)
+router.get("/dashboard-card", authorize(Role.STUDENT,Role.TEACHER), studentController.studentDashboardCard);
+router.get("/", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), studentController.getAllStudent)
+router.get("/:id", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), studentController.getStudentById);
+
 router.post("/", requestValidation(createStudentSchema), authorize(Role.ADMIN, Role.OWNER), studentController.createStudent);
 
 router.patch("/:id", requestValidation(updateZodSchema), authorize(Role.ADMIN, Role.OWNER), studentController.studentUpdate);
-router.patch("/delete/:id",  authorize(Role.ADMIN, Role.OWNER), studentController.studentDelete);
+router.patch("/delete/:id", authorize(Role.ADMIN, Role.OWNER), studentController.studentDelete);
 
 export const studentRoutes = router;

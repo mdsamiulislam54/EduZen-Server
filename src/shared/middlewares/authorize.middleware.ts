@@ -14,6 +14,7 @@ export const authorize = (...authRoles: Role[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
    
+      console.log(authRoles)
       const sessionToken = cookieUtils.getCookie(
         req,
         "better-auth.session_token",

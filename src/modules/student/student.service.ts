@@ -161,6 +161,9 @@ const getAllStudent = async (id: string, query: IQueryParams) => {
                     }
                 }
             }
+        },
+        orderBy: {
+            createdAt: "desc"
         }
 
     })
@@ -183,14 +186,14 @@ const getStudentById = async (id: string) => {
         },
         include: {
             attendances: true,
-            batchStudents:{
-                include:{
-                    batch:{
-                        select:{
-                            batchName:true,
-                            id:true,
-                            status:true,
-                            
+            batchStudents: {
+                include: {
+                    batch: {
+                        select: {
+                            batchName: true,
+                            id: true,
+                            status: true,
+
                         }
                     }
                 }
@@ -198,7 +201,7 @@ const getStudentById = async (id: string) => {
             coachingCenter: true,
             marks: true,
             results: true,
-            studentFees:true,
+            studentFees: true,
             user: true
         }
     })
@@ -346,8 +349,97 @@ const studentDelete = async (studentId: string) => {
     }
 };
 
-const getStudentResultById = async(id:string)=>{
-    
+const getStudentResultById = async (id: string) => {
+
+}
+
+const studentDashboardCard = async (studentId: string) => {
+    const student = await prisma.student.findUnique({
+        where: {
+            userId: studentId,
+        },
+        include: {
+            studentFees: true,
+            results: true,
+            attendances: true,
+            batchStudents: {
+                include: {
+                    batch: true,
+                },
+            },
+        },
+    });
+
+    if (!student) {
+        throw new AppError(status.BAD_REQUEST, "Student Not Found")
+    }
+
+
+    const totalFee = student.studentFees.reduce((sum, fee) =>
+        sum + (fee.amount || 0)
+        , 0
+    )
+
+    const paidFee = student.studentFees.reduce(
+        (sum, fee) => sum + (fee.paidAmount || 0),
+        0
+    );
+    const dueFee = totalFee - paidFee;
+
+    const totalMarks = student.results.reduce(
+        (sum, r) => sum + (r.mark || 0),
+        0
+    );
+
+    const avgMarks = student.results.length
+        ? totalMarks / student.results.length
+        : 0;
+
+    const totalAttendance = student.attendances.length;
+
+    const present = student.attendances.filter(
+        (a) => a.status === "PRESENT"
+    ).length;
+
+    const attendancePercent = totalAttendance
+        ? (present / totalAttendance) * 100
+        : 0;
+
+    const totalBatch = student.batchStudents.length;
+    return {
+
+        profile: {
+            name: student.name,
+            roll: student.rollNumber,
+            status: student.status,
+            image: student.image ?? null
+        },
+
+        performance: {
+            totalExams: student.results.length || 0,
+            totalMarks,
+            avgMarks,
+        },
+
+        attendance: {
+            total: totalAttendance,
+            present,
+            percent: attendancePercent.toFixed(2),
+        },
+
+        fees: {
+            totalFee,
+            paidFee,
+            dueFee,
+        },
+
+        batches: student.batchStudents.map((b) => ({
+            id: b.id,
+            name: b.batch?.batchName,
+            total: totalBatch
+        })),
+    };
+
 }
 
 
@@ -358,5 +450,6 @@ export const studentService = {
     updateStudent,
     getAllStudent,
     getStudentById,
-    studentDelete
+    studentDelete,
+    studentDashboardCard
 }

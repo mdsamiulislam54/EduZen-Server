@@ -62,6 +62,16 @@ const studentDelete = catchAsync(async(req: Request, res: Response) => {
         data:result
     })
 });
+const studentDashboardCard = catchAsync(async(req: Request, res: Response) => {
+    const id = req.user?.id as string
+    const result = await studentService.studentDashboardCard(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student Card Retrieved successfully",
+        data:result
+    })
+});
 
 
 export const studentController = {
@@ -69,5 +79,6 @@ export const studentController = {
     studentUpdate,
     getAllStudent,
     getStudentById,
-    studentDelete
+    studentDelete,
+    studentDashboardCard
 }
