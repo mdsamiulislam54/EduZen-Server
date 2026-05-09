@@ -60,8 +60,10 @@ export const ModelName = {
   Batch: 'Batch',
   BatchFee: 'BatchFee',
   BatchTeachers: 'BatchTeachers',
+  ClassSession: 'ClassSession',
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
+  Notice: 'Notice',
   Payment: 'Payment',
   Subscription: 'Subscription',
   Mark: 'Mark',
@@ -229,6 +231,19 @@ export const BatchTeachersScalarFieldEnum = {
 export type BatchTeachersScalarFieldEnum = (typeof BatchTeachersScalarFieldEnum)[keyof typeof BatchTeachersScalarFieldEnum]
 
 
+export const ClassSessionScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  teacherId: 'teacherId',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  status: 'status'
+} as const
+
+export type ClassSessionScalarFieldEnum = (typeof ClassSessionScalarFieldEnum)[keyof typeof ClassSessionScalarFieldEnum]
+
+
 export const CoachingCenterScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
@@ -269,6 +284,24 @@ export const ExamScalarFieldEnum = {
 } as const
 
 export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof ExamScalarFieldEnum]
+
+
+export const NoticeScalarFieldEnum = {
+  id: 'id',
+  coachingCenterId: 'coachingCenterId',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  priority: 'priority',
+  isPinned: 'isPinned',
+  isPublished: 'isPublished',
+  createdBy: 'createdBy',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoticeScalarFieldEnum = (typeof NoticeScalarFieldEnum)[keyof typeof NoticeScalarFieldEnum]
 
 
 export const PaymentScalarFieldEnum = {

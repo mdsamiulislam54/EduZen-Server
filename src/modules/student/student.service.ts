@@ -138,7 +138,6 @@ const getAllStudent = async (id: string, query: IQueryParams) => {
         throw new AppError(status.BAD_REQUEST, "Owner ID is required")
     }
 
-    console.log("Fetching students for owner ID:", id);
 
     const builder = new QueryBuilder({}, query)
         .search(["name", "phone", "rollNumber", "id"])
@@ -156,7 +155,8 @@ const getAllStudent = async (id: string, query: IQueryParams) => {
                 select: {
                     batch: {
                         select: {
-                            id: true
+                            id: true,
+
                         }
                     }
                 }
@@ -442,7 +442,71 @@ const studentDashboardCard = async (studentId: string) => {
 
 }
 
+const studentClassSchedule = async (studentId: string) => {
+    const student = await prisma.student.findUnique({
+        where: { userId: studentId },
+        select: {
+            batchStudents: {
+                select: {
+                    batch: {
+                        select: {
+                            id: true,
+                            batchName: true,
+                            startTime: true,
+                            endTime: true,
+                            daysOfWeek: true,
+                            batchTeachers: {
+                                select: {
+                                    teacher: {
+                                        select: {
+                                            name: true,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    });
 
+    console.log(student)
+    if (!student) {
+        throw new AppError(status.NOT_FOUND, "Student not found");
+    }
+
+    const today = new Date();
+    const dayName = today
+        .toLocaleDateString("en-US", { weekday: "long" })
+        .toUpperCase();
+
+    const schedules: any[] = [];
+
+    for (const b of student.batchStudents) {
+        const batch = b.batch;
+
+        const days = Array.isArray(batch.daysOfWeek)
+            ? (batch.daysOfWeek as string[])
+            : [];
+
+        const isToday = days.includes(dayName);
+
+        if (!isToday) continue;
+
+        schedules.push({
+            batchId: batch.id,
+            batchName: batch.batchName,
+            startTime: batch.startTime,
+            endTime: batch.endTime,
+            teacherName:
+                batch.batchTeachers?.[0]?.teacher?.name || "N/A",
+            day: dayName,
+        });
+    }
+
+    return schedules;
+};
 
 
 export const studentService = {
@@ -451,5 +515,6 @@ export const studentService = {
     getAllStudent,
     getStudentById,
     studentDelete,
-    studentDashboardCard
+    studentDashboardCard,
+    studentClassSchedule
 }

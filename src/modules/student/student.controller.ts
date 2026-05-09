@@ -72,6 +72,16 @@ const studentDashboardCard = catchAsync(async(req: Request, res: Response) => {
         data:result
     })
 });
+const studentClassSchedule = catchAsync(async(req: Request, res: Response) => {
+    const id = req.user?.id as string
+    const result = await studentService.studentClassSchedule(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student Class Schedule Retrieved successfully",
+        data:result
+    })
+});
 
 
 export const studentController = {
@@ -80,5 +90,6 @@ export const studentController = {
     getAllStudent,
     getStudentById,
     studentDelete,
-    studentDashboardCard
+    studentDashboardCard,
+    studentClassSchedule
 }

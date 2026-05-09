@@ -87,6 +87,11 @@ export type BatchFee = Prisma.BatchFeeModel
  */
 export type BatchTeachers = Prisma.BatchTeachersModel
 /**
+ * Model ClassSession
+ * 
+ */
+export type ClassSession = Prisma.ClassSessionModel
+/**
  * Model CoachingCenter
  * 
  */
@@ -96,6 +101,11 @@ export type CoachingCenter = Prisma.CoachingCenterModel
  * 
  */
 export type Exam = Prisma.ExamModel
+/**
+ * Model Notice
+ * 
+ */
+export type Notice = Prisma.NoticeModel
 /**
  * Model Payment
  * 

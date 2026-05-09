@@ -13,7 +13,7 @@ model CoachingCenter {
   plan        String?
   status      CoachingStatus @default(PENDING)
   isDeleted   Boolean        @default(false)
-  isDeletedAt DateTime?     @default(now())
+  isDeletedAt DateTime?      @default(now())
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
 
@@ -25,6 +25,7 @@ model CoachingCenter {
   subjects     Subject[]
   subscription Subscription[]
   payments     Payment[]
+  notice       Notice[]
 
   @@index([ownerId])
   @@index([email])

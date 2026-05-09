@@ -11,6 +11,7 @@ import { examRoutes } from "../modules/exam/exam.route";
 import { markRoutes } from "../modules/mark/mark.route";
 import { subscriptionPlanRoutes } from "../modules/SubscriptionPlan/SubscriptionPlan.route";
 import { adminRoute } from "../modules/admin/admin.route";
+import { noticeRoutes } from "../modules/notice/notice.route";
 
 
 const router = Router();
@@ -27,5 +28,6 @@ router.use("/attendance", attendanceRoutes);
 router.use("/exam", examRoutes);
 router.use("/mark", markRoutes);
 router.use("/subscription-plan", subscriptionPlanRoutes);
+router.use("/notice", noticeRoutes)
 
 export const apiRoutes = router;

@@ -150,3 +150,24 @@ export const BloodGroup = {
 } as const
 
 export type BloodGroup = (typeof BloodGroup)[keyof typeof BloodGroup]
+
+
+export const NoticeType = {
+  GENERAL: 'GENERAL',
+  EXAM: 'EXAM',
+  HOLIDAY: 'HOLIDAY',
+  PAYMENT: 'PAYMENT',
+  CLASS: 'CLASS'
+} as const
+
+export type NoticeType = (typeof NoticeType)[keyof typeof NoticeType]
+
+
+export const NoticePriority = {
+  LOW: 'LOW',
+  NORMAL: 'NORMAL',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type NoticePriority = (typeof NoticePriority)[keyof typeof NoticePriority]

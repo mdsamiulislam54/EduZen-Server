@@ -1,0 +1,38 @@
+model Notice {
+  id               String   @id @default(cuid())
+
+  coachingCenterId String
+
+  title            String
+  description      String
+
+  type             NoticeType @default(GENERAL)
+  priority         NoticePriority @default(NORMAL)
+
+  isPinned         Boolean @default(false)
+  isPublished      Boolean @default(true)
+
+  createdBy        String?
+
+  isDeleted        Boolean @default(false)
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  coachingCenter   CoachingCenter @relation(fields: [coachingCenterId],references: [id],onDelete: Cascade)
+}
+
+enum NoticeType {
+  GENERAL
+  EXAM
+  HOLIDAY
+  PAYMENT
+  CLASS
+}
+
+enum NoticePriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
