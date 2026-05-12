@@ -62,6 +62,7 @@ const getAllAttendance = async (query: any) => {
   const { batchId, studentId } = query;
 
   const result = await prisma.attendance.findMany({
+    
     where: {
       isDeleted: false,
       ...(batchId && { batchId }),
@@ -147,6 +148,8 @@ const getAttendanceByStudentId = async (studentId: string, query: IQueryParams) 
     .paginate()
 
   const result = await prisma.attendance.findMany({
+    take: builder.limit,
+    skip: builder.skip,
     where: {
       ...builder.query.where,
       isDeleted: false,

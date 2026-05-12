@@ -150,7 +150,8 @@ const getAllTeacher = async (query: IQueryParams) => {
 
 
     const data = await prisma.teacher.findMany({
-
+        take: builder.limit,
+        skip: builder.skip,
         where: {
             ...builder.query.where,
             isDeleted: false,
@@ -281,7 +282,7 @@ const classSchedule = async () => {
 const coachingCenterOwnerDashboardStudentGrowth = async (teacherId: string) => {
     const teacher = await prisma.teacher.findUnique({
         where: {
-            userId:teacherId
+            userId: teacherId
         },
         select: {
             coachingCenter: {

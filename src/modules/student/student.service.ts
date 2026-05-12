@@ -145,6 +145,8 @@ const getAllStudent = async (id: string, query: IQueryParams) => {
         .paginate()
         .sort();
     const data = await prisma.student.findMany({
+        take:builder.limit,
+        skip:builder.skip,
         where: {
             ...builder.query.where,
             isDeleted: false,
@@ -471,7 +473,6 @@ const studentClassSchedule = async (studentId: string) => {
         },
     });
 
-    console.log(student)
     if (!student) {
         throw new AppError(status.NOT_FOUND, "Student not found");
     }

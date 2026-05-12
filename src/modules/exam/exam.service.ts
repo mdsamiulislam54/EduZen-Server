@@ -60,12 +60,12 @@ const createExam = async (payload: Exam) => {
   return exam;
 };
 
-const updateExam = async (id: string, payload:Partial<Exam>) => {
+const updateExam = async (id: string, payload: Partial<Exam>) => {
 
-  console.log({payload})
+  console.log({ payload })
   if (!payload.examDate || !payload.startTime || !payload.endTime) {
-  throw new AppError(status.BAD_REQUEST, "Date and time are required");
-}
+    throw new AppError(status.BAD_REQUEST, "Date and time are required");
+  }
   const existingExam = await prisma.exam.findUnique({
     where: { id },
   });
@@ -78,7 +78,7 @@ const updateExam = async (id: string, payload:Partial<Exam>) => {
   const startDateTime = new Date(`${payload.examDate}T${payload.startTime}`);
   const endDateTime = new Date(`${payload.examDate}T${payload.endTime}`);
   if (startDateTime >= endDateTime) {
-    throw new AppError(status.BAD_REQUEST,"Start time must be before end time");
+    throw new AppError(status.BAD_REQUEST, "Start time must be before end time");
   }
 
 
@@ -101,6 +101,8 @@ const getAllExams = async (query: IQueryParams) => {
     .search(["name"])
     .paginate()
   const exams = await prisma.exam.findMany({
+    take: builder.limit,
+    skip: builder.skip,
     where: {
       ...builder.query.where,
       isDeleted: false

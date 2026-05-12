@@ -63,6 +63,8 @@ const getAllBatch = async (query: IQueryParams) => {
         .paginate()
         .sort()
     const data = await prisma.batch.findMany({
+        take: builder.limit,
+        skip: builder.skip,
         where: {
             ...builder.query.where,
             isDeleted: false
@@ -71,7 +73,7 @@ const getAllBatch = async (query: IQueryParams) => {
             batchFee: {
                 select: {
                     amount: true,
-                    feeType:true
+                    feeType: true
                 }
             },
             batchTeachers: true

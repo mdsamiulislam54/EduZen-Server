@@ -36,7 +36,13 @@ const getAllSubject = async (query: IQueryParams) => {
         .filter()
         .paginate()
         .sort()
-    const data = await prisma.subject.findMany(builder.query)
+    const data = await prisma.subject.findMany({
+        take:builder.limit,
+        skip:builder.skip,
+        where:{
+            ...builder.query
+        }
+    })
     const meta = await builder.getMeta(prisma.subject)
 
     return{

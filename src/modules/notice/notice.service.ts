@@ -36,8 +36,6 @@ const createNotice = async (payload: ICreateNotice, userId: string) => {
     return notice
 };
 
-
-
 const getAllNotice = async (userId: string, query: IQueryParams) => {
 
     const builder = new QueryBuilder({}, query)
@@ -46,7 +44,7 @@ const getAllNotice = async (userId: string, query: IQueryParams) => {
 
     const user = await prisma.user.findUnique({
         where: {
-            id: userId,
+            id: userId
         },
 
         select: {
@@ -55,17 +53,37 @@ const getAllNotice = async (userId: string, query: IQueryParams) => {
                     id: true,
                 },
             },
+
+            students: {
+                select: {
+                    coachingCenterId: true
+                }
+            },
+            teacher: {
+                select: {
+                    coachingCenterId: true,
+                },
+            },
         },
     });
 
-    if (!user?.coachingCenter?.id) {
+    const coachingCenterId =
+        user?.coachingCenter?.id ||
+        user?.students?.coachingCenterId ||
+        user?.teacher?.coachingCenterId;
+
+    console.log(user, userId)
+
+    if (!coachingCenterId) {
         throw new AppError(status.NOT_FOUND, "Coaching center not found");
     }
 
     const notices = await prisma.notice.findMany({
+        take: builder.limit,
+        skip: builder.skip,
         where: {
             ...builder.query.where,
-            coachingCenterId: user.coachingCenter.id,
+            coachingCenterId,
             isDeleted: false,
             isPublished: true,
         },
@@ -89,7 +107,6 @@ const getAllNotice = async (userId: string, query: IQueryParams) => {
 
 
 };
-
 
 const getNoticeById = async (id: string, userId: string) => {
     const user = await prisma.user.findUnique({
