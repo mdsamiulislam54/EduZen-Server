@@ -82,6 +82,16 @@ const studentClassSchedule = catchAsync(async(req: Request, res: Response) => {
         data:result
     })
 });
+const studentFee = catchAsync(async(req: Request, res: Response) => {
+    const id = req.user?.id as string
+    const result = await studentService.studentFee(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student Fee Retrieved successfully",
+        data:result
+    })
+});
 
 
 export const studentController = {
@@ -91,5 +101,6 @@ export const studentController = {
     getStudentById,
     studentDelete,
     studentDashboardCard,
-    studentClassSchedule
+    studentClassSchedule,
+    studentFee
 }

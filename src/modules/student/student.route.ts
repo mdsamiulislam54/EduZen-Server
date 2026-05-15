@@ -8,6 +8,7 @@ import { createStudentSchema, updateZodSchema } from "./student.zod.validation";
 
 const router = Router()
 router.get("/", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER, Role.STUDENT), studentController.getAllStudent);
+router.get("/student-fee", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER, Role.STUDENT), studentController.studentFee);
 
 router.get("/dashboard-card", authorize(Role.STUDENT, Role.TEACHER), studentController.studentDashboardCard);
 router.get("/class-schedule", authorize(Role.STUDENT, Role.TEACHER, Role.OWNER), studentController.studentClassSchedule);

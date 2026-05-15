@@ -14,8 +14,7 @@
     "seed": "tsx prisma/seed.ts",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
-    "stripe:webhook":"stripe listen --forward-to localhost:5000/webhook"
-
+    "stripe:webhook": "stripe listen --forward-to localhost:5000/webhook"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.0",
@@ -32,6 +31,7 @@
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
+    "node-cron": "^4.2.1",
     "nodemailer": "^7.0.12",
     "pg": "^8.0.0",
     "prisma": "^7.5.0",

@@ -91,5 +91,6 @@ export const subscriptionPlanController = {
   getSubscriptionPlanById,
   updateSubscriptionPlan,
   deleteSubscriptionPlan,
-  subscriptionBuy
+  subscriptionBuy,
+  
 }

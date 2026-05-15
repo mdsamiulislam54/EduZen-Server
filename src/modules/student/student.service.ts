@@ -9,6 +9,10 @@ import { generateRollNumber } from "./utils";
 import ApiError from "../../shared/errors/api-error";
 import { QueryBuilder } from "../../shared/utils/queryBuilder";
 import { IQueryParams } from "../../types/query.type";
+import { uuidv7 } from "zod";
+import { envVars } from "../../config/env";
+import { stripe } from "../../config/stripe";
+import { ICheckoutPayload } from "../SubscriptionPlan/subscriptionPlan.interface";
 
 
 
@@ -128,7 +132,6 @@ const createStudent = async (payload: ICreateStudent, userId: string) => {
         throw new AppError(status.BAD_REQUEST, "User Delete")
     }
 
-
 }
 
 const getAllStudent = async (id: string, query: IQueryParams) => {
@@ -145,8 +148,8 @@ const getAllStudent = async (id: string, query: IQueryParams) => {
         .paginate()
         .sort();
     const data = await prisma.student.findMany({
-        take:builder.limit,
-        skip:builder.skip,
+        take: builder.limit,
+        skip: builder.skip,
         where: {
             ...builder.query.where,
             isDeleted: false,
@@ -509,6 +512,156 @@ const studentClassSchedule = async (studentId: string) => {
     return schedules;
 };
 
+const studentFee = async (userId: string) => {
+    const student = await prisma.student.findFirst({
+        where: {
+            userId: userId,
+        },
+    });
+
+   const studentId = student?.id;
+    console.log({ studentId })
+    const fee = await prisma.studentFee.findFirst({
+        where: {
+            studentId
+        },
+
+        include: {
+            student: true,
+        },
+    });
+
+
+    if (!fee) {
+        throw new AppError(status.BAD_REQUEST, "Fee not found");
+    }
+
+    const dueAmount = fee.amount - fee.paidAmount;
+
+    return {
+        ...fee,
+        dueAmount,
+    };
+}
+
+const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
+
+    console.log(payload)
+    const plan = await prisma.subscriptionPlan.findUnique({
+        where: {
+            id: payload.subscriptionId
+        }
+    });
+    if (!plan) {
+        throw new AppError(status.BAD_REQUEST, "Plan not found")
+    }
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId
+        },
+        select: {
+            coachingCenter: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    });
+
+    const coachingCenterId = user?.coachingCenter?.id;
+    if (!coachingCenterId) {
+        throw new AppError(status.BAD_REQUEST, "User not found")
+    }
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "payment",
+        line_items: [{
+            price_data: {
+                currency: "bdt",
+                product_data: {
+                    name: plan.name,
+                },
+                unit_amount: plan.price * 100,
+
+            },
+
+            quantity: 1
+
+        }],
+
+        success_url: `${envVars.FRONTEND_URL}/payment/success`,
+        cancel_url: `${envVars.FRONTEND_URL}/payment/cancel`,
+        metadata: {
+            type: "subscription",
+            coachingCenterId,
+            subscriptionPlanId: plan.id,
+        }
+    });
+
+    await prisma.$transaction(async (tx) => {
+
+        const existing = await tx.subscriptionPayment.findFirst({
+            where: {
+                stripeSessionId: session.id,
+            },
+        });
+
+        if (existing) return existing;
+
+
+        await tx.subscriptionPayment.upsert({
+            where: {
+                stripeSessionId: session.id
+            },
+            update: {
+                status: "PENDING"
+            },
+            create: {
+                coachingCenterId,
+                subscriptionPlanId: plan.id,
+                amount: plan.price,
+                transactionId: String(uuidv7()),
+                stripeSessionId: session.id,
+                startDate: new Date(),
+                endDate: new Date(),
+                status: "PENDING",
+            },
+        });
+        const existingSubscription = await tx.subscription.findFirst({
+            where: {
+                coachingCenterId,
+            },
+        });
+
+        if (existingSubscription) {
+            await tx.subscription.update({
+                where: {
+                    id: existingSubscription.id,
+                },
+                data: {
+                    subscriptionPlanId: plan.id,
+                    startDate: new Date(),
+                    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                    status: "ACTIVE",
+                },
+            });
+        } else {
+            await tx.subscription.create({
+                data: {
+                    coachingCenterId,
+                    subscriptionPlanId: plan.id,
+                    startDate: new Date(),
+                    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                    status: "TRIAL",
+                },
+            });
+        }
+    })
+
+    return {
+        checkoutUrl: session.url
+    };
+}
 
 export const studentService = {
     createStudent,
@@ -517,5 +670,6 @@ export const studentService = {
     getStudentById,
     studentDelete,
     studentDashboardCard,
-    studentClassSchedule
+    studentClassSchedule,
+    studentFee
 }
