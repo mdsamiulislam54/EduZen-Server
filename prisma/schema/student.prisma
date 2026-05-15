@@ -23,11 +23,12 @@ model Student {
   coachingCenter CoachingCenter @relation(fields: [coachingCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user           User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  batchStudents BatchStudent[]
-  marks         Mark[]
-  results       Result[]
-  attendances   Attendance[]
-  studentFees   StudentFee[]
+  batchStudents   BatchStudent[]
+  marks           Mark[]
+  results         Result[]
+  attendances     Attendance[]
+  studentFees     StudentFee[]
+  studentPayments StudentPayment[]
 
   @@index([coachingCenterId])
   @@index([userId])
@@ -64,6 +65,7 @@ model StudentFee {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
-  student  Student  @relation(fields: [studentId], references: [id])
-  batchFee BatchFee @relation(fields: [batchFeeId], references: [id])
+  student         Student          @relation(fields: [studentId], references: [id])
+  batchFee        BatchFee         @relation(fields: [batchFeeId], references: [id])
+  studentPayments StudentPayment[]
 }

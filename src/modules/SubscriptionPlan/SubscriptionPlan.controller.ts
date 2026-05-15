@@ -48,7 +48,7 @@ export const getSubscriptionPlanById = catchAsync(async (req: Request, res: Resp
 
 
 export const updateSubscriptionPlan = catchAsync(async (req: Request, res: Response) => {
-  const  id  = req.params.id as string;
+  const id = req.params.id as string;
   const payload = req.body;
   const plan = await subscriptionPlanService.updateSubscriptionPlan(id, payload);
 
@@ -72,12 +72,24 @@ export const deleteSubscriptionPlan = catchAsync(async (req: Request, res: Respo
     data: plan,
   });
 });
+export const subscriptionBuy = catchAsync(async (req: Request, res: Response) => {
+  const id = req?.user.id as string;
+  const plan = await subscriptionPlanService.subscriptionBuy(req.body, id,);
+
+  sendResponse(res, {
+    status: status.OK,
+    success: true,
+    message: "Subscription plan Buy successfully",
+    data: plan,
+  });
+});
 
 
-export const subscriptionPlanController= {
-    createSubscriptionPlan,
-    getAllSubscriptionPlans,
-    getSubscriptionPlanById,
-    updateSubscriptionPlan,
-    deleteSubscriptionPlan
+export const subscriptionPlanController = {
+  createSubscriptionPlan,
+  getAllSubscriptionPlans,
+  getSubscriptionPlanById,
+  updateSubscriptionPlan,
+  deleteSubscriptionPlan,
+  subscriptionBuy
 }

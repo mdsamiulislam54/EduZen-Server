@@ -107,10 +107,15 @@ export type Exam = Prisma.ExamModel
  */
 export type Notice = Prisma.NoticeModel
 /**
- * Model Payment
+ * Model SubscriptionPayment
  * 
  */
-export type Payment = Prisma.PaymentModel
+export type SubscriptionPayment = Prisma.SubscriptionPaymentModel
+/**
+ * Model StudentPayment
+ * 
+ */
+export type StudentPayment = Prisma.StudentPaymentModel
 /**
  * Model Subscription
  * 

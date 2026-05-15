@@ -12,6 +12,7 @@ import { notFound } from "./shared/middlewares/not-found.middleware";
 // import { toNodeHandler } from "better-auth/node";
 import path from "path";
 import { cors } from "./config/cors";
+import { paymentController } from "./modules/payment/payment.controller";
 
 // app initialization
 const app: Application = express();
@@ -22,7 +23,7 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(process.cwd(), `src/templates`));
 
 // middlewares
-
+app.post("/webhook", express.raw({ type: "application/json" }), paymentController.handlePaymentWebHook);
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());

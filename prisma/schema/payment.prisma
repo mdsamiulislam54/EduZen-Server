@@ -1,28 +1,57 @@
-model Payment {
-    id                 String        @id @default(cuid())
+model SubscriptionPayment {
+    id                 String           @id @default(cuid())
     coachingCenterId   String
     subscriptionPlanId String
+    transactionId      String?
     startDate          DateTime
     endDate            DateTime
     amount             Int
-    status             PaymentStatus @default(PENDING)
-    paymentDetails     Json? // Store transaction IDs, methods, etc.
-    createdAt          DateTime      @default(now())
-    updatedAt          DateTime      @updatedAt
+    status             PaymentStatus    @default(PENDING)
+    paymentDetails     Json?
+    createdAt          DateTime         @default(now())
+    updatedAt          DateTime         @updatedAt
+    stripeSessionId    String?          @unique
+    coachingCenter     CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
+    subscriptionPlan   SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
+}
 
-    coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
-    subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
+model StudentPayment {
+    id String @id @default(cuid())
+
+    studentId       String
+    studentFeeId    String
+    transactionId   String  @unique
+    stripeSessionId String? @unique
+    stripePaymentId String?
+
+    amount Int
+
+    status PaymentStatus @default(PENDING)
+
+    paymentMethod String?
+
+    paymentDetails Json?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    student Student @relation(fields: [studentId], references: [id])
+
+    studentFee StudentFee @relation(fields: [studentFeeId], references: [id])
 }
 
 model Subscription {
-    id                 String             @id @default(cuid())
-    coachingCenterId   String
-    subscriptionPlanId String
-    startDate          DateTime           @default(now())
-    endDate            DateTime
-    status             SubscriptionStatus @default(ACTIVE)
-    createdAt          DateTime           @default(now())
-    updatedAt          DateTime           @updatedAt
+    id                   String             @id @default(cuid())
+    coachingCenterId     String            
+    subscriptionPlanId   String
+    stripeSubscriptionId String?            @unique
+    stripeCustomerId     String?
+    paymentId            String?
+    startDate            DateTime           @default(now())
+    endDate              DateTime
+    status               SubscriptionStatus @default(TRIAL)
+    createdAt            DateTime           @default(now())
+    updatedAt            DateTime           @updatedAt
 
     coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
     subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])

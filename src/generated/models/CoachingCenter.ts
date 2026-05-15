@@ -284,7 +284,7 @@ export type CoachingCenterWhereInput = {
   batches?: Prisma.BatchListRelationFilter
   subjects?: Prisma.SubjectListRelationFilter
   subscription?: Prisma.SubscriptionListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
+  payments?: Prisma.SubscriptionPaymentListRelationFilter
   notice?: Prisma.NoticeListRelationFilter
 }
 
@@ -312,7 +312,7 @@ export type CoachingCenterOrderByWithRelationInput = {
   batches?: Prisma.BatchOrderByRelationAggregateInput
   subjects?: Prisma.SubjectOrderByRelationAggregateInput
   subscription?: Prisma.SubscriptionOrderByRelationAggregateInput
-  payments?: Prisma.PaymentOrderByRelationAggregateInput
+  payments?: Prisma.SubscriptionPaymentOrderByRelationAggregateInput
   notice?: Prisma.NoticeOrderByRelationAggregateInput
 }
 
@@ -343,7 +343,7 @@ export type CoachingCenterWhereUniqueInput = Prisma.AtLeast<{
   batches?: Prisma.BatchListRelationFilter
   subjects?: Prisma.SubjectListRelationFilter
   subscription?: Prisma.SubscriptionListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
+  payments?: Prisma.SubscriptionPaymentListRelationFilter
   notice?: Prisma.NoticeListRelationFilter
 }, "id" | "ownerId" | "email" | "phone">
 
@@ -416,7 +416,7 @@ export type CoachingCenterCreateInput = {
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -443,7 +443,7 @@ export type CoachingCenterUncheckedCreateInput = {
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -470,7 +470,7 @@ export type CoachingCenterUpdateInput = {
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -497,7 +497,7 @@ export type CoachingCenterUncheckedUpdateInput = {
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -786,7 +786,7 @@ export type CoachingCenterCreateWithoutSubjectsInput = {
   teachers?: Prisma.TeacherCreateNestedManyWithoutCoachingCenterInput
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -812,7 +812,7 @@ export type CoachingCenterUncheckedCreateWithoutSubjectsInput = {
   teachers?: Prisma.TeacherUncheckedCreateNestedManyWithoutCoachingCenterInput
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -854,7 +854,7 @@ export type CoachingCenterUpdateWithoutSubjectsInput = {
   teachers?: Prisma.TeacherUpdateManyWithoutCoachingCenterNestedInput
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -880,7 +880,7 @@ export type CoachingCenterUncheckedUpdateWithoutSubjectsInput = {
   teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -906,7 +906,7 @@ export type CoachingCenterCreateWithoutOwnerInput = {
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -932,7 +932,7 @@ export type CoachingCenterUncheckedCreateWithoutOwnerInput = {
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -974,7 +974,7 @@ export type CoachingCenterUpdateWithoutOwnerInput = {
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1000,7 +1000,7 @@ export type CoachingCenterUncheckedUpdateWithoutOwnerInput = {
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1026,7 +1026,7 @@ export type CoachingCenterCreateWithoutBatchesInput = {
   teachers?: Prisma.TeacherCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1052,7 +1052,7 @@ export type CoachingCenterUncheckedCreateWithoutBatchesInput = {
   teachers?: Prisma.TeacherUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1094,7 +1094,7 @@ export type CoachingCenterUpdateWithoutBatchesInput = {
   teachers?: Prisma.TeacherUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1120,7 +1120,7 @@ export type CoachingCenterUncheckedUpdateWithoutBatchesInput = {
   teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1147,7 +1147,7 @@ export type CoachingCenterCreateWithoutNoticeInput = {
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
 }
 
 export type CoachingCenterUncheckedCreateWithoutNoticeInput = {
@@ -1173,7 +1173,7 @@ export type CoachingCenterUncheckedCreateWithoutNoticeInput = {
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
 export type CoachingCenterCreateOrConnectWithoutNoticeInput = {
@@ -1215,7 +1215,7 @@ export type CoachingCenterUpdateWithoutNoticeInput = {
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
 }
 
 export type CoachingCenterUncheckedUpdateWithoutNoticeInput = {
@@ -1241,7 +1241,7 @@ export type CoachingCenterUncheckedUpdateWithoutNoticeInput = {
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
 export type CoachingCenterCreateWithoutPaymentsInput = {
@@ -1386,7 +1386,7 @@ export type CoachingCenterCreateWithoutSubscriptionInput = {
   teachers?: Prisma.TeacherCreateNestedManyWithoutCoachingCenterInput
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1412,7 +1412,7 @@ export type CoachingCenterUncheckedCreateWithoutSubscriptionInput = {
   teachers?: Prisma.TeacherUncheckedCreateNestedManyWithoutCoachingCenterInput
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1454,7 +1454,7 @@ export type CoachingCenterUpdateWithoutSubscriptionInput = {
   teachers?: Prisma.TeacherUpdateManyWithoutCoachingCenterNestedInput
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1480,7 +1480,7 @@ export type CoachingCenterUncheckedUpdateWithoutSubscriptionInput = {
   teachers?: Prisma.TeacherUncheckedUpdateManyWithoutCoachingCenterNestedInput
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1506,7 +1506,7 @@ export type CoachingCenterCreateWithoutStudentsInput = {
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1532,7 +1532,7 @@ export type CoachingCenterUncheckedCreateWithoutStudentsInput = {
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1574,7 +1574,7 @@ export type CoachingCenterUpdateWithoutStudentsInput = {
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1600,7 +1600,7 @@ export type CoachingCenterUncheckedUpdateWithoutStudentsInput = {
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1626,7 +1626,7 @@ export type CoachingCenterCreateWithoutTeachersInput = {
   batches?: Prisma.BatchCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1652,7 +1652,7 @@ export type CoachingCenterUncheckedCreateWithoutTeachersInput = {
   batches?: Prisma.BatchUncheckedCreateNestedManyWithoutCoachingCenterInput
   subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutCoachingCenterInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutCoachingCenterInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutCoachingCenterInput
   notice?: Prisma.NoticeUncheckedCreateNestedManyWithoutCoachingCenterInput
 }
 
@@ -1694,7 +1694,7 @@ export type CoachingCenterUpdateWithoutTeachersInput = {
   batches?: Prisma.BatchUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1720,7 +1720,7 @@ export type CoachingCenterUncheckedUpdateWithoutTeachersInput = {
   batches?: Prisma.BatchUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subjects?: Prisma.SubjectUncheckedUpdateManyWithoutCoachingCenterNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutCoachingCenterNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutCoachingCenterNestedInput
   notice?: Prisma.NoticeUncheckedUpdateManyWithoutCoachingCenterNestedInput
 }
 
@@ -1798,7 +1798,7 @@ export type CoachingCenterCountOutputTypeCountSubscriptionArgs<ExtArgs extends r
  * CoachingCenterCountOutputType without action
  */
 export type CoachingCenterCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentWhereInput
+  where?: Prisma.SubscriptionPaymentWhereInput
 }
 
 /**
@@ -1928,7 +1928,7 @@ export type $CoachingCenterPayload<ExtArgs extends runtime.Types.Extensions.Inte
     batches: Prisma.$BatchPayload<ExtArgs>[]
     subjects: Prisma.$SubjectPayload<ExtArgs>[]
     subscription: Prisma.$SubscriptionPayload<ExtArgs>[]
-    payments: Prisma.$PaymentPayload<ExtArgs>[]
+    payments: Prisma.$SubscriptionPaymentPayload<ExtArgs>[]
     notice: Prisma.$NoticePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2349,7 +2349,7 @@ export interface Prisma__CoachingCenterClient<T, Null = never, ExtArgs extends r
   batches<T extends Prisma.CoachingCenter$batchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$batchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subjects<T extends Prisma.CoachingCenter$subjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscription<T extends Prisma.CoachingCenter$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$subscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  payments<T extends Prisma.CoachingCenter$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.CoachingCenter$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notice<T extends Prisma.CoachingCenter$noticeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenter$noticeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NoticePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2922,23 +2922,23 @@ export type CoachingCenter$subscriptionArgs<ExtArgs extends runtime.Types.Extens
  */
 export type CoachingCenter$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Payment
+   * Select specific fields to fetch from the SubscriptionPayment
    */
-  select?: Prisma.PaymentSelect<ExtArgs> | null
+  select?: Prisma.SubscriptionPaymentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Payment
+   * Omit specific fields from the SubscriptionPayment
    */
-  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  omit?: Prisma.SubscriptionPaymentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PaymentInclude<ExtArgs> | null
-  where?: Prisma.PaymentWhereInput
-  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentWhereUniqueInput
+  include?: Prisma.SubscriptionPaymentInclude<ExtArgs> | null
+  where?: Prisma.SubscriptionPaymentWhereInput
+  orderBy?: Prisma.SubscriptionPaymentOrderByWithRelationInput | Prisma.SubscriptionPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriptionPaymentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
+  distinct?: Prisma.SubscriptionPaymentScalarFieldEnum | Prisma.SubscriptionPaymentScalarFieldEnum[]
 }
 
 /**

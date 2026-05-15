@@ -64,7 +64,8 @@ export const ModelName = {
   CoachingCenter: 'CoachingCenter',
   Exam: 'Exam',
   Notice: 'Notice',
-  Payment: 'Payment',
+  SubscriptionPayment: 'SubscriptionPayment',
+  StudentPayment: 'StudentPayment',
   Subscription: 'Subscription',
   Mark: 'Mark',
   Result: 'Result',
@@ -304,26 +305,49 @@ export const NoticeScalarFieldEnum = {
 export type NoticeScalarFieldEnum = (typeof NoticeScalarFieldEnum)[keyof typeof NoticeScalarFieldEnum]
 
 
-export const PaymentScalarFieldEnum = {
+export const SubscriptionPaymentScalarFieldEnum = {
   id: 'id',
   coachingCenterId: 'coachingCenterId',
   subscriptionPlanId: 'subscriptionPlanId',
+  transactionId: 'transactionId',
   startDate: 'startDate',
   endDate: 'endDate',
   amount: 'amount',
   status: 'status',
   paymentDetails: 'paymentDetails',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  stripeSessionId: 'stripeSessionId'
+} as const
+
+export type SubscriptionPaymentScalarFieldEnum = (typeof SubscriptionPaymentScalarFieldEnum)[keyof typeof SubscriptionPaymentScalarFieldEnum]
+
+
+export const StudentPaymentScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  studentFeeId: 'studentFeeId',
+  transactionId: 'transactionId',
+  stripeSessionId: 'stripeSessionId',
+  stripePaymentId: 'stripePaymentId',
+  amount: 'amount',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paymentDetails: 'paymentDetails',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+export type StudentPaymentScalarFieldEnum = (typeof StudentPaymentScalarFieldEnum)[keyof typeof StudentPaymentScalarFieldEnum]
 
 
 export const SubscriptionScalarFieldEnum = {
   id: 'id',
   coachingCenterId: 'coachingCenterId',
   subscriptionPlanId: 'subscriptionPlanId',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  stripeCustomerId: 'stripeCustomerId',
+  paymentId: 'paymentId',
   startDate: 'startDate',
   endDate: 'endDate',
   status: 'status',

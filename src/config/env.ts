@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 interface EnvConfig {
   APP_NAME?: string;
   APP_URL: string;
-  ADMIN_EMAIL:string;
+  ADMIN_EMAIL: string;
   DATABASE_URL: string;
   FRONTEND_URL: string;
   BETTER_AUTH_URL: string;
@@ -23,7 +23,7 @@ interface EnvConfig {
     SMTP_PORT: string;
     SMTP_FROM: string;
   };
-    NODE_ENV: string;
+  NODE_ENV: string;
   PORT: string;
   BETTER_AUTH_SESSION_TOKEN_EXPIRES_IN: string;
   BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE: string;
@@ -31,7 +31,9 @@ interface EnvConfig {
   ACCESS_TOKEN_EXPIRES_IN: string;
   REFRESH_TOKEN_SECRET: string;
   REFRESH_TOKEN_EXPIRES_IN: string;
-  
+  STRIPE_SECRET_KEY: string,
+  STRIPE_WEBHOOK_SECRET: string
+
 }
 
 const loadEnvVars = (): EnvConfig => {
@@ -50,7 +52,7 @@ const loadEnvVars = (): EnvConfig => {
     "EMAIL_SENDER_SMTP_HOST",
     "EMAIL_SENDER_SMTP_PORT",
     "EMAIL_SENDER_SMTP_FROM",
-        "NODE_ENV",
+    "NODE_ENV",
     "PORT",
     "BETTER_AUTH_SESSION_TOKEN_EXPIRES_IN",
     "BETTER_AUTH_SESSION_TOKEN_UPDATE_AGE",
@@ -58,21 +60,23 @@ const loadEnvVars = (): EnvConfig => {
     "ACCESS_TOKEN_EXPIRES_IN",
     "REFRESH_TOKEN_SECRET",
     "REFRESH_TOKEN_EXPIRES_IN",
-    
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET"
+
   ];
 
   requiredEnvVars.forEach((varName) => {
     if (!process.env[varName]) {
-            throw new AppError(
+      throw new AppError(
         status.INTERNAL_SERVER_ERROR,
         `Environment variable ${varName} is required but not set in .env file.`,
       );
-      
+
     }
   });
 
   return {
-    
+
     DATABASE_URL: process.env.DATABASE_URL as string,
     FRONTEND_URL: process.env.FRONTEND_URL as string,
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL as string,
@@ -87,7 +91,7 @@ const loadEnvVars = (): EnvConfig => {
       SMTP_PORT: process.env.EMAIL_SENDER_SMTP_PORT as string,
       SMTP_FROM: process.env.EMAIL_SENDER_SMTP_FROM as string,
     },
-        APP_NAME: process.env.APP_NAME ?? "Your App",
+    APP_NAME: process.env.APP_NAME ?? "Your App",
     APP_URL: process.env.APP_URL as string,
     NODE_ENV: process.env.NODE_ENV as string,
     PORT: process.env.PORT as string,
@@ -99,8 +103,10 @@ const loadEnvVars = (): EnvConfig => {
     ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN as string,
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET as string,
     REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN as string,
-    ADMIN_EMAIL:process.env.ADMIN_EMAIL as string
-    
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET as string,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY as string
+
   };
 };
 

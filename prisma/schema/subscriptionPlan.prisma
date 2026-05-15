@@ -16,7 +16,7 @@ model SubscriptionPlan {
     updatedAt      DateTime               @updatedAt
 
     subscriptions Subscription[]
-    payments      Payment[]
+    payments      SubscriptionPayment[]
 }
 
 

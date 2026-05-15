@@ -13,12 +13,17 @@ router.post(
   authorize(Role.ADMIN),
   subscriptionPlanController.createSubscriptionPlan
 );
+router.post(
+  "/subscription-buy",
+  authorize(Role.ADMIN, Role.OWNER),
+  subscriptionPlanController.subscriptionBuy
+);
 
 
-router.get("/",  authorize(Role.ADMIN), subscriptionPlanController.getAllSubscriptionPlans);
+router.get("/",  subscriptionPlanController.getAllSubscriptionPlans);
 
 
-router.get("/:id",  authorize(Role.ADMIN), subscriptionPlanController.getSubscriptionPlanById);
+router.get("/:id", subscriptionPlanController.getSubscriptionPlanById);
 
 
 router.patch(
@@ -34,4 +39,4 @@ router.delete(
   subscriptionPlanController.deleteSubscriptionPlan
 );
 
-export const subscriptionPlanRoutes  = router
+export const subscriptionPlanRoutes = router

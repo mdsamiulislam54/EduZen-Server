@@ -24,7 +24,7 @@ model CoachingCenter {
   batches      Batch[]
   subjects     Subject[]
   subscription Subscription[]
-  payments     Payment[]
+  payments     SubscriptionPayment[]
   notice       Notice[]
 
   @@index([ownerId])

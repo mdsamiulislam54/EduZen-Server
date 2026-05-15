@@ -266,6 +266,7 @@ export type StudentFeeWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   batchFee?: Prisma.XOR<Prisma.BatchFeeScalarRelationFilter, Prisma.BatchFeeWhereInput>
+  studentPayments?: Prisma.StudentPaymentListRelationFilter
 }
 
 export type StudentFeeOrderByWithRelationInput = {
@@ -281,6 +282,7 @@ export type StudentFeeOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
   batchFee?: Prisma.BatchFeeOrderByWithRelationInput
+  studentPayments?: Prisma.StudentPaymentOrderByRelationAggregateInput
 }
 
 export type StudentFeeWhereUniqueInput = Prisma.AtLeast<{
@@ -299,6 +301,7 @@ export type StudentFeeWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   batchFee?: Prisma.XOR<Prisma.BatchFeeScalarRelationFilter, Prisma.BatchFeeWhereInput>
+  studentPayments?: Prisma.StudentPaymentListRelationFilter
 }, "id">
 
 export type StudentFeeOrderByWithAggregationInput = {
@@ -346,6 +349,7 @@ export type StudentFeeCreateInput = {
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutStudentFeesInput
   batchFee: Prisma.BatchFeeCreateNestedOneWithoutStudentFeesInput
+  studentPayments?: Prisma.StudentPaymentCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeUncheckedCreateInput = {
@@ -359,6 +363,7 @@ export type StudentFeeUncheckedCreateInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeUpdateInput = {
@@ -372,6 +377,7 @@ export type StudentFeeUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutStudentFeesNestedInput
   batchFee?: Prisma.BatchFeeUpdateOneRequiredWithoutStudentFeesNestedInput
+  studentPayments?: Prisma.StudentPaymentUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeUncheckedUpdateInput = {
@@ -385,6 +391,7 @@ export type StudentFeeUncheckedUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeCreateManyInput = {
@@ -432,6 +439,11 @@ export type StudentFeeListRelationFilter = {
 
 export type StudentFeeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StudentFeeScalarRelationFilter = {
+  is?: Prisma.StudentFeeWhereInput
+  isNot?: Prisma.StudentFeeWhereInput
 }
 
 export type StudentFeeCountOrderByAggregateInput = {
@@ -527,6 +539,20 @@ export type StudentFeeUncheckedUpdateManyWithoutBatchFeeNestedInput = {
   deleteMany?: Prisma.StudentFeeScalarWhereInput | Prisma.StudentFeeScalarWhereInput[]
 }
 
+export type StudentFeeCreateNestedOneWithoutStudentPaymentsInput = {
+  create?: Prisma.XOR<Prisma.StudentFeeCreateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedCreateWithoutStudentPaymentsInput>
+  connectOrCreate?: Prisma.StudentFeeCreateOrConnectWithoutStudentPaymentsInput
+  connect?: Prisma.StudentFeeWhereUniqueInput
+}
+
+export type StudentFeeUpdateOneRequiredWithoutStudentPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentFeeCreateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedCreateWithoutStudentPaymentsInput>
+  connectOrCreate?: Prisma.StudentFeeCreateOrConnectWithoutStudentPaymentsInput
+  upsert?: Prisma.StudentFeeUpsertWithoutStudentPaymentsInput
+  connect?: Prisma.StudentFeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentFeeUpdateToOneWithWhereWithoutStudentPaymentsInput, Prisma.StudentFeeUpdateWithoutStudentPaymentsInput>, Prisma.StudentFeeUncheckedUpdateWithoutStudentPaymentsInput>
+}
+
 export type StudentFeeCreateNestedManyWithoutStudentInput = {
   create?: Prisma.XOR<Prisma.StudentFeeCreateWithoutStudentInput, Prisma.StudentFeeUncheckedCreateWithoutStudentInput> | Prisma.StudentFeeCreateWithoutStudentInput[] | Prisma.StudentFeeUncheckedCreateWithoutStudentInput[]
   connectOrCreate?: Prisma.StudentFeeCreateOrConnectWithoutStudentInput | Prisma.StudentFeeCreateOrConnectWithoutStudentInput[]
@@ -579,6 +605,7 @@ export type StudentFeeCreateWithoutBatchFeeInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutStudentFeesInput
+  studentPayments?: Prisma.StudentPaymentCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeUncheckedCreateWithoutBatchFeeInput = {
@@ -591,6 +618,7 @@ export type StudentFeeUncheckedCreateWithoutBatchFeeInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeCreateOrConnectWithoutBatchFeeInput = {
@@ -635,6 +663,74 @@ export type StudentFeeScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"StudentFee"> | Date | string
 }
 
+export type StudentFeeCreateWithoutStudentPaymentsInput = {
+  id?: string
+  amount: number
+  paidAmount?: number
+  dueAmount: number
+  paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  student: Prisma.StudentCreateNestedOneWithoutStudentFeesInput
+  batchFee: Prisma.BatchFeeCreateNestedOneWithoutStudentFeesInput
+}
+
+export type StudentFeeUncheckedCreateWithoutStudentPaymentsInput = {
+  id?: string
+  studentId: string
+  batchFeeId: string
+  amount: number
+  paidAmount?: number
+  dueAmount: number
+  paymentStatus?: $Enums.PaymentStatus
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type StudentFeeCreateOrConnectWithoutStudentPaymentsInput = {
+  where: Prisma.StudentFeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudentFeeCreateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedCreateWithoutStudentPaymentsInput>
+}
+
+export type StudentFeeUpsertWithoutStudentPaymentsInput = {
+  update: Prisma.XOR<Prisma.StudentFeeUpdateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedUpdateWithoutStudentPaymentsInput>
+  create: Prisma.XOR<Prisma.StudentFeeCreateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedCreateWithoutStudentPaymentsInput>
+  where?: Prisma.StudentFeeWhereInput
+}
+
+export type StudentFeeUpdateToOneWithWhereWithoutStudentPaymentsInput = {
+  where?: Prisma.StudentFeeWhereInput
+  data: Prisma.XOR<Prisma.StudentFeeUpdateWithoutStudentPaymentsInput, Prisma.StudentFeeUncheckedUpdateWithoutStudentPaymentsInput>
+}
+
+export type StudentFeeUpdateWithoutStudentPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  student?: Prisma.StudentUpdateOneRequiredWithoutStudentFeesNestedInput
+  batchFee?: Prisma.BatchFeeUpdateOneRequiredWithoutStudentFeesNestedInput
+}
+
+export type StudentFeeUncheckedUpdateWithoutStudentPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studentId?: Prisma.StringFieldUpdateOperationsInput | string
+  batchFeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  dueAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type StudentFeeCreateWithoutStudentInput = {
   id?: string
   amount: number
@@ -645,6 +741,7 @@ export type StudentFeeCreateWithoutStudentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   batchFee: Prisma.BatchFeeCreateNestedOneWithoutStudentFeesInput
+  studentPayments?: Prisma.StudentPaymentCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeUncheckedCreateWithoutStudentInput = {
@@ -657,6 +754,7 @@ export type StudentFeeUncheckedCreateWithoutStudentInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedCreateNestedManyWithoutStudentFeeInput
 }
 
 export type StudentFeeCreateOrConnectWithoutStudentInput = {
@@ -707,6 +805,7 @@ export type StudentFeeUpdateWithoutBatchFeeInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutStudentFeesNestedInput
+  studentPayments?: Prisma.StudentPaymentUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeUncheckedUpdateWithoutBatchFeeInput = {
@@ -719,6 +818,7 @@ export type StudentFeeUncheckedUpdateWithoutBatchFeeInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeUncheckedUpdateManyWithoutBatchFeeInput = {
@@ -755,6 +855,7 @@ export type StudentFeeUpdateWithoutStudentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batchFee?: Prisma.BatchFeeUpdateOneRequiredWithoutStudentFeesNestedInput
+  studentPayments?: Prisma.StudentPaymentUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeUncheckedUpdateWithoutStudentInput = {
@@ -767,6 +868,7 @@ export type StudentFeeUncheckedUpdateWithoutStudentInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studentPayments?: Prisma.StudentPaymentUncheckedUpdateManyWithoutStudentFeeNestedInput
 }
 
 export type StudentFeeUncheckedUpdateManyWithoutStudentInput = {
@@ -782,6 +884,35 @@ export type StudentFeeUncheckedUpdateManyWithoutStudentInput = {
 }
 
 
+/**
+ * Count Type StudentFeeCountOutputType
+ */
+
+export type StudentFeeCountOutputType = {
+  studentPayments: number
+}
+
+export type StudentFeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  studentPayments?: boolean | StudentFeeCountOutputTypeCountStudentPaymentsArgs
+}
+
+/**
+ * StudentFeeCountOutputType without action
+ */
+export type StudentFeeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudentFeeCountOutputType
+   */
+  select?: Prisma.StudentFeeCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StudentFeeCountOutputType without action
+ */
+export type StudentFeeCountOutputTypeCountStudentPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudentPaymentWhereInput
+}
+
 
 export type StudentFeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -796,6 +927,8 @@ export type StudentFeeSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   batchFee?: boolean | Prisma.BatchFeeDefaultArgs<ExtArgs>
+  studentPayments?: boolean | Prisma.StudentFee$studentPaymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.StudentFeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studentFee"]>
 
 export type StudentFeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -845,6 +978,8 @@ export type StudentFeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type StudentFeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   batchFee?: boolean | Prisma.BatchFeeDefaultArgs<ExtArgs>
+  studentPayments?: boolean | Prisma.StudentFee$studentPaymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.StudentFeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudentFeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -860,6 +995,7 @@ export type $StudentFeePayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     student: Prisma.$StudentPayload<ExtArgs>
     batchFee: Prisma.$BatchFeePayload<ExtArgs>
+    studentPayments: Prisma.$StudentPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1268,6 +1404,7 @@ export interface Prisma__StudentFeeClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   student<T extends Prisma.StudentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudentDefaultArgs<ExtArgs>>): Prisma.Prisma__StudentClient<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   batchFee<T extends Prisma.BatchFeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BatchFeeDefaultArgs<ExtArgs>>): Prisma.Prisma__BatchFeeClient<runtime.Types.Result.GetResult<Prisma.$BatchFeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  studentPayments<T extends Prisma.StudentFee$studentPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudentFee$studentPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1705,6 +1842,30 @@ export type StudentFeeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many StudentFees to delete.
    */
   limit?: number
+}
+
+/**
+ * StudentFee.studentPayments
+ */
+export type StudentFee$studentPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudentPayment
+   */
+  select?: Prisma.StudentPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudentPayment
+   */
+  omit?: Prisma.StudentPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudentPaymentInclude<ExtArgs> | null
+  where?: Prisma.StudentPaymentWhereInput
+  orderBy?: Prisma.StudentPaymentOrderByWithRelationInput | Prisma.StudentPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.StudentPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudentPaymentScalarFieldEnum | Prisma.StudentPaymentScalarFieldEnum[]
 }
 
 /**
