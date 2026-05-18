@@ -513,24 +513,43 @@ const studentClassSchedule = async (studentId: string) => {
 };
 
 const studentFee = async (userId: string) => {
+
     const student = await prisma.student.findFirst({
         where: {
-            userId: userId,
+            userId,
         },
     });
 
-   const studentId = student?.id;
-    console.log({ studentId })
+    if (!student) {
+        throw new AppError(status.BAD_REQUEST, "Student not found");
+    }
+
     const fee = await prisma.studentFee.findFirst({
         where: {
-            studentId
+            studentId: student.id,
         },
 
         include: {
-            student: true,
+            student: {
+                select: {
+                    name: true,
+                    rollNumber: true,
+                    email: true,
+                    image: true,
+                    phone: true,
+                    batchStudents: {
+                        select: {
+                            batch: {
+                                select: {
+                                    batchName: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            },
         },
     });
-
 
     if (!fee) {
         throw new AppError(status.BAD_REQUEST, "Fee not found");
@@ -538,11 +557,29 @@ const studentFee = async (userId: string) => {
 
     const dueAmount = fee.amount - fee.paidAmount;
 
+    // CLEAN RESPONSE OBJECT
     return {
-        ...fee,
-        dueAmount,
+        feeId: fee.id,
+        studentId: fee.studentId,
+
+        student: {
+            name: fee.student.name,
+            rollNumber: fee.student.rollNumber,
+            email: fee.student.email,
+            phone: fee.student.phone,
+            image: fee.student.image,
+            batchName:
+                fee.student.batchStudents?.[0]?.batch?.batchName || null,
+        },
+
+        fee: {
+            totalAmount: fee.amount,
+            paidAmount: fee.paidAmount,
+            dueAmount,
+            status: fee.paymentStatus,
+        },
     };
-}
+};
 
 const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
 

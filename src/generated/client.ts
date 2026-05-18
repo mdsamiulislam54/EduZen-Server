@@ -112,11 +112,6 @@ export type Notice = Prisma.NoticeModel
  */
 export type SubscriptionPayment = Prisma.SubscriptionPaymentModel
 /**
- * Model StudentPayment
- * 
- */
-export type StudentPayment = Prisma.StudentPaymentModel
-/**
  * Model Subscription
  * 
  */

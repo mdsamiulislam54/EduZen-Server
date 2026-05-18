@@ -9,6 +9,7 @@ model SubscriptionPlan {
     has_attendance Boolean                @default(true)
     has_sms        Boolean                @default(true)
     has_exam       Boolean                @default(true)
+    features       String[] 
     status         SubscriptionPlanStatus @default(ACTIVE)
     isDeleted      Boolean                @default(false)
     deletedAt      DateTime?

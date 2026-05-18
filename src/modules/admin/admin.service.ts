@@ -10,7 +10,7 @@ const getAllOwners = async () => {
             role: Role.OWNER,
             isDeleted: false
         },
-        
+
     });
     return owners
 };
@@ -21,7 +21,7 @@ const getOwnerById = async (id: string) => {
             id,
             isDeleted: false
         },
-      
+
     });
 
     if (!isExistsOwner) {
@@ -33,11 +33,11 @@ const getOwnerById = async (id: string) => {
             id,
             isDeleted: false
         },
-       include:{
-        
-        coachingCenter:true,
-        
-       }
+        include: {
+
+            coachingCenter: true,
+
+        }
 
     })
 };
@@ -65,7 +65,7 @@ const deleteOwner = async (id: string) => {
 const adminDashboardData = async () => {
     const [totalOwners, totalRevenue, activeSubscription, totalCoachingCenter,] = await Promise.all([
         prisma.user.count({ where: { role: Role.OWNER, isDeleted: false } }),
-        prisma.payment.aggregate({ _sum: { amount: true } }),
+        prisma.subscriptionPayment.aggregate({ _sum: { amount: true } }),
         prisma.subscriptionPlan.count({ where: { isDeleted: false } }),
         prisma.coachingCenter.count({ where: { isDeleted: false } })
 
@@ -79,8 +79,21 @@ const adminDashboardData = async () => {
     }
 };
 
+const adminDashboardChartData = async () => {
+    const subscriptions = await prisma.subscription.groupBy({
+        by: ["createdAt"],
+        _count: {
+            id: true,
+        },
+    });
+
+    return subscriptions.map((item) => ({
+        date: item.createdAt.toISOString().split("T")[0],
+        count: item._count.id,
+    }));
+};
 const adminAnalytics = async () => {
-    const payments = await prisma.payment.findMany({
+    const payments = await prisma.subscriptionPayment.findMany({
         select: {
             amount: true,
             createdAt: true
@@ -121,5 +134,6 @@ export const adminService = {
     getOwnerById,
     deleteOwner,
     adminAnalytics,
-    adminDashboardData
+    adminDashboardData,
+    adminDashboardChartData
 }

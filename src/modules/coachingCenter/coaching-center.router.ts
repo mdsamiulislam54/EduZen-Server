@@ -7,6 +7,7 @@ import { Role } from "../../generated/enums";
 
 const router = Router();
 router.get("/", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.getCoachingCenter);
+router.get("/:roll", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.findStudentByRollNumber);
 router.get("/owner/dashboard", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.getCoachingOwnerDashboardData);
 router.get("/owner/dashboard/student-growth", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), coachingCenterController.coachingCenterOwnerDashboardStudentGrowth);
 

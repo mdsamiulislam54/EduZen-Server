@@ -152,6 +152,16 @@ export const BloodGroup = {
 export type BloodGroup = (typeof BloodGroup)[keyof typeof BloodGroup]
 
 
+export const PaymentMethod = {
+  CASH: 'CASH',
+  BKASH: 'BKASH',
+  NAGAD: 'NAGAD',
+  BANK: 'BANK'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
 export const NoticeType = {
   GENERAL: 'GENERAL',
   EXAM: 'EXAM',

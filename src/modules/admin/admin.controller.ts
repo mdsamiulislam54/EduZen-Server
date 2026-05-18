@@ -56,6 +56,16 @@ const adminAnalytics = catchAsync(async (req: Request, res: Response) => {
     });
 }
 )
+const adminDashboardChartData = catchAsync(async (req: Request, res: Response) => {
+    const result = await adminService.adminDashboardChartData();
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "AdminAnalytics Retrieved successfully",
+        data: result,
+    });
+}
+)
 
 
 export const adminController = {
@@ -63,5 +73,6 @@ export const adminController = {
     getOwnerById,
     deleteOwner,
     adminAnalytics,
-    adminDashboardData
+    adminDashboardData,
+    adminDashboardChartData
 }

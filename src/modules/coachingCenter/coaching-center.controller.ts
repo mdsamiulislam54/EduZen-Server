@@ -68,6 +68,16 @@ const coachingCenterOwnerDashboardStudentGrowth = catchAsync(async(req: Request,
         data:result
     })
 });
+const findStudentByRollNumber = catchAsync(async(req: Request, res: Response) => {
+    const rollNumber = req.params.roll as string
+    const result = await coachingCenterService.findStudentByRollNumber(rollNumber)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student  data retrieved successfully",
+        data:result
+    })
+});
 
 
 
@@ -79,5 +89,6 @@ export const coachingCenterController = {
     getCoachingCenter,
     coachingCenterDeleteById,
     getCoachingOwnerDashboardData,
-    coachingCenterOwnerDashboardStudentGrowth
+    coachingCenterOwnerDashboardStudentGrowth,
+    findStudentByRollNumber
 }

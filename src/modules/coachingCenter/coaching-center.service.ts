@@ -5,6 +5,7 @@ import { CoachingCenter, Role } from "../../generated/client";
 import { auth } from "../../lib/auth";
 
 import { generateRandomPassword } from "../../shared/utils/randomPasswordGenerate";
+import { IPayStudentFee } from "./coaching-center.interface";
 
 const createCoachingCenter = async (payload: CoachingCenter) => {
     const password = generateRandomPassword(8)
@@ -38,23 +39,34 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
 
 
 
-    let coachingData;
+    let result;
 
     try {
-        coachingData = await prisma.$transaction(async (tx) => {
+        result = await prisma.$transaction(async (tx) => {
 
 
-            return await tx.coachingCenter.create({
+            const center = await tx.coachingCenter.create({
                 data: {
                     ...payload,
                     ownerId: userData.user.id
                 },
                 select: {
+                    id: true,
                     owner: true
 
                 }
-            })
+            });
+            const subscription = await tx.subscription.create({
+                data: {
+                    coachingCenterId: center.id,
+                    subscriptionPlanId: "TRIAL_PLAN_ID",
+                    status: "TRIAL",
+                    startDate: new Date(),
+                    endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                },
+            });
 
+            return { center, subscription }
         });
     } catch (error) {
         await prisma.user.delete({
@@ -64,7 +76,7 @@ const createCoachingCenter = async (payload: CoachingCenter) => {
         throw new AppError(status.BAD_REQUEST, "User Delete")
     }
 
-    return coachingData
+    return result
 }
 
 const getCoachingCenter = async () => {
@@ -194,59 +206,93 @@ const coachingCenterDeleteById = async (id: string) => {
 }
 
 const coachingCenterOwnerDashboardStudentGrowth = async (ownerId: string) => {
-  const coachingCenter = await prisma.coachingCenter.findFirst({
-    where: { 
-        ownerId
-     },
-    select: { id: true },
-  });
+    const coachingCenter = await prisma.coachingCenter.findFirst({
+        where: {
+            ownerId
+        },
+        select: { id: true },
+    });
 
-  if (!coachingCenter) {
-    throw new AppError(status.NOT_FOUND, "Coaching center not found");
-  }
-
-  const studentGrowthData = await prisma.student.findMany({
-    where: {
-      coachingCenterId: coachingCenter.id,
-      isDeleted: false,
-    },
-    select: {
-      createdAt: true,
-      studentFees: {
-        where: { isDeleted: false }, 
-        select: { amount: true },
-      },
-    },
-    orderBy: { createdAt: "asc" }, 
-  });
-
-  const grouped: Record<
-    string,
-    { date: string; count: number; totalFee: number }
-  > = {};
-
-  for (const student of studentGrowthData) {
-    const date = student.createdAt.toISOString().split("T")[0];
-
-    const totalFee = student.studentFees.reduce(
-      (sum, fee) => sum + (fee.amount || 0),
-      0
-    );
-
-    if (!grouped[date]) {
-      grouped[date] = {
-        date,
-        count: 0,
-        totalFee: 0,
-      };
+    if (!coachingCenter) {
+        throw new AppError(status.NOT_FOUND, "Coaching center not found");
     }
 
-    grouped[date].count += 1;
-    grouped[date].totalFee += totalFee;
-  }
+    const studentGrowthData = await prisma.student.findMany({
+        where: {
+            coachingCenterId: coachingCenter.id,
+            isDeleted: false,
+        },
+        select: {
+            createdAt: true,
+            studentFees: {
+                where: { isDeleted: false },
+                select: { amount: true },
+            },
+        },
+        orderBy: { createdAt: "asc" },
+    });
 
-  return Object.values(grouped);
+    const grouped: Record<string, { date: string; count: number; totalFee: number }> = {};
+
+    for (const student of studentGrowthData) {
+        const date = student.createdAt.toISOString().split("T")[0];
+
+        const totalFee = student.studentFees.reduce(
+            (sum, fee) => sum + (fee.amount || 0),
+            0
+        );
+
+        if (!grouped[date]) {
+            grouped[date] = {
+                date,
+                count: 0,
+                totalFee: 0,
+            };
+        }
+
+        grouped[date].count += 1;
+        grouped[date].totalFee += totalFee;
+    }
+
+    return Object.values(grouped);
 };
+
+
+const findStudentByRollNumber = async (rollNumber: string) => {
+    const student = await prisma.student.findFirst({
+        where: {
+            rollNumber
+        },
+        include: {
+            studentFees: {
+                select: {
+                    id: true,
+                    amount: true,
+                    paidAmount: true,
+                    dueAmount: true,
+                    paymentStatus: true,
+                    paymentMethod: true,
+                    batchFee: true,
+                    studentId: true,
+                    batchFeeId: true
+                }
+            },
+
+        }
+    });
+
+    if (!student) {
+        throw new AppError(status.NOT_FOUND, "Student not found");
+    }
+
+    return student;
+};
+
+const payStudentFee = async (payload: IPayStudentFee) => {
+
+}
+
+
 
 export const coachingCenterService = {
     createCoachingCenter,
@@ -254,5 +300,6 @@ export const coachingCenterService = {
     getCoachingCenter,
     coachingCenterDeleteById,
     getCoachingOwnerDashboardData,
-    coachingCenterOwnerDashboardStudentGrowth
+    coachingCenterOwnerDashboardStudentGrowth,
+    findStudentByRollNumber
 }

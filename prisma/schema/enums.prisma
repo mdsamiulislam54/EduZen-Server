@@ -96,3 +96,9 @@ enum BloodGroup {
   O_POSITIVE
   O_NEGATIVE
 }
+enum PaymentMethod {
+  CASH
+  BKASH
+  NAGAD
+  BANK
+}

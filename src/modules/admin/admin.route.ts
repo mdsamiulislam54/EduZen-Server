@@ -10,6 +10,7 @@ router.get("/dashboard-data", authorize(Role.ADMIN), adminController.adminDashbo
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
 router.get("/owners/:id", authorize(Role.ADMIN), adminController.getOwnerById);
 router.get("/analytics", authorize(Role.ADMIN), adminController.adminAnalytics);
+router.get("/chart-data",  adminController.adminDashboardChartData);
 
 router.patch('/owner/:id', authorize(Role.ADMIN), adminController.deleteOwner);
 

@@ -89,6 +89,7 @@ export type SubscriptionPlanCountAggregateOutputType = {
   has_attendance: number
   has_sms: number
   has_exam: number
+  features: number
   status: number
   isDeleted: number
   deletedAt: number
@@ -161,6 +162,7 @@ export type SubscriptionPlanCountAggregateInputType = {
   has_attendance?: true
   has_sms?: true
   has_exam?: true
+  features?: true
   status?: true
   isDeleted?: true
   deletedAt?: true
@@ -266,6 +268,7 @@ export type SubscriptionPlanGroupByOutputType = {
   has_attendance: boolean
   has_sms: boolean
   has_exam: boolean
+  features: string[]
   status: $Enums.SubscriptionPlanStatus
   isDeleted: boolean
   deletedAt: Date | null
@@ -307,6 +310,7 @@ export type SubscriptionPlanWhereInput = {
   has_attendance?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   has_sms?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   has_exam?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
+  features?: Prisma.StringNullableListFilter<"SubscriptionPlan">
   status?: Prisma.EnumSubscriptionPlanStatusFilter<"SubscriptionPlan"> | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"SubscriptionPlan"> | Date | string | null
@@ -327,6 +331,7 @@ export type SubscriptionPlanOrderByWithRelationInput = {
   has_attendance?: Prisma.SortOrder
   has_sms?: Prisma.SortOrder
   has_exam?: Prisma.SortOrder
+  features?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -350,6 +355,7 @@ export type SubscriptionPlanWhereUniqueInput = Prisma.AtLeast<{
   has_attendance?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   has_sms?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   has_exam?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
+  features?: Prisma.StringNullableListFilter<"SubscriptionPlan">
   status?: Prisma.EnumSubscriptionPlanStatusFilter<"SubscriptionPlan"> | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFilter<"SubscriptionPlan"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"SubscriptionPlan"> | Date | string | null
@@ -370,6 +376,7 @@ export type SubscriptionPlanOrderByWithAggregationInput = {
   has_attendance?: Prisma.SortOrder
   has_sms?: Prisma.SortOrder
   has_exam?: Prisma.SortOrder
+  features?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -396,6 +403,7 @@ export type SubscriptionPlanScalarWhereWithAggregatesInput = {
   has_attendance?: Prisma.BoolWithAggregatesFilter<"SubscriptionPlan"> | boolean
   has_sms?: Prisma.BoolWithAggregatesFilter<"SubscriptionPlan"> | boolean
   has_exam?: Prisma.BoolWithAggregatesFilter<"SubscriptionPlan"> | boolean
+  features?: Prisma.StringNullableListFilter<"SubscriptionPlan">
   status?: Prisma.EnumSubscriptionPlanStatusWithAggregatesFilter<"SubscriptionPlan"> | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolWithAggregatesFilter<"SubscriptionPlan"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SubscriptionPlan"> | Date | string | null
@@ -414,6 +422,7 @@ export type SubscriptionPlanCreateInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -434,6 +443,7 @@ export type SubscriptionPlanUncheckedCreateInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -454,6 +464,7 @@ export type SubscriptionPlanUpdateInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -474,6 +485,7 @@ export type SubscriptionPlanUncheckedUpdateInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -494,6 +506,7 @@ export type SubscriptionPlanCreateManyInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -512,6 +525,7 @@ export type SubscriptionPlanUpdateManyMutationInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -530,6 +544,7 @@ export type SubscriptionPlanUncheckedUpdateManyInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -540,6 +555,14 @@ export type SubscriptionPlanUncheckedUpdateManyInput = {
 export type SubscriptionPlanScalarRelationFilter = {
   is?: Prisma.SubscriptionPlanWhereInput
   isNot?: Prisma.SubscriptionPlanWhereInput
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type SubscriptionPlanCountOrderByAggregateInput = {
@@ -553,6 +576,7 @@ export type SubscriptionPlanCountOrderByAggregateInput = {
   has_attendance?: Prisma.SortOrder
   has_sms?: Prisma.SortOrder
   has_exam?: Prisma.SortOrder
+  features?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -640,6 +664,15 @@ export type SubscriptionPlanUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriptionPlanUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.SubscriptionPlanUpdateWithoutSubscriptionsInput>, Prisma.SubscriptionPlanUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type SubscriptionPlanCreatefeaturesInput = {
+  set: string[]
+}
+
+export type SubscriptionPlanUpdatefeaturesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type EnumSubscriptionPlanStatusFieldUpdateOperationsInput = {
   set?: $Enums.SubscriptionPlanStatus
 }
@@ -655,6 +688,7 @@ export type SubscriptionPlanCreateWithoutPaymentsInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -674,6 +708,7 @@ export type SubscriptionPlanUncheckedCreateWithoutPaymentsInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -709,6 +744,7 @@ export type SubscriptionPlanUpdateWithoutPaymentsInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -728,6 +764,7 @@ export type SubscriptionPlanUncheckedUpdateWithoutPaymentsInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -747,6 +784,7 @@ export type SubscriptionPlanCreateWithoutSubscriptionsInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -766,6 +804,7 @@ export type SubscriptionPlanUncheckedCreateWithoutSubscriptionsInput = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: Prisma.SubscriptionPlanCreatefeaturesInput | string[]
   status?: $Enums.SubscriptionPlanStatus
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -801,6 +840,7 @@ export type SubscriptionPlanUpdateWithoutSubscriptionsInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -820,6 +860,7 @@ export type SubscriptionPlanUncheckedUpdateWithoutSubscriptionsInput = {
   has_attendance?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_sms?: Prisma.BoolFieldUpdateOperationsInput | boolean
   has_exam?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  features?: Prisma.SubscriptionPlanUpdatefeaturesInput | string[]
   status?: Prisma.EnumSubscriptionPlanStatusFieldUpdateOperationsInput | $Enums.SubscriptionPlanStatus
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -879,6 +920,7 @@ export type SubscriptionPlanSelect<ExtArgs extends runtime.Types.Extensions.Inte
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: boolean
   status?: boolean
   isDeleted?: boolean
   deletedAt?: boolean
@@ -900,6 +942,7 @@ export type SubscriptionPlanSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: boolean
   status?: boolean
   isDeleted?: boolean
   deletedAt?: boolean
@@ -918,6 +961,7 @@ export type SubscriptionPlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: boolean
   status?: boolean
   isDeleted?: boolean
   deletedAt?: boolean
@@ -936,6 +980,7 @@ export type SubscriptionPlanSelectScalar = {
   has_attendance?: boolean
   has_sms?: boolean
   has_exam?: boolean
+  features?: boolean
   status?: boolean
   isDeleted?: boolean
   deletedAt?: boolean
@@ -943,7 +988,7 @@ export type SubscriptionPlanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SubscriptionPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "duration_days" | "max_students" | "max_teachers" | "max_batches" | "has_attendance" | "has_sms" | "has_exam" | "status" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscriptionPlan"]>
+export type SubscriptionPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "duration_days" | "max_students" | "max_teachers" | "max_batches" | "has_attendance" | "has_sms" | "has_exam" | "features" | "status" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscriptionPlan"]>
 export type SubscriptionPlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriptions?: boolean | Prisma.SubscriptionPlan$subscriptionsArgs<ExtArgs>
   payments?: boolean | Prisma.SubscriptionPlan$paymentsArgs<ExtArgs>
@@ -969,6 +1014,7 @@ export type $SubscriptionPlanPayload<ExtArgs extends runtime.Types.Extensions.In
     has_attendance: boolean
     has_sms: boolean
     has_exam: boolean
+    features: string[]
     status: $Enums.SubscriptionPlanStatus
     isDeleted: boolean
     deletedAt: Date | null
@@ -1409,6 +1455,7 @@ export interface SubscriptionPlanFieldRefs {
   readonly has_attendance: Prisma.FieldRef<"SubscriptionPlan", 'Boolean'>
   readonly has_sms: Prisma.FieldRef<"SubscriptionPlan", 'Boolean'>
   readonly has_exam: Prisma.FieldRef<"SubscriptionPlan", 'Boolean'>
+  readonly features: Prisma.FieldRef<"SubscriptionPlan", 'String[]'>
   readonly status: Prisma.FieldRef<"SubscriptionPlan", 'SubscriptionPlanStatus'>
   readonly isDeleted: Prisma.FieldRef<"SubscriptionPlan", 'Boolean'>
   readonly deletedAt: Prisma.FieldRef<"SubscriptionPlan", 'DateTime'>

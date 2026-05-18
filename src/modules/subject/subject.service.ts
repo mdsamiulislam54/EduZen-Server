@@ -40,7 +40,7 @@ const getAllSubject = async (query: IQueryParams) => {
         take:builder.limit,
         skip:builder.skip,
         where:{
-            ...builder.query
+            ...builder.query.where
         }
     })
     const meta = await builder.getMeta(prisma.subject)

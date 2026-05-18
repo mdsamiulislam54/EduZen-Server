@@ -62,7 +62,6 @@ const createExam = async (payload: Exam) => {
 
 const updateExam = async (id: string, payload: Partial<Exam>) => {
 
-  console.log({ payload })
   if (!payload.examDate || !payload.startTime || !payload.endTime) {
     throw new AppError(status.BAD_REQUEST, "Date and time are required");
   }

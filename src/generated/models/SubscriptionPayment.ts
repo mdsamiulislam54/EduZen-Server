@@ -291,13 +291,13 @@ export type SubscriptionPaymentOrderByWithRelationInput = {
 
 export type SubscriptionPaymentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  transactionId?: string
   stripeSessionId?: string
   AND?: Prisma.SubscriptionPaymentWhereInput | Prisma.SubscriptionPaymentWhereInput[]
   OR?: Prisma.SubscriptionPaymentWhereInput[]
   NOT?: Prisma.SubscriptionPaymentWhereInput | Prisma.SubscriptionPaymentWhereInput[]
   coachingCenterId?: Prisma.StringFilter<"SubscriptionPayment"> | string
   subscriptionPlanId?: Prisma.StringFilter<"SubscriptionPayment"> | string
-  transactionId?: Prisma.StringNullableFilter<"SubscriptionPayment"> | string | null
   startDate?: Prisma.DateTimeFilter<"SubscriptionPayment"> | Date | string
   endDate?: Prisma.DateTimeFilter<"SubscriptionPayment"> | Date | string
   amount?: Prisma.IntFilter<"SubscriptionPayment"> | number
@@ -307,7 +307,7 @@ export type SubscriptionPaymentWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"SubscriptionPayment"> | Date | string
   coachingCenter?: Prisma.XOR<Prisma.CoachingCenterScalarRelationFilter, Prisma.CoachingCenterWhereInput>
   subscriptionPlan?: Prisma.XOR<Prisma.SubscriptionPlanScalarRelationFilter, Prisma.SubscriptionPlanWhereInput>
-}, "id" | "stripeSessionId">
+}, "id" | "transactionId" | "stripeSessionId">
 
 export type SubscriptionPaymentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

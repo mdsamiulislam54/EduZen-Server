@@ -28,7 +28,6 @@ model Student {
   results         Result[]
   attendances     Attendance[]
   studentFees     StudentFee[]
-  studentPayments StudentPayment[]
 
   @@index([coachingCenterId])
   @@index([userId])
@@ -59,6 +58,7 @@ model StudentFee {
   batchFeeId    String 
   amount        Int
   paidAmount    Int           @default(0)
+    paymentMethod PaymentMethod @default(CASH)
   dueAmount     Int
   paymentStatus PaymentStatus @default(PENDING)
   isDeleted     Boolean       @default(false)
@@ -67,5 +67,5 @@ model StudentFee {
 
   student         Student          @relation(fields: [studentId], references: [id])
   batchFee        BatchFee         @relation(fields: [batchFeeId], references: [id])
-  studentPayments StudentPayment[]
+ 
 }

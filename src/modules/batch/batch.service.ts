@@ -77,7 +77,8 @@ const getAllBatch = async (query: IQueryParams) => {
                 }
             },
             batchTeachers: true
-        }
+        },
+        orderBy:{createdAt:"desc"}
     })
 
     const meta = await builder.getMeta(prisma.batch)

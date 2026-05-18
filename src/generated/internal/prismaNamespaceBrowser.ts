@@ -65,7 +65,6 @@ export const ModelName = {
   Exam: 'Exam',
   Notice: 'Notice',
   SubscriptionPayment: 'SubscriptionPayment',
-  StudentPayment: 'StudentPayment',
   Subscription: 'Subscription',
   Mark: 'Mark',
   Result: 'Result',
@@ -323,24 +322,6 @@ export const SubscriptionPaymentScalarFieldEnum = {
 export type SubscriptionPaymentScalarFieldEnum = (typeof SubscriptionPaymentScalarFieldEnum)[keyof typeof SubscriptionPaymentScalarFieldEnum]
 
 
-export const StudentPaymentScalarFieldEnum = {
-  id: 'id',
-  studentId: 'studentId',
-  studentFeeId: 'studentFeeId',
-  transactionId: 'transactionId',
-  stripeSessionId: 'stripeSessionId',
-  stripePaymentId: 'stripePaymentId',
-  amount: 'amount',
-  status: 'status',
-  paymentMethod: 'paymentMethod',
-  paymentDetails: 'paymentDetails',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type StudentPaymentScalarFieldEnum = (typeof StudentPaymentScalarFieldEnum)[keyof typeof StudentPaymentScalarFieldEnum]
-
-
 export const SubscriptionScalarFieldEnum = {
   id: 'id',
   coachingCenterId: 'coachingCenterId',
@@ -429,6 +410,7 @@ export const StudentFeeScalarFieldEnum = {
   batchFeeId: 'batchFeeId',
   amount: 'amount',
   paidAmount: 'paidAmount',
+  paymentMethod: 'paymentMethod',
   dueAmount: 'dueAmount',
   paymentStatus: 'paymentStatus',
   isDeleted: 'isDeleted',
@@ -450,6 +432,7 @@ export const SubscriptionPlanScalarFieldEnum = {
   has_attendance: 'has_attendance',
   has_sms: 'has_sms',
   has_exam: 'has_exam',
+  features: 'features',
   status: 'status',
   isDeleted: 'isDeleted',
   deletedAt: 'deletedAt',

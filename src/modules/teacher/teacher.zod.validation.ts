@@ -24,8 +24,6 @@ export const createTeacherSchema = z.object({
             .optional()
             .transform((val) => (val ? new Date(val) : undefined)),
 
-        image: z.string().optional(),
-
 
         experience: z
             .number()
@@ -65,7 +63,6 @@ export const updateTeacherSchema = z.object({
             .optional()
             .transform((val) => (val ? new Date(val) : undefined)),
 
-        image: z.string().url().optional(),
 
         experience: z
             .number()

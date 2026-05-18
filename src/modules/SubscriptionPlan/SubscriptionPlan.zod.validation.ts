@@ -10,5 +10,6 @@ export const subscriptionPlanSchema = z.object({
   has_attendance: z.boolean().optional(),
   has_sms: z.boolean().optional(),
   has_exam: z.boolean().optional(),
+  features: z.array(z.string()).default([]),
   status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
 });

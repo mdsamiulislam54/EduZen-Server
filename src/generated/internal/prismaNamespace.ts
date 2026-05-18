@@ -398,7 +398,6 @@ export const ModelName = {
   Exam: 'Exam',
   Notice: 'Notice',
   SubscriptionPayment: 'SubscriptionPayment',
-  StudentPayment: 'StudentPayment',
   Subscription: 'Subscription',
   Mark: 'Mark',
   Result: 'Result',
@@ -423,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "subject" | "attendance" | "user" | "session" | "account" | "verification" | "batch" | "batchFee" | "batchTeachers" | "classSession" | "coachingCenter" | "exam" | "notice" | "subscriptionPayment" | "studentPayment" | "subscription" | "mark" | "result" | "student" | "batchStudent" | "studentFee" | "subscriptionPlan" | "teacher" | "teacherSubject"
+    modelProps: "subject" | "attendance" | "user" | "session" | "account" | "verification" | "batch" | "batchFee" | "batchTeachers" | "classSession" | "coachingCenter" | "exam" | "notice" | "subscriptionPayment" | "subscription" | "mark" | "result" | "student" | "batchStudent" | "studentFee" | "subscriptionPlan" | "teacher" | "teacherSubject"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1463,80 +1462,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    StudentPayment: {
-      payload: Prisma.$StudentPaymentPayload<ExtArgs>
-      fields: Prisma.StudentPaymentFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.StudentPaymentFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.StudentPaymentFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        findFirst: {
-          args: Prisma.StudentPaymentFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.StudentPaymentFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        findMany: {
-          args: Prisma.StudentPaymentFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>[]
-        }
-        create: {
-          args: Prisma.StudentPaymentCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        createMany: {
-          args: Prisma.StudentPaymentCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.StudentPaymentCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>[]
-        }
-        delete: {
-          args: Prisma.StudentPaymentDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        update: {
-          args: Prisma.StudentPaymentUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        deleteMany: {
-          args: Prisma.StudentPaymentDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.StudentPaymentUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.StudentPaymentUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>[]
-        }
-        upsert: {
-          args: Prisma.StudentPaymentUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentPaymentPayload>
-        }
-        aggregate: {
-          args: Prisma.StudentPaymentAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateStudentPayment>
-        }
-        groupBy: {
-          args: Prisma.StudentPaymentGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.StudentPaymentGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.StudentPaymentCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.StudentPaymentCountAggregateOutputType> | number
-        }
-      }
-    }
     Subscription: {
       payload: Prisma.$SubscriptionPayload<ExtArgs>
       fields: Prisma.SubscriptionFieldRefs
@@ -2472,24 +2397,6 @@ export const SubscriptionPaymentScalarFieldEnum = {
 export type SubscriptionPaymentScalarFieldEnum = (typeof SubscriptionPaymentScalarFieldEnum)[keyof typeof SubscriptionPaymentScalarFieldEnum]
 
 
-export const StudentPaymentScalarFieldEnum = {
-  id: 'id',
-  studentId: 'studentId',
-  studentFeeId: 'studentFeeId',
-  transactionId: 'transactionId',
-  stripeSessionId: 'stripeSessionId',
-  stripePaymentId: 'stripePaymentId',
-  amount: 'amount',
-  status: 'status',
-  paymentMethod: 'paymentMethod',
-  paymentDetails: 'paymentDetails',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type StudentPaymentScalarFieldEnum = (typeof StudentPaymentScalarFieldEnum)[keyof typeof StudentPaymentScalarFieldEnum]
-
-
 export const SubscriptionScalarFieldEnum = {
   id: 'id',
   coachingCenterId: 'coachingCenterId',
@@ -2578,6 +2485,7 @@ export const StudentFeeScalarFieldEnum = {
   batchFeeId: 'batchFeeId',
   amount: 'amount',
   paidAmount: 'paidAmount',
+  paymentMethod: 'paymentMethod',
   dueAmount: 'dueAmount',
   paymentStatus: 'paymentStatus',
   isDeleted: 'isDeleted',
@@ -2599,6 +2507,7 @@ export const SubscriptionPlanScalarFieldEnum = {
   has_attendance: 'has_attendance',
   has_sms: 'has_sms',
   has_exam: 'has_exam',
+  features: 'features',
   status: 'status',
   isDeleted: 'isDeleted',
   deletedAt: 'deletedAt',
@@ -2985,6 +2894,20 @@ export type ListEnumStudentStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'PaymentMethod'
+ */
+export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentMethod[]'
+ */
+export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
+    
+
+
+/**
  * Reference to a field of type 'SubscriptionPlanStatus'
  */
 export type EnumSubscriptionPlanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionPlanStatus'>
@@ -3120,7 +3043,6 @@ export type GlobalOmitConfig = {
   exam?: Prisma.ExamOmit
   notice?: Prisma.NoticeOmit
   subscriptionPayment?: Prisma.SubscriptionPaymentOmit
-  studentPayment?: Prisma.StudentPaymentOmit
   subscription?: Prisma.SubscriptionOmit
   mark?: Prisma.MarkOmit
   result?: Prisma.ResultOmit

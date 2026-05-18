@@ -3,11 +3,13 @@ import { stripe } from "../../config/stripe";
 import { prisma } from "../../database/prisma";
 import { AppError } from "../../shared/errors/app-error";
 import { envVars } from "../../config/env";
-import { ICheckoutPayload } from "./subscriptionPlan.interface";
+import { ICheckoutPayload, TSubscriptionPlan } from "./subscriptionPlan.interface";
 import { uuidv7 } from "zod";
 
 
-const createSubscriptionPlan = async (payload: any) => {
+const createSubscriptionPlan = async (payload: TSubscriptionPlan) => {
+
+  console.log({ payload })
   const plan = await prisma.subscriptionPlan.create({
     data: payload,
   });
@@ -69,7 +71,7 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
 
   const coachingCenterId = user?.coachingCenter?.id;
   if (!coachingCenterId) {
-    throw new AppError(status.BAD_REQUEST, "User not found")
+    throw new AppError(status.BAD_REQUEST, "Coaching center not found");
   }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -91,71 +93,12 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
     success_url: `${envVars.FRONTEND_URL}/payment/success`,
     cancel_url: `${envVars.FRONTEND_URL}/payment/cancel`,
     metadata: {
-      type: "subscription",
       coachingCenterId,
       subscriptionPlanId: plan.id,
     }
   });
 
-  await prisma.$transaction(async (tx) => {
 
-    const existing = await tx.subscriptionPayment.findFirst({
-      where: {
-        stripeSessionId: session.id,
-      },
-    });
-
-    if (existing) return existing;
-
-
-    await tx.subscriptionPayment.upsert({
-      where: {
-        stripeSessionId: session.id
-      },
-      update: {
-        status: "PENDING"
-      },
-      create: {
-        coachingCenterId,
-        subscriptionPlanId: plan.id,
-        amount: plan.price,
-        transactionId: String(uuidv7()),
-        stripeSessionId: session.id,
-        startDate: new Date(),
-        endDate: new Date(),
-        status: "PENDING",
-      },
-    });
-    const existingSubscription = await tx.subscription.findFirst({
-      where: {
-        coachingCenterId,
-      },
-    });
-
-    if (existingSubscription) {
-      await tx.subscription.update({
-        where: {
-          id: existingSubscription.id,
-        },
-        data: {
-          subscriptionPlanId: plan.id,
-          startDate: new Date(),
-          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-          status: "ACTIVE",
-        },
-      });
-    } else {
-      await tx.subscription.create({
-        data: {
-          coachingCenterId,
-          subscriptionPlanId: plan.id,
-          startDate: new Date(),
-          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-          status: "TRIAL",
-        },
-      });
-    }  
-  })
 
   return {
     checkoutUrl: session.url
