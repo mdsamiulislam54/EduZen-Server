@@ -7,77 +7,77 @@ import { auth } from "../../lib/auth";
 import { generateRandomPassword } from "../../shared/utils/randomPasswordGenerate";
 import { IPayStudentFee } from "./coaching-center.interface";
 
-const createCoachingCenter = async (payload: CoachingCenter) => {
-    const password = generateRandomPassword(8)
-    const isExistingCenter = await prisma.coachingCenter.findUnique({
-        where: { email: payload.email },
-        select: { id: true }
-    });
-    if (isExistingCenter) {
-        throw new AppError(status.CONFLICT, "Coaching center already exists");
-    }
-    const existingUser = await prisma.user.findUnique({
-        where: { email: payload.email },
-        select: { id: true }
-    });
-    if (existingUser) {
-        throw new AppError(status.CONFLICT, "This email is already associated with an existing user");
-    }
+// const createCoachingCenter = async (payload: CoachingCenter) => {
+//     const password = generateRandomPassword(8)
+//     const isExistingCenter = await prisma.coachingCenter.findUnique({
+//         where: { email: payload.email },
+//         select: { id: true }
+//     });
+//     if (isExistingCenter) {
+//         throw new AppError(status.CONFLICT, "Coaching center already exists");
+//     }
+//     const existingUser = await prisma.user.findUnique({
+//         where: { email: payload.email },
+//         select: { id: true }
+//     });
+//     if (existingUser) {
+//         throw new AppError(status.CONFLICT, "This email is already associated with an existing user");
+//     }
 
-    const userData = await auth.api.signUpEmail({
-        body: {
-            name: payload.name,
-            email: payload.email,
-            password,
-            needPasswordChange: true,
-            role: Role.OWNER,
-            teamPassword: password
-
-
-        }
-    });
+//     const userData = await auth.api.signUpEmail({
+//         body: {
+//             name: payload.name,
+//             email: payload.email,
+//             password,
+//             needPasswordChange: true,
+//             role: Role.OWNER,
+//             teamPassword: password
 
 
-
-    let result;
-
-    try {
-        result = await prisma.$transaction(async (tx) => {
+//         }
+//     });
 
 
-            const center = await tx.coachingCenter.create({
-                data: {
-                    ...payload,
-                    ownerId: userData.user.id
-                },
-                select: {
-                    id: true,
-                    owner: true
 
-                }
-            });
-            const subscription = await tx.subscription.create({
-                data: {
-                    coachingCenterId: center.id,
-                    subscriptionPlanId: "TRIAL_PLAN_ID",
-                    status: "TRIAL",
-                    startDate: new Date(),
-                    endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                },
-            });
+//     let result;
 
-            return { center, subscription }
-        });
-    } catch (error) {
-        await prisma.user.delete({
-            where: { id: userData?.user.id }
-        });
+//     try {
+//         result = await prisma.$transaction(async (tx) => {
 
-        throw new AppError(status.BAD_REQUEST, "User Delete")
-    }
 
-    return result
-}
+//             const center = await tx.coachingCenter.create({
+//                 data: {
+//                     ...payload,
+//                     ownerId: userData.user.id
+//                 },
+//                 select: {
+//                     id: true,
+//                     owner: true
+
+//                 }
+//             });
+//             const subscription = await tx.subscription.create({
+//                 data: {
+//                     coachingCenterId: center.id,
+//                     subscriptionPlanId: "TRIAL_PLAN_ID",
+//                     status: "TRIAL",
+//                     startDate: new Date(),
+//                     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+//                 },
+//             });
+
+//             return { center, subscription }
+//         });
+//     } catch (error) {
+//         await prisma.user.delete({
+//             where: { id: userData?.user.id }
+//         });
+
+//         throw new AppError(status.BAD_REQUEST, "User Delete")
+//     }
+
+//     return result
+// }
 
 const getCoachingCenter = async () => {
     return await prisma.coachingCenter.findMany({
@@ -292,14 +292,68 @@ const payStudentFee = async (payload: IPayStudentFee) => {
 
 }
 
+const getOwnSubscriptions = async (ownerId: string) => {
+    const coachingCenter = await prisma.coachingCenter.findFirst({
+        where: { ownerId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+        },
+    });
 
+    if (!coachingCenter) {
+        throw new AppError(status.BAD_REQUEST, "CoachingCenter Not Found");
+    }
+
+    const subscription = await prisma.subscription.findFirst({
+        where: {
+            coachingCenterId: coachingCenter.id,
+        },
+        include: {
+            subscriptionPlan: {
+                select: {
+                    id: true,
+                    name: true,
+                    price: true,
+                    features: true,
+                },
+            },
+        },
+    });
+
+    if (!subscription) {
+        return {
+            coachingCenter,
+            subscription: null,
+        };
+    }
+
+    return {
+        coachingCenter,
+        subscription: {
+            id: subscription.id,
+            status: subscription.status,
+            startDate: subscription.startDate,
+            endDate: subscription.endDate,
+
+            plan: {
+                id: subscription.subscriptionPlan.id,
+                name: subscription.subscriptionPlan.name,
+                price: subscription.subscriptionPlan.price,
+                features: subscription.subscriptionPlan.features,
+            },
+        },
+    };
+};
 
 export const coachingCenterService = {
-    createCoachingCenter,
+    // createCoachingCenter,
     updateCoachingCenterById,
     getCoachingCenter,
     coachingCenterDeleteById,
     getCoachingOwnerDashboardData,
     coachingCenterOwnerDashboardStudentGrowth,
-    findStudentByRollNumber
+    findStudentByRollNumber,
+    getOwnSubscriptions
 }

@@ -4,16 +4,16 @@ import { sendResponse } from "../../shared/utils/send-response";
 import status from "http-status";
 import { coachingCenterService } from "./coaching-center.service";
 
-const createCoachingCenter = catchAsync(async(req: Request, res: Response) => {
-    const payload = req.body;
-    const result = await coachingCenterService.createCoachingCenter(payload)
-    sendResponse(res, {
-        status: status.CREATED,
-        success: true,
-        message: "Coaching Center registered successfully",
-        data:result
-    })
-});
+// const createCoachingCenter = catchAsync(async(req: Request, res: Response) => {
+//     const payload = req.body;
+//     const result = await coachingCenterService.createCoachingCenter(payload)
+//     sendResponse(res, {
+//         status: status.CREATED,
+//         success: true,
+//         message: "Coaching Center registered successfully",
+//         data:result
+//     })
+// });
 const updateCoachingCenterById = catchAsync(async(req: Request, res: Response) => {
     const payload = req.body;
     const coachingId = req.params.id as string;
@@ -78,17 +78,28 @@ const findStudentByRollNumber = catchAsync(async(req: Request, res: Response) =>
         data:result
     })
 });
+const getOwnSubscriptions = catchAsync(async(req: Request, res: Response) => {
+    const id = req.user.id as string
+    const result = await coachingCenterService.getOwnSubscriptions(id)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Owner subscription retrieved successfully",
+        data:result
+    })
+});
 
 
 
 
 
 export const coachingCenterController = {
-    createCoachingCenter,
+    // createCoachingCenter,
     updateCoachingCenterById,
     getCoachingCenter,
     coachingCenterDeleteById,
     getCoachingOwnerDashboardData,
     coachingCenterOwnerDashboardStudentGrowth,
-    findStudentByRollNumber
+    findStudentByRollNumber,
+    getOwnSubscriptions
 }
