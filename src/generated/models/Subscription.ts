@@ -187,7 +187,7 @@ export type SubscriptionGroupByOutputType = {
   id: string
   coachingCenterId: string
   subscriptionPlanId: string
-  stripeSubscriptionId: string | null
+  stripeSubscriptionId: string
   stripeCustomerId: string | null
   paymentId: string | null
   startDate: Date
@@ -222,7 +222,7 @@ export type SubscriptionWhereInput = {
   id?: Prisma.StringFilter<"Subscription"> | string
   coachingCenterId?: Prisma.StringFilter<"Subscription"> | string
   subscriptionPlanId?: Prisma.StringFilter<"Subscription"> | string
-  stripeSubscriptionId?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  stripeSubscriptionId?: Prisma.StringFilter<"Subscription"> | string
   stripeCustomerId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   paymentId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   startDate?: Prisma.DateTimeFilter<"Subscription"> | Date | string
@@ -230,7 +230,7 @@ export type SubscriptionWhereInput = {
   status?: Prisma.EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
-  coachingCenter?: Prisma.XOR<Prisma.CoachingCenterScalarRelationFilter, Prisma.CoachingCenterWhereInput>
+  coachingCenter?: Prisma.XOR<Prisma.CoachingCenterNullableScalarRelationFilter, Prisma.CoachingCenterWhereInput> | null
   subscriptionPlan?: Prisma.XOR<Prisma.SubscriptionPlanScalarRelationFilter, Prisma.SubscriptionPlanWhereInput>
 }
 
@@ -238,7 +238,7 @@ export type SubscriptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   coachingCenterId?: Prisma.SortOrder
   subscriptionPlanId?: Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
@@ -265,7 +265,7 @@ export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
-  coachingCenter?: Prisma.XOR<Prisma.CoachingCenterScalarRelationFilter, Prisma.CoachingCenterWhereInput>
+  coachingCenter?: Prisma.XOR<Prisma.CoachingCenterNullableScalarRelationFilter, Prisma.CoachingCenterWhereInput> | null
   subscriptionPlan?: Prisma.XOR<Prisma.SubscriptionPlanScalarRelationFilter, Prisma.SubscriptionPlanWhereInput>
 }, "id" | "coachingCenterId" | "stripeSubscriptionId">
 
@@ -273,7 +273,7 @@ export type SubscriptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   coachingCenterId?: Prisma.SortOrder
   subscriptionPlanId?: Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripeSubscriptionId?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
@@ -293,7 +293,7 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   coachingCenterId?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   subscriptionPlanId?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
-  stripeSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  stripeSubscriptionId?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   stripeCustomerId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
   paymentId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
@@ -305,7 +305,7 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
 
 export type SubscriptionCreateInput = {
   id?: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -313,7 +313,7 @@ export type SubscriptionCreateInput = {
   status?: $Enums.SubscriptionStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  coachingCenter: Prisma.CoachingCenterCreateNestedOneWithoutSubscriptionInput
+  coachingCenter?: Prisma.CoachingCenterCreateNestedOneWithoutSubscriptionInput
   subscriptionPlan: Prisma.SubscriptionPlanCreateNestedOneWithoutSubscriptionsInput
 }
 
@@ -321,7 +321,7 @@ export type SubscriptionUncheckedCreateInput = {
   id?: string
   coachingCenterId: string
   subscriptionPlanId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -333,7 +333,7 @@ export type SubscriptionUncheckedCreateInput = {
 
 export type SubscriptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -341,7 +341,7 @@ export type SubscriptionUpdateInput = {
   status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coachingCenter?: Prisma.CoachingCenterUpdateOneRequiredWithoutSubscriptionNestedInput
+  coachingCenter?: Prisma.CoachingCenterUpdateOneWithoutSubscriptionNestedInput
   subscriptionPlan?: Prisma.SubscriptionPlanUpdateOneRequiredWithoutSubscriptionsNestedInput
 }
 
@@ -349,7 +349,7 @@ export type SubscriptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
   subscriptionPlanId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -363,7 +363,7 @@ export type SubscriptionCreateManyInput = {
   id?: string
   coachingCenterId: string
   subscriptionPlanId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -375,7 +375,7 @@ export type SubscriptionCreateManyInput = {
 
 export type SubscriptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,7 +389,7 @@ export type SubscriptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
   subscriptionPlanId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -541,7 +541,7 @@ export type SubscriptionUncheckedUpdateManyWithoutSubscriptionPlanNestedInput = 
 
 export type SubscriptionCreateWithoutCoachingCenterInput = {
   id?: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -555,7 +555,7 @@ export type SubscriptionCreateWithoutCoachingCenterInput = {
 export type SubscriptionUncheckedCreateWithoutCoachingCenterInput = {
   id?: string
   subscriptionPlanId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -598,7 +598,7 @@ export type SubscriptionScalarWhereInput = {
   id?: Prisma.StringFilter<"Subscription"> | string
   coachingCenterId?: Prisma.StringFilter<"Subscription"> | string
   subscriptionPlanId?: Prisma.StringFilter<"Subscription"> | string
-  stripeSubscriptionId?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  stripeSubscriptionId?: Prisma.StringFilter<"Subscription"> | string
   stripeCustomerId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   paymentId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   startDate?: Prisma.DateTimeFilter<"Subscription"> | Date | string
@@ -610,7 +610,7 @@ export type SubscriptionScalarWhereInput = {
 
 export type SubscriptionCreateWithoutSubscriptionPlanInput = {
   id?: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -618,13 +618,13 @@ export type SubscriptionCreateWithoutSubscriptionPlanInput = {
   status?: $Enums.SubscriptionStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  coachingCenter: Prisma.CoachingCenterCreateNestedOneWithoutSubscriptionInput
+  coachingCenter?: Prisma.CoachingCenterCreateNestedOneWithoutSubscriptionInput
 }
 
 export type SubscriptionUncheckedCreateWithoutSubscriptionPlanInput = {
   id?: string
   coachingCenterId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -663,7 +663,7 @@ export type SubscriptionUpdateManyWithWhereWithoutSubscriptionPlanInput = {
 export type SubscriptionCreateManyCoachingCenterInput = {
   id?: string
   subscriptionPlanId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -675,7 +675,7 @@ export type SubscriptionCreateManyCoachingCenterInput = {
 
 export type SubscriptionUpdateWithoutCoachingCenterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -689,7 +689,7 @@ export type SubscriptionUpdateWithoutCoachingCenterInput = {
 export type SubscriptionUncheckedUpdateWithoutCoachingCenterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subscriptionPlanId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -702,7 +702,7 @@ export type SubscriptionUncheckedUpdateWithoutCoachingCenterInput = {
 export type SubscriptionUncheckedUpdateManyWithoutCoachingCenterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   subscriptionPlanId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,7 +715,7 @@ export type SubscriptionUncheckedUpdateManyWithoutCoachingCenterInput = {
 export type SubscriptionCreateManySubscriptionPlanInput = {
   id?: string
   coachingCenterId: string
-  stripeSubscriptionId?: string | null
+  stripeSubscriptionId: string
   stripeCustomerId?: string | null
   paymentId?: string | null
   startDate?: Date | string
@@ -727,7 +727,7 @@ export type SubscriptionCreateManySubscriptionPlanInput = {
 
 export type SubscriptionUpdateWithoutSubscriptionPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -735,13 +735,13 @@ export type SubscriptionUpdateWithoutSubscriptionPlanInput = {
   status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  coachingCenter?: Prisma.CoachingCenterUpdateOneRequiredWithoutSubscriptionNestedInput
+  coachingCenter?: Prisma.CoachingCenterUpdateOneWithoutSubscriptionNestedInput
 }
 
 export type SubscriptionUncheckedUpdateWithoutSubscriptionPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -754,7 +754,7 @@ export type SubscriptionUncheckedUpdateWithoutSubscriptionPlanInput = {
 export type SubscriptionUncheckedUpdateManyWithoutSubscriptionPlanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coachingCenterId?: Prisma.StringFieldUpdateOperationsInput | string
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -778,7 +778,7 @@ export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -794,7 +794,7 @@ export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -810,7 +810,7 @@ export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -830,29 +830,29 @@ export type SubscriptionSelectScalar = {
 
 export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "coachingCenterId" | "subscriptionPlanId" | "stripeSubscriptionId" | "stripeCustomerId" | "paymentId" | "startDate" | "endDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
 export type SubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }
 export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }
 export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  coachingCenter?: boolean | Prisma.CoachingCenterDefaultArgs<ExtArgs>
+  coachingCenter?: boolean | Prisma.Subscription$coachingCenterArgs<ExtArgs>
   subscriptionPlan?: boolean | Prisma.SubscriptionPlanDefaultArgs<ExtArgs>
 }
 
 export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Subscription"
   objects: {
-    coachingCenter: Prisma.$CoachingCenterPayload<ExtArgs>
+    coachingCenter: Prisma.$CoachingCenterPayload<ExtArgs> | null
     subscriptionPlan: Prisma.$SubscriptionPlanPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     coachingCenterId: string
     subscriptionPlanId: string
-    stripeSubscriptionId: string | null
+    stripeSubscriptionId: string
     stripeCustomerId: string | null
     paymentId: string | null
     startDate: Date
@@ -1254,7 +1254,7 @@ readonly fields: SubscriptionFieldRefs;
  */
 export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  coachingCenter<T extends Prisma.CoachingCenterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachingCenterDefaultArgs<ExtArgs>>): Prisma.Prisma__CoachingCenterClient<runtime.Types.Result.GetResult<Prisma.$CoachingCenterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  coachingCenter<T extends Prisma.Subscription$coachingCenterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscription$coachingCenterArgs<ExtArgs>>): Prisma.Prisma__CoachingCenterClient<runtime.Types.Result.GetResult<Prisma.$CoachingCenterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subscriptionPlan<T extends Prisma.SubscriptionPlanDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubscriptionPlanDefaultArgs<ExtArgs>>): Prisma.Prisma__SubscriptionPlanClient<runtime.Types.Result.GetResult<Prisma.$SubscriptionPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1694,6 +1694,25 @@ export type SubscriptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Subscriptions to delete.
    */
   limit?: number
+}
+
+/**
+ * Subscription.coachingCenter
+ */
+export type Subscription$coachingCenterArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CoachingCenter
+   */
+  select?: Prisma.CoachingCenterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CoachingCenter
+   */
+  omit?: Prisma.CoachingCenterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CoachingCenterInclude<ExtArgs> | null
+  where?: Prisma.CoachingCenterWhereInput
 }
 
 /**

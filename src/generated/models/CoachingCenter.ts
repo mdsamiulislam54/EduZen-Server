@@ -714,10 +714,12 @@ export type CoachingCenterCreateNestedOneWithoutPaymentsInput = {
   connect?: Prisma.CoachingCenterWhereUniqueInput
 }
 
-export type CoachingCenterUpdateOneRequiredWithoutPaymentsNestedInput = {
+export type CoachingCenterUpdateOneWithoutPaymentsNestedInput = {
   create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutPaymentsInput, Prisma.CoachingCenterUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutPaymentsInput
   upsert?: Prisma.CoachingCenterUpsertWithoutPaymentsInput
+  disconnect?: Prisma.CoachingCenterWhereInput | boolean
+  delete?: Prisma.CoachingCenterWhereInput | boolean
   connect?: Prisma.CoachingCenterWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutPaymentsInput, Prisma.CoachingCenterUpdateWithoutPaymentsInput>, Prisma.CoachingCenterUncheckedUpdateWithoutPaymentsInput>
 }
@@ -728,10 +730,12 @@ export type CoachingCenterCreateNestedOneWithoutSubscriptionInput = {
   connect?: Prisma.CoachingCenterWhereUniqueInput
 }
 
-export type CoachingCenterUpdateOneRequiredWithoutSubscriptionNestedInput = {
+export type CoachingCenterUpdateOneWithoutSubscriptionNestedInput = {
   create?: Prisma.XOR<Prisma.CoachingCenterCreateWithoutSubscriptionInput, Prisma.CoachingCenterUncheckedCreateWithoutSubscriptionInput>
   connectOrCreate?: Prisma.CoachingCenterCreateOrConnectWithoutSubscriptionInput
   upsert?: Prisma.CoachingCenterUpsertWithoutSubscriptionInput
+  disconnect?: Prisma.CoachingCenterWhereInput | boolean
+  delete?: Prisma.CoachingCenterWhereInput | boolean
   connect?: Prisma.CoachingCenterWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CoachingCenterUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.CoachingCenterUpdateWithoutSubscriptionInput>, Prisma.CoachingCenterUncheckedUpdateWithoutSubscriptionInput>
 }

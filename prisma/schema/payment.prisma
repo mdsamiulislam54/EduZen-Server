@@ -1,6 +1,6 @@
 model SubscriptionPayment {
     id                 String           @id @default(cuid())
-    coachingCenterId   String
+    coachingCenterId   String?
     subscriptionPlanId String
     transactionId      String? @unique
     startDate          DateTime
@@ -11,7 +11,7 @@ model SubscriptionPayment {
     createdAt          DateTime         @default(now())
     updatedAt          DateTime         @updatedAt
     stripeSessionId    String?          @unique
-    coachingCenter     CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
+    coachingCenter     CoachingCenter?   @relation(fields: [coachingCenterId], references: [id])
     subscriptionPlan   SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
 }
 
@@ -19,9 +19,9 @@ model SubscriptionPayment {
 
 model Subscription {
     id                   String             @id @default(cuid())
-    coachingCenterId     String           @unique 
+    coachingCenterId     String         @unique 
     subscriptionPlanId   String
-    stripeSubscriptionId String?            @unique
+    stripeSubscriptionId String           @unique
     stripeCustomerId     String?
     paymentId            String?
     startDate            DateTime           @default(now())
@@ -30,6 +30,6 @@ model Subscription {
     createdAt            DateTime           @default(now())
     updatedAt            DateTime           @updatedAt
 
-    coachingCenter   CoachingCenter   @relation(fields: [coachingCenterId], references: [id])
+    coachingCenter   CoachingCenter?   @relation(fields: [coachingCenterId], references: [id])
     subscriptionPlan SubscriptionPlan @relation(fields: [subscriptionPlanId], references: [id])
 }

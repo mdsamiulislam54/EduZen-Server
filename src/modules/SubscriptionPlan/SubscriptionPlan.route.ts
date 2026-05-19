@@ -21,9 +21,10 @@ router.post(
 
 
 router.get("/",  subscriptionPlanController.getAllSubscriptionPlans);
-
+router.get("/onboarding-status", authorize(Role.OWNER,Role.ADMIN), subscriptionPlanController.checkOwnerSubscription);
 
 router.get("/:id", subscriptionPlanController.getSubscriptionPlanById);
+
 
 
 router.patch(

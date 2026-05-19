@@ -37,6 +37,7 @@ const registerUser = async (payload: IRegisterUserPayload) => {
             name,
             email,
             password,
+            role: "OWNER"
         },
     });
 

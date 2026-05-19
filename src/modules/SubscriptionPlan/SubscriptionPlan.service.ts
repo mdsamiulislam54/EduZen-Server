@@ -4,7 +4,7 @@ import { prisma } from "../../database/prisma";
 import { AppError } from "../../shared/errors/app-error";
 import { envVars } from "../../config/env";
 import { ICheckoutPayload, TSubscriptionPlan } from "./subscriptionPlan.interface";
-import { uuidv7 } from "zod";
+import { v7 as uuidv7 } from "uuid";
 
 
 const createSubscriptionPlan = async (payload: TSubscriptionPlan) => {
@@ -47,7 +47,6 @@ const deleteSubscriptionPlan = async (id: string) => {
 
 const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
 
-  console.log(payload)
   const plan = await prisma.subscriptionPlan.findUnique({
     where: {
       id: payload.subscriptionId
@@ -61,17 +60,13 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
       id: userId
     },
     select: {
-      coachingCenter: {
-        select: {
-          id: true
-        }
-      }
+      email: true,
+      name: true,
+
     }
   });
-
-  const coachingCenterId = user?.coachingCenter?.id;
-  if (!coachingCenterId) {
-    throw new AppError(status.BAD_REQUEST, "Coaching center not found");
+  if (!user) {
+    throw new AppError(status.BAD_REQUEST, "User not found");
   }
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -93,11 +88,25 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
     success_url: `${envVars.FRONTEND_URL}/payment/success`,
     cancel_url: `${envVars.FRONTEND_URL}/payment/cancel`,
     metadata: {
-      coachingCenterId,
       subscriptionPlanId: plan.id,
+      price: plan.price,
+      userId: userId,
+      email: user?.email,
+      coachingCenterName: user.name
     }
   });
 
+  await prisma.subscriptionPayment.create({
+    data: {
+      stripeSessionId: session.id,
+      amount: plan.price || 0,
+      subscriptionPlanId: plan.id,
+      transactionId: String(uuidv7()),
+      status: "PENDING",
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    }
+  })
 
 
   return {
@@ -106,7 +115,28 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
 }
 
 
+const checkOwnerSubscription = async (userId: string) => {
+  const coachingCenter = await prisma.coachingCenter.findFirst({
+    where: {
+      ownerId: userId
+    },
+    select: {
+      id: true
+    }
+  });
+  const subscription = await prisma.subscription.findFirst({
+    where: {
+      coachingCenterId: coachingCenter?.id,
+      status: "ACTIVE",
+    },
+  });
 
+
+  return {
+    hasSubscription: !!subscription,
+    hasCoachingCenter: !!coachingCenter,
+  }
+};
 
 
 
@@ -116,5 +146,6 @@ export const subscriptionPlanService = {
   getSubscriptionPlanById,
   updateSubscriptionPlan,
   deleteSubscriptionPlan,
-  subscriptionBuy
+  subscriptionBuy,
+  checkOwnerSubscription
 }

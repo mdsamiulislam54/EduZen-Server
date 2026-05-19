@@ -83,6 +83,17 @@ export const subscriptionBuy = catchAsync(async (req: Request, res: Response) =>
     data: plan,
   });
 });
+export const checkOwnerSubscription = catchAsync(async (req: Request, res: Response) => {
+  const id = req?.user.id as string;
+  const plan = await subscriptionPlanService.checkOwnerSubscription( id,);
+
+  sendResponse(res, {
+    status: status.OK,
+    success: true,
+    message: "CheckOwnerSubscription successfully",
+    data: plan,
+  });
+});
 
 
 export const subscriptionPlanController = {
@@ -92,5 +103,5 @@ export const subscriptionPlanController = {
   updateSubscriptionPlan,
   deleteSubscriptionPlan,
   subscriptionBuy,
-  
+  checkOwnerSubscription
 }
