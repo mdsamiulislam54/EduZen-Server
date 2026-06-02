@@ -11,8 +11,9 @@ router.get("/", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.getC
 router.get("/owner/dashboard", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.getCoachingOwnerDashboardData);
 router.get("/owner/dashboard/student-growth", authorize(Role.ADMIN, Role.OWNER, Role.TEACHER), coachingCenterController.coachingCenterOwnerDashboardStudentGrowth);
 router.get("/subscription", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.getOwnSubscriptions);
-router.get("/:roll", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.findStudentByRollNumber);``
+router.get("/:roll", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.findStudentByRollNumber);
 // router.post("/", requestValidation(coachingCenterSchema), coachingCenterController.createCoachingCenter);
+router.post("/paymentFee", authorize(Role.ADMIN, Role.OWNER), coachingCenterController.payStudentFee);
 
 router.patch("/:id", requestValidation(coachingCenterUpdateSchema), authorize(Role.OWNER, Role.ADMIN), coachingCenterController.updateCoachingCenterById)
 router.patch("/delete/:id", authorize(Role.OWNER, Role.ADMIN), coachingCenterController.coachingCenterDeleteById)

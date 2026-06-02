@@ -14,81 +14,90 @@ import { coachingCenterService } from "./coaching-center.service";
 //         data:result
 //     })
 // });
-const updateCoachingCenterById = catchAsync(async(req: Request, res: Response) => {
+const updateCoachingCenterById = catchAsync(async (req: Request, res: Response) => {
     const payload = req.body;
     const coachingId = req.params.id as string;
-    const result = await coachingCenterService.updateCoachingCenterById(payload,coachingId)
+    const result = await coachingCenterService.updateCoachingCenterById(payload, coachingId)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Coaching Center Update successfully",
-        data:result
+        data: result
     })
 });
-const getCoachingCenter = catchAsync(async(req: Request, res: Response) => {
- 
+const getCoachingCenter = catchAsync(async (req: Request, res: Response) => {
+
     const result = await coachingCenterService.getCoachingCenter()
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Coaching Center Retrieve successfully",
-        data:result
+        data: result
     })
 });
-const coachingCenterDeleteById = catchAsync(async(req: Request, res: Response) => {
- 
+const coachingCenterDeleteById = catchAsync(async (req: Request, res: Response) => {
+
     const id = req.params.id as string;
     const result = await coachingCenterService.coachingCenterDeleteById(id)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Coaching Center Delete successfully",
-        data:result
+        data: result
     })
 });
-const getCoachingOwnerDashboardData = catchAsync(async(req: Request, res: Response) => {
- 
+const getCoachingOwnerDashboardData = catchAsync(async (req: Request, res: Response) => {
+
     const id = req.user.id as string;
     const result = await coachingCenterService.getCoachingOwnerDashboardData(id)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Coaching Center Delete successfully",
-        data:result
+        data: result
     })
 });
-const coachingCenterOwnerDashboardStudentGrowth = catchAsync(async(req: Request, res: Response) => {
- 
+const coachingCenterOwnerDashboardStudentGrowth = catchAsync(async (req: Request, res: Response) => {
+
     const id = req.user.id as string;
     const result = await coachingCenterService.coachingCenterOwnerDashboardStudentGrowth(id)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Coaching Center Student Growth data retrieved successfully",
-        data:result
+        data: result
     })
 });
-const findStudentByRollNumber = catchAsync(async(req: Request, res: Response) => {
+const findStudentByRollNumber = catchAsync(async (req: Request, res: Response) => {
     const rollNumber = req.params.roll as string
     const result = await coachingCenterService.findStudentByRollNumber(rollNumber)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Student  data retrieved successfully",
-        data:result
+        data: result
     })
 });
-const getOwnSubscriptions = catchAsync(async(req: Request, res: Response) => {
+const getOwnSubscriptions = catchAsync(async (req: Request, res: Response) => {
     const id = req.user.id as string
     const result = await coachingCenterService.getOwnSubscriptions(id)
     sendResponse(res, {
         status: status.OK,
         success: true,
         message: "Owner subscription retrieved successfully",
-        data:result
+        data: result
     })
 });
-
+const payStudentFee = catchAsync(async (req: Request, res: Response) => {
+    const payload = req.body
+    const result = await coachingCenterService.payStudentFee(payload)
+    sendResponse(res, {
+        status: status.OK,
+        success: true,
+        message: "Student fee paid successfully",
+        data: result
+    })
+});
 
 
 
@@ -101,5 +110,6 @@ export const coachingCenterController = {
     getCoachingOwnerDashboardData,
     coachingCenterOwnerDashboardStudentGrowth,
     findStudentByRollNumber,
-    getOwnSubscriptions
+    getOwnSubscriptions,
+    payStudentFee
 }

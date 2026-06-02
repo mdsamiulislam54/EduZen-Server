@@ -116,17 +116,10 @@ const subscriptionBuy = async (payload: ICheckoutPayload, userId: string) => {
 
 
 const checkOwnerSubscription = async (userId: string) => {
-  const coachingCenter = await prisma.coachingCenter.findFirst({
-    where: {
-      ownerId: userId
-    },
-    select: {
-      id: true
-    }
-  });
+
   const subscription = await prisma.subscription.findFirst({
     where: {
-      coachingCenterId: coachingCenter?.id,
+      coachingCenter:{ ownerId: userId },
       status: "ACTIVE",
     },
   });
@@ -134,7 +127,6 @@ const checkOwnerSubscription = async (userId: string) => {
 
   return {
     hasSubscription: !!subscription,
-    hasCoachingCenter: !!coachingCenter,
   }
 };
 

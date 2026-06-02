@@ -1,11 +1,12 @@
 import status from "http-status";
 import { prisma } from "../../database/prisma"
 import { AppError } from "../../shared/errors/app-error";
-import { CoachingCenter, Role } from "../../generated/client";
+import { CoachingCenter, PaymentStatus, Role } from "../../generated/client";
 import { auth } from "../../lib/auth";
 
 import { generateRandomPassword } from "../../shared/utils/randomPasswordGenerate";
-import { IPayStudentFee } from "./coaching-center.interface";
+import { IStudentPaymentAction, PaymentMethod } from "./coaching-center.interface";
+
 
 // const createCoachingCenter = async (payload: CoachingCenter) => {
 //     const password = generateRandomPassword(8)
@@ -113,16 +114,15 @@ const getCoachingOwnerDashboardData = async (ownerId: string) => {
                 isDeleted: false
             }
         }),
-        prisma.batchFee.aggregate({
+        prisma.studentFee.aggregate({
             where: {
-                batch: {
-                    coachingCenterId: coachingCenter.id,
-                    isDeleted: false
+                paymentStatus: {
+                    in: ["PAID", "PARTIAL"]
                 },
                 isDeleted: false
             },
             _sum: {
-                amount: true
+                paidAmount: true
             }
         }),
         prisma.teacher.count({
@@ -143,7 +143,7 @@ const getCoachingOwnerDashboardData = async (ownerId: string) => {
     return {
         totalStudents,
         totalBatches,
-        totalRevenue: totalRevenue._sum.amount || 0,
+        totalRevenue: totalRevenue._sum.paidAmount || 0,
         totalTeachers, totalSubjects
     };
 }
@@ -264,6 +264,15 @@ const findStudentByRollNumber = async (rollNumber: string) => {
             rollNumber
         },
         include: {
+            user: {
+                select: {
+                    name: true,
+                    email: true,
+                    image: true,
+                    id: true,
+
+                }
+            },
             studentFees: {
                 select: {
                     id: true,
@@ -274,7 +283,8 @@ const findStudentByRollNumber = async (rollNumber: string) => {
                     paymentMethod: true,
                     batchFee: true,
                     studentId: true,
-                    batchFeeId: true
+                    batchFeeId: true,
+
                 }
             },
 
@@ -288,10 +298,100 @@ const findStudentByRollNumber = async (rollNumber: string) => {
     return student;
 };
 
-const payStudentFee = async (payload: IPayStudentFee) => {
+const payStudentFee = async (payload: IStudentPaymentAction) => {
+    const { studentId, fees,  paymentMethod } = payload
 
+    console.log("PAYLOAD:", payload)
+
+    const student = await prisma.student.findUnique({
+        where: { id: studentId },
+    })
+
+    console.log("STUDENT:", student)
+    
+    if (!student) { 
+        throw new AppError(status.NOT_FOUND, "Student not found")           
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+        const responses = []
+
+        for (const fee of fees) {
+            console.log("Processing fee:", fee)
+
+            const existing = await tx.studentFee.findFirst({
+                where: {
+                    studentId,
+                    batchFeeId: fee.batchFeeId,
+                },
+            })
+
+            console.log("EXISTING:", existing)
+
+            // ✅ UPDATE CASE
+            if (existing) {
+                const newPaid = Number(existing.paidAmount + fee.paidAmount)
+                const newDue = Number(existing.amount - newPaid)
+
+                console.log("newPaid:", newPaid)
+                console.log("newDue:", newDue)
+
+                if (newDue <= 0) {
+                    throw new AppError(
+                        status.BAD_REQUEST,
+                        "Paid amount exceeds total"
+                    )
+                }
+
+                let paymentStatus: PaymentStatus = "PENDING"
+                if (newDue === 0) paymentStatus = "PAID"
+                else if (newPaid >= 0) paymentStatus = "PARTIAL"
+
+                const updated = await tx.studentFee.update({
+                    where: { id: existing.id },
+                    data: {
+                        paidAmount: newPaid,
+                        dueAmount: newDue,
+                        paymentMethod,
+                        paymentStatus,
+                    },
+                })
+
+                console.log("UPDATED:", updated)
+
+                responses.push(updated)
+                continue
+            }
+
+            // ✅ CREATE CASE
+            const dueAmount = Number(fee.amount - (fee.paidAmount || 0))
+
+            console.log("dueAmount:", dueAmount)
+
+            const created = await tx.studentFee.create({
+                data: {
+                    studentId,
+                    batchFeeId: fee.batchFeeId,
+                    amount: Number(fee.amount),
+                    paidAmount: Number(fee.paidAmount || 0),
+                    dueAmount: Number(dueAmount),
+                    paymentMethod,
+                    paymentStatus: Number(dueAmount) === 0 ? "PAID" : "PARTIAL",
+                },
+            })
+
+            console.log("CREATED:", created)
+
+            responses.push(created)
+        }
+
+        return responses
+    })
+
+    console.log("FINAL RESULT:", result)
+
+    return result
 }
-
 const getOwnSubscriptions = async (ownerId: string) => {
     const coachingCenter = await prisma.coachingCenter.findFirst({
         where: { ownerId },
@@ -355,5 +455,6 @@ export const coachingCenterService = {
     getCoachingOwnerDashboardData,
     coachingCenterOwnerDashboardStudentGrowth,
     findStudentByRollNumber,
-    getOwnSubscriptions
+    getOwnSubscriptions,
+    payStudentFee
 }

@@ -27,18 +27,7 @@ export const batchSchema = z.object({
     ),
 
   }),
-}).refine(
-  (data) => {
-    const start = new Date(data.batchData.startTime).getTime()
-    const end = new Date(data.batchData.endTime).getTime()
-
-    return end > start
-  },
-  {
-    message: "End time must be after start time",
-    path: ["batchData", "endTime"],
-  }
-)
+})
 
 
 export const batchUpdateSchema = z.object({

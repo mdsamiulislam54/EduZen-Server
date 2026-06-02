@@ -36,8 +36,7 @@ export const generateMonthlyFees = async () => {
         const existing = await prisma.studentFee.findFirst({
             where: {
                 studentId: student.id,
-                month: currentMonth,
-                year: currentYear,
+                batchFeeId: fee.id,
             },
         });
 

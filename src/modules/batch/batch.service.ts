@@ -15,6 +15,16 @@ const createBatch = async (payload: ICreateBatchPayload, ownerId: string) => {
             id: true
         }
     })
+    const start = new Date(batchData.startTime)
+    const end = new Date(batchData.endTime)
+
+    const startTime = start.getHours() * 60 + start.getMinutes();
+    const endTime = end.getHours() * 60 + end.getMinutes();
+    
+    console.log(startTime, endTime)
+    if (startTime >= endTime) {
+        throw new ApiError(status.BAD_REQUEST, "Start time must be before end time")
+    }
     const result = await prisma.$transaction(async (tx) => {
         const batch = await tx.batch.create({
             data: {
@@ -78,7 +88,7 @@ const getAllBatch = async (query: IQueryParams) => {
             },
             batchTeachers: true
         },
-        orderBy:{createdAt:"desc"}
+        orderBy: { createdAt: "desc" }
     })
 
     const meta = await builder.getMeta(prisma.batch)
