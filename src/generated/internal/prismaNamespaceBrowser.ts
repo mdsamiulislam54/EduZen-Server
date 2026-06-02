@@ -62,6 +62,7 @@ export const ModelName = {
   BatchTeachers: 'BatchTeachers',
   ClassSession: 'ClassSession',
   CoachingCenter: 'CoachingCenter',
+  ContactMessage: 'ContactMessage',
   Exam: 'Exam',
   Notice: 'Notice',
   SubscriptionPayment: 'SubscriptionPayment',
@@ -265,6 +266,22 @@ export const CoachingCenterScalarFieldEnum = {
 } as const
 
 export type CoachingCenterScalarFieldEnum = (typeof CoachingCenterScalarFieldEnum)[keyof typeof CoachingCenterScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
 export const ExamScalarFieldEnum = {

@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const ContactStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ContactStatus = (typeof ContactStatus)[keyof typeof ContactStatus]
+
+
 export const UserStatus = {
   ACTIVE: 'ACTIVE',
   BLOCKED: 'BLOCKED',

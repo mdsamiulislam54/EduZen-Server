@@ -97,6 +97,11 @@ export type ClassSession = Prisma.ClassSessionModel
  */
 export type CoachingCenter = Prisma.CoachingCenterModel
 /**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel
+/**
  * Model Exam
  * 
  */
