@@ -1,3 +1,76 @@
+# 🎓 Coaching Center Management System (Backend API)
+
+## 📖 Short Description
+
+A scalable and secure backend API for a Coaching Center Management SaaS platform.  
+Built with Express.js, Prisma, and TypeScript, this system handles authentication, students, teachers, batches, attendance, fees, exams, and Stripe payment integration.
+
+---
+
+##  Live URL
+
+🔗 https://coacchin-saas-server.vercel.app
+
+---
+
+## ⚙️ Features
+
+###  Authentication & Authorization
+- JWT-based authentication
+- Role-based access control (Admin, Teacher, Student)
+- Secure middleware protection
+
+###  Student Management
+- Create, update, delete students
+- Batch enrollment system
+- Student profile management
+
+###  Teacher Management
+- Teacher CRUD operations
+- Subject & batch assignment
+- Teacher tracking system
+
+###  Batch Management
+- Batch creation & management
+- Student & teacher assignment
+- Batch scheduling support
+
+### Attendance System
+- Student attendance tracking
+- Teacher attendance tracking
+- Daily/Monthly reports
+
+###  Fee Management
+- Fee collection system
+- Due tracking & partial payment support
+- Revenue reporting system
+
+###  Exam & Result System
+- Exam creation
+- Marks entry
+- Student performance analytics
+
+###  Stripe Payment Integration
+- Secure payment processing
+- Webhook support
+- Subscription & invoice system
+
+###  Notification System
+- Email notifications (Nodemailer)
+- Payment reminders
+- System alerts
+
+###  Background Jobs
+- Scheduled tasks with node-cron
+- Auto reminders for due fees
+- System maintenance jobs
+
+---
+
+##  Project Structure
+
+
+
 # Express Template
 
 Production-ready Express (TypeScript) starter for building REST APIs and backend services.

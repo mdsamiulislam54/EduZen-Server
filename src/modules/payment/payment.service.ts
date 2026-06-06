@@ -2,7 +2,7 @@ import Stripe from "stripe"
 import { prisma } from "../../database/prisma";
 import { AppError } from "../../shared/errors/app-error";
 import status from "http-status";
-import { v7 as uuidv7 } from "uuid";
+
 
 const handlePaymentWebHook = async (event: Stripe.Event) => {
     switch (event.type) {
@@ -30,23 +30,22 @@ const handlePaymentWebHook = async (event: Stripe.Event) => {
                       
 
                         if (!payment) {
-                            console.log("❌ Payment NOT FOUND in DB");
+                          
                             throw new AppError(status.BAD_REQUEST, "Payment not found");
                         }
 
                         
 
 
-                        console.log("✔ Payment UPDATED");
 
                         const user = await prisma.user.findUnique({
                             where: { id: userId },
                         });
 
-                        console.log("👤 User:", user);
+                        
 
                         if (!user) {
-                            console.log("❌ User NOT FOUND");
+                            
                             throw new AppError(status.BAD_REQUEST, "User not found");
                         }
 
@@ -57,7 +56,7 @@ const handlePaymentWebHook = async (event: Stripe.Event) => {
                       
 
                         if (!existingCenter) {
-                            console.log("🏗 Creating coaching center...");
+                           
 
                             existingCenter = await prisma.coachingCenter.create({
                                 data: {
